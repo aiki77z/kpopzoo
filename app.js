@@ -1,4 +1,4 @@
-const repository = (() => {
+﻿const repository = (() => {
   const host = window.location.hostname;
   const pathRepo = window.location.pathname.split("/").filter(Boolean)[0] || "kpopzoo";
 
@@ -218,25 +218,25 @@ function updateUsageActions(app) {
     usageDownload.removeAttribute("href");
     usageDownload.removeAttribute("download");
     usageDownload.setAttribute("aria-disabled", "true");
-    usageDownload.title = "暂无使用说明";
+    usageDownload.dataset.tooltip = "暂无使用说明";
     usageDownload.setAttribute("aria-label", "暂无使用说明");
   } else {
     usageDownload.href = app.docPath;
     usageDownload.download = `${app.id}-使用说明.txt`;
     usageDownload.removeAttribute("aria-disabled");
-    usageDownload.title = "下载使用说明";
+    usageDownload.dataset.tooltip = "下载使用说明";
     usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
   }
 
   if (!app.releaseNotePath) {
     usageView.setAttribute("aria-disabled", "true");
     usageView.disabled = true;
-    usageView.title = "暂无使用说明";
+    usageView.dataset.tooltip = "暂无使用说明";
     usageView.setAttribute("aria-label", "暂无使用说明");
   } else {
     usageView.removeAttribute("aria-disabled");
     usageView.disabled = false;
-    usageView.title = "阅览使用说明";
+    usageView.dataset.tooltip = "阅览使用说明";
     usageView.setAttribute("aria-label", `阅览 ${app.group} 使用说明`);
   }
 }
@@ -422,3 +422,4 @@ usageDialog.addEventListener("click", (event) => {
     usageDialog.close();
   }
 });
+
