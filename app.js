@@ -52,8 +52,10 @@ const apps = [
     ],
     files: {
       windows: "BOYNEXTDOOR-Pets-win11-Setup-1.0.2.exe",
-      macArm: "BOYNEXTDOOR-Pets-mac-arm64-1.0.2.dmg",
-      macX64: "BOYNEXTDOOR-Pets-mac-x64-1.0.2.dmg",
+    },
+    unavailableText: {
+      macArm: "未上传",
+      macX64: "未上传",
     },
   },
   {
@@ -163,6 +165,14 @@ const selectedSummary = document.querySelector("#selectedSummary");
 const usageNotes = document.querySelector("#usageNotes");
 const downloadCards = document.querySelector("#downloadCards");
 const downloadHint = document.querySelector("#downloadHint");
+const privacyButton = document.querySelector("#privacyButton");
+const mailboxForm = document.querySelector("#mailboxForm");
+const groupRequest = document.querySelector("#groupRequest");
+const messageDialog = document.querySelector("#messageDialog");
+const dialogTitle = document.querySelector("#dialogTitle");
+const dialogBody = document.querySelector("#dialogBody");
+const dialogClose = document.querySelector("#dialogClose");
+const requestInboxEmail = "2434083975@qq.com";
 
 function releaseUrl(app, filename) {
   return `https://github.com/${repository.owner}/${repository.repo}/releases/download/${app.tag}/${encodeURIComponent(filename)}`;
@@ -207,7 +217,7 @@ function renderApp(app) {
               <strong>${platform.label}</strong>
               <small>${platform.hint}</small>
             </div>
-            <span>即将发布</span>
+            <span>${app.unavailableText?.[platform.key] || "即将发布"}</span>
           </div>
         `;
       }
@@ -238,3 +248,46 @@ groupButtons.addEventListener("click", (event) => {
 });
 
 selectApp(apps[0].id);
+
+function openMessageDialog(title, body) {
+  dialogTitle.textContent = title;
+  dialogBody.textContent = body;
+
+  if (typeof messageDialog.showModal === "function") {
+    messageDialog.showModal();
+    return;
+  }
+
+  alert(`${title}\n${body}`);
+}
+
+privacyButton.addEventListener("click", () => {
+  openMessageDialog(
+    "素材保护",
+    "如果想要 spritesheet 图在 Codex 中直接养请 xhs 私信，sns 发布作品请标注来源。",
+  );
+});
+
+mailboxForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const message = groupRequest.value.trim();
+  if (!message) return;
+
+  const subject = encodeURIComponent("KPOPZOO 投稿箱留言");
+  const body = encodeURIComponent(`想要的团：\n${message}`);
+  window.location.href = `mailto:${requestInboxEmail}?subject=${subject}&body=${body}`;
+
+  groupRequest.value = "";
+  openMessageDialog("已送信", "谢谢你的投稿，我会在邮箱里查看留言。");
+});
+
+dialogClose.addEventListener("click", () => {
+  messageDialog.close();
+});
+
+messageDialog.addEventListener("click", (event) => {
+  if (event.target === messageDialog) {
+    messageDialog.close();
+  }
+});

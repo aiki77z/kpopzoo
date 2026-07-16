@@ -20,7 +20,7 @@
         </span>
       </a>
       <nav class="top-nav" aria-label="页面导航">
-        <a href="#privacy">素材保护</a>
+        <button class="nav-button" type="button" id="privacyButton">素材保护</button>
       </nav>
     </header>
 
@@ -65,7 +65,29 @@
           </section>
         </article>
       </section>
+
+      <section class="mailbox-section" aria-labelledby="mailbox-title">
+        <div class="mailbox-icon" aria-hidden="true">✉</div>
+        <div class="mailbox-copy">
+          <p class="eyebrow">投稿箱</p>
+          <h2 id="mailbox-title">想看哪个团？</h2>
+          <p>把你想要的团名留在这里，我会按呼声整理后续桌宠。</p>
+        </div>
+        <form class="mailbox-form" id="mailboxForm">
+          <label for="groupRequest">留言</label>
+          <textarea id="groupRequest" name="groupRequest" rows="4" required placeholder="例如：想要某某团 / 某个角色"></textarea>
+          <button type="submit">投递</button>
+        </form>
+      </section>
     </main>
+
+    <dialog class="message-dialog" id="messageDialog" aria-labelledby="dialogTitle">
+      <div class="dialog-card">
+        <button class="dialog-close" type="button" id="dialogClose" aria-label="关闭弹窗">×</button>
+        <p class="dialog-title" id="dialogTitle">已送信</p>
+        <p class="dialog-body" id="dialogBody">谢谢你的留言。</p>
+      </div>
+    </dialog>
 
     <script src="app.js"></script>
   </body>
