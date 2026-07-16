@@ -45,18 +45,28 @@
             <section class="usage-card">
               <div class="usage-title-row">
                 <h3>使用说明</h3>
-                <a
-                  class="usage-download"
-                  id="usageDownload"
-                  href="#"
-                  download
-                  title="下载使用说明"
-                  aria-label="下载使用说明"
-                >
-                  ↓
-                </a>
+                <div class="usage-actions" aria-label="使用说明操作">
+                  <a
+                    class="usage-action"
+                    id="usageDownload"
+                    href="#"
+                    download
+                    title="下载使用说明"
+                    aria-label="下载使用说明"
+                  >
+                    ⬇️
+                  </a>
+                  <button
+                    class="usage-action"
+                    id="usageView"
+                    type="button"
+                    title="阅览使用说明"
+                    aria-label="阅览使用说明"
+                  >
+                    👀
+                  </button>
+                </div>
               </div>
-              <pre id="usageNotes" class="usage-doc"></pre>
             </section>
             <section>
               <h3>安装提示</h3>
@@ -107,6 +117,14 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=20260716-2"></script>
+    <dialog class="usage-dialog" id="usageDialog" aria-labelledby="usageDialogTitle">
+      <div class="usage-dialog-card">
+        <button class="dialog-close" type="button" id="usageDialogClose" aria-label="关闭弹窗">×</button>
+        <p class="dialog-title" id="usageDialogTitle">使用说明</p>
+        <article class="usage-dialog-body" id="usageDialogBody"></article>
+      </div>
+    </dialog>
+
+    <script src="app.js?v=20260716-4"></script>
   </body>
 </html>

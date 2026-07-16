@@ -26,6 +26,7 @@ const apps = [
     summary:
       "五只 NewJeans 风格桌宠，可以在桌面陪伴、移动和互动。适合想要轻量常驻的小桌面伙伴。",
     docPath: "docs/newjeans.txt",
+    releaseNotePath: "docs/newjeans.md",
     notes: [
       "启动后桌宠会出现在桌面，可拖动到喜欢的位置。",
       "托盘菜单可以管理显示、隐藏和退出。",
@@ -47,6 +48,7 @@ const apps = [
     summary:
       "BOYNEXTDOOR 桌宠合集，保留多角色互动和轻量桌面陪伴体验。",
     docPath: "docs/boynextdoor.txt",
+    releaseNotePath: "docs/boynextdoor.md",
     notes: [
       "Windows 用户优先选择 Setup 安装包。",
       "macOS 安装包来自 release 附件，下载后拖入应用程序或直接打开。",
@@ -70,6 +72,7 @@ const apps = [
     summary:
       "TXT 桌宠合集，包含 Bamgeut、Hwangchoon、Choiyongmeong 等角色，适合日常常驻桌面。",
     docPath: "docs/txt.txt",
+    releaseNotePath: "docs/txt.md",
     notes: [
       "支持拖动桌宠，拖动方向会触发对应移动状态。",
       "安装新版前可以先退出旧版桌宠，避免窗口状态没有刷新。",
@@ -91,6 +94,7 @@ const apps = [
     summary:
       "TWICE 风格桌宠合集，包含多成员角色、桌面拖动和基础互动。",
     docPath: "docs/twice.txt",
+    releaseNotePath: "docs/twice.md",
     notes: [
       "下载对应系统版本后直接安装。",
       "如果同时打开多个角色，可以从托盘菜单统一管理。",
@@ -112,6 +116,7 @@ const apps = [
     summary:
       "RIIZE 桌宠合集，当前版本优化了默认启动角色和隐藏/恢复状态。",
     docPath: "docs/riize.txt",
+    releaseNotePath: "docs/riize.md",
     notes: [
       "默认启动角色为 Rizuko。",
       "隐藏全部后再次恢复，会尽量回到隐藏前的角色集合。",
@@ -167,8 +172,8 @@ const selectedStatus = document.querySelector("#selectedStatus");
 const selectedTitle = document.querySelector("#selectedTitle");
 const selectedVersion = document.querySelector("#selectedVersion");
 const selectedSummary = document.querySelector("#selectedSummary");
-const usageNotes = document.querySelector("#usageNotes");
 const usageDownload = document.querySelector("#usageDownload");
+const usageView = document.querySelector("#usageView");
 const downloadCards = document.querySelector("#downloadCards");
 const downloadHint = document.querySelector("#downloadHint");
 const privacyButton = document.querySelector("#privacyButton");
@@ -176,7 +181,11 @@ const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
 const dialogClose = document.querySelector("#dialogClose");
-let usageRequestId = 0;
+const usageDialog = document.querySelector("#usageDialog");
+const usageDialogTitle = document.querySelector("#usageDialogTitle");
+const usageDialogBody = document.querySelector("#usageDialogBody");
+const usageDialogClose = document.querySelector("#usageDialogClose");
+let currentApp = apps[0];
 
 function releaseUrl(app, filename) {
   if (/^https?:\/\//i.test(filename)) {
@@ -204,36 +213,117 @@ function renderButtons(activeId) {
     .join("");
 }
 
-async function loadUsageDocument(app) {
-  const requestId = ++usageRequestId;
-  usageNotes.textContent = app.notes.join("\n");
-
+function updateUsageActions(app) {
   if (!app.docPath) {
     usageDownload.removeAttribute("href");
     usageDownload.removeAttribute("download");
     usageDownload.setAttribute("aria-disabled", "true");
     usageDownload.title = "暂无使用说明";
     usageDownload.setAttribute("aria-label", "暂无使用说明");
-    return;
+  } else {
+    usageDownload.href = app.docPath;
+    usageDownload.download = `${app.id}-使用说明.txt`;
+    usageDownload.removeAttribute("aria-disabled");
+    usageDownload.title = "下载使用说明";
+    usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
   }
 
-  usageDownload.href = app.docPath;
-  usageDownload.download = `${app.id}-使用说明.txt`;
-  usageDownload.removeAttribute("aria-disabled");
-  usageDownload.title = "下载使用说明";
-  usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
+  if (!app.releaseNotePath) {
+    usageView.setAttribute("aria-disabled", "true");
+    usageView.disabled = true;
+    usageView.title = "暂无使用说明";
+    usageView.setAttribute("aria-label", "暂无使用说明");
+  } else {
+    usageView.removeAttribute("aria-disabled");
+    usageView.disabled = false;
+    usageView.title = "阅览使用说明";
+    usageView.setAttribute("aria-label", `阅览 ${app.group} 使用说明`);
+  }
+}
+
+function escapeHtml(value) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderInlineMarkdown(value) {
+  return escapeHtml(value).replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function renderMarkdown(markdown) {
+  const lines = markdown.split(/\r?\n/);
+  const html = [];
+  let inList = false;
+
+  function closeList() {
+    if (inList) {
+      html.push("</ul>");
+      inList = false;
+    }
+  }
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      closeList();
+      return;
+    }
+
+    if (trimmed.startsWith("# ")) {
+      closeList();
+      html.push(`<h2>${renderInlineMarkdown(trimmed.slice(2))}</h2>`);
+      return;
+    }
+
+    if (trimmed.startsWith("## ")) {
+      closeList();
+      html.push(`<h3>${renderInlineMarkdown(trimmed.slice(3))}</h3>`);
+      return;
+    }
+
+    if (trimmed.startsWith("- ")) {
+      if (!inList) {
+        html.push("<ul>");
+        inList = true;
+      }
+      html.push(`<li>${renderInlineMarkdown(trimmed.slice(2))}</li>`);
+      return;
+    }
+
+    closeList();
+    html.push(`<p>${renderInlineMarkdown(trimmed)}</p>`);
+  });
+
+  closeList();
+  return html.join("");
+}
+
+async function openUsageDialog() {
+  const app = currentApp;
+
+  if (!app.releaseNotePath) return;
+
+  usageDialogTitle.textContent = `${app.group} 使用说明`;
+  usageDialogBody.innerHTML = "<p>正在加载使用说明...</p>";
+
+  if (typeof usageDialog.showModal === "function") {
+    usageDialog.showModal();
+  }
 
   try {
-    const response = await fetch(app.docPath);
-    if (!response.ok) throw new Error("Failed to load usage document");
-    const documentText = await response.text();
-    if (requestId === usageRequestId) {
-      usageNotes.textContent = documentText;
-    }
+    const response = await fetch(app.releaseNotePath);
+    if (!response.ok) throw new Error("Failed to load release note");
+    const markdown = await response.text();
+    usageDialogBody.innerHTML = renderMarkdown(markdown);
   } catch (error) {
-    if (requestId === usageRequestId) {
-      usageNotes.textContent = app.notes.join("\n");
-    }
+    usageDialogBody.innerHTML = renderMarkdown(
+      `# ${app.name} 使用说明\n\n${app.notes.map((note) => `- ${note}`).join("\n")}`,
+    );
   }
 }
 
@@ -244,7 +334,7 @@ function renderApp(app) {
   selectedSummary.textContent = app.summary;
   downloadHint.textContent = app.tag ? "点击卡片直接下载" : "等待 release 附件";
 
-  loadUsageDocument(app);
+  updateUsageActions(app);
 
   downloadCards.innerHTML = platforms
     .map((platform) => {
@@ -278,6 +368,7 @@ function renderApp(app) {
 
 function selectApp(appId) {
   const app = apps.find((item) => item.id === appId) || apps[0];
+  currentApp = app;
   renderButtons(app.id);
   renderApp(app);
 }
@@ -314,8 +405,20 @@ dialogClose.addEventListener("click", () => {
   messageDialog.close();
 });
 
+usageView.addEventListener("click", openUsageDialog);
+
 messageDialog.addEventListener("click", (event) => {
   if (event.target === messageDialog) {
     messageDialog.close();
+  }
+});
+
+usageDialogClose.addEventListener("click", () => {
+  usageDialog.close();
+});
+
+usageDialog.addEventListener("click", (event) => {
+  if (event.target === usageDialog) {
+    usageDialog.close();
   }
 });
