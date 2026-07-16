@@ -71,21 +71,27 @@
         <div class="mailbox-copy">
           <p class="eyebrow">投稿箱</p>
           <h2 id="mailbox-title">想看哪个团？</h2>
-          <p>把你想要的团名留在这里，我会按呼声整理后续桌宠。</p>
+          <p>打开飞书表单提交团名、角色或其他建议，我会按呼声整理后续桌宠。</p>
         </div>
-        <form class="mailbox-form" id="mailboxForm">
-          <label for="groupRequest">留言</label>
-          <textarea id="groupRequest" name="groupRequest" rows="4" required placeholder="例如：想要某某团 / 某个角色"></textarea>
-          <button type="submit">投递</button>
-        </form>
+        <div class="mailbox-actions">
+          <a
+            class="mailbox-primary"
+            href="https://gcncng3okwer.feishu.cn/wiki/Je24wMjm4irpsskyOoGcI7ftnJb?from=from_copylink"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            去飞书投稿
+          </a>
+          <p class="mailbox-note">会在新页面打开表单，提交后建议会集中保存。</p>
+        </div>
       </section>
     </main>
 
     <dialog class="message-dialog" id="messageDialog" aria-labelledby="dialogTitle">
       <div class="dialog-card">
         <button class="dialog-close" type="button" id="dialogClose" aria-label="关闭弹窗">×</button>
-        <p class="dialog-title" id="dialogTitle">已送信</p>
-        <p class="dialog-body" id="dialogBody">谢谢你的留言。</p>
+        <p class="dialog-title" id="dialogTitle">提示</p>
+        <p class="dialog-body" id="dialogBody">请查看说明。</p>
       </div>
     </dialog>
 

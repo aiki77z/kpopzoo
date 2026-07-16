@@ -166,13 +166,10 @@ const usageNotes = document.querySelector("#usageNotes");
 const downloadCards = document.querySelector("#downloadCards");
 const downloadHint = document.querySelector("#downloadHint");
 const privacyButton = document.querySelector("#privacyButton");
-const mailboxForm = document.querySelector("#mailboxForm");
-const groupRequest = document.querySelector("#groupRequest");
 const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
 const dialogClose = document.querySelector("#dialogClose");
-const requestInboxEmail = "2434083975@qq.com";
 
 function releaseUrl(app, filename) {
   return `https://github.com/${repository.owner}/${repository.repo}/releases/download/${app.tag}/${encodeURIComponent(filename)}`;
@@ -268,19 +265,6 @@ privacyButton.addEventListener("click", () => {
   );
 });
 
-mailboxForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-
-  const message = groupRequest.value.trim();
-  if (!message) return;
-
-  const subject = encodeURIComponent("KPOPZOO 投稿箱留言");
-  const body = encodeURIComponent(`想要的团：\n${message}`);
-  window.location.href = `mailto:${requestInboxEmail}?subject=${subject}&body=${body}`;
-
-  groupRequest.value = "";
-  openMessageDialog("已送信", "谢谢你的投稿，我会在邮箱里查看留言。");
-});
 
 dialogClose.addEventListener("click", () => {
   messageDialog.close();
