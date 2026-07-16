@@ -26,7 +26,6 @@ const apps = [
     summary:
       "五只 NewJeans 风格桌宠，可以在桌面陪伴、移动和互动。适合想要轻量常驻的小桌面伙伴。",
     docPath: "docs/newjeans.txt",
-    releaseNotePath: "docs/newjeans.md",
     notes: [
       "启动后桌宠会出现在桌面，可拖动到喜欢的位置。",
       "托盘菜单可以管理显示、隐藏和退出。",
@@ -48,7 +47,6 @@ const apps = [
     summary:
       "BOYNEXTDOOR 桌宠合集，保留多角色互动和轻量桌面陪伴体验。",
     docPath: "docs/boynextdoor.txt",
-    releaseNotePath: "docs/boynextdoor.md",
     notes: [
       "Windows 用户优先选择 Setup 安装包。",
       "macOS 安装包来自 release 附件，下载后拖入应用程序或直接打开。",
@@ -72,7 +70,6 @@ const apps = [
     summary:
       "TXT 桌宠合集，包含 Bamgeut、Hwangchoon、Choiyongmeong 等角色，适合日常常驻桌面。",
     docPath: "docs/txt.txt",
-    releaseNotePath: "docs/txt.md",
     notes: [
       "支持拖动桌宠，拖动方向会触发对应移动状态。",
       "安装新版前可以先退出旧版桌宠，避免窗口状态没有刷新。",
@@ -94,7 +91,6 @@ const apps = [
     summary:
       "TWICE 风格桌宠合集，包含多成员角色、桌面拖动和基础互动。",
     docPath: "docs/twice.txt",
-    releaseNotePath: "docs/twice.md",
     notes: [
       "下载对应系统版本后直接安装。",
       "如果同时打开多个角色，可以从托盘菜单统一管理。",
@@ -116,7 +112,6 @@ const apps = [
     summary:
       "RIIZE 桌宠合集，当前版本优化了默认启动角色和隐藏/恢复状态。",
     docPath: "docs/riize.txt",
-    releaseNotePath: "docs/riize.md",
     notes: [
       "默认启动角色为 Rizuko。",
       "隐藏全部后再次恢复，会尽量回到隐藏前的角色集合。",
@@ -228,7 +223,7 @@ function updateUsageActions(app) {
     usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
   }
 
-  if (!app.releaseNotePath) {
+  if (!app.docPath) {
     usageView.setAttribute("aria-disabled", "true");
     usageView.disabled = true;
     usageView.title = "暂无使用说明";
@@ -306,7 +301,7 @@ function renderMarkdown(markdown) {
 async function openUsageDialog() {
   const app = currentApp;
 
-  if (!app.releaseNotePath) return;
+  if (!app.docPath) return;
 
   usageDialogTitle.textContent = `${app.group} 使用说明`;
   usageDialogBody.innerHTML = "<p>正在加载使用说明...</p>";
@@ -316,8 +311,8 @@ async function openUsageDialog() {
   }
 
   try {
-    const response = await fetch(app.releaseNotePath);
-    if (!response.ok) throw new Error("Failed to load release note");
+    const response = await fetch(app.docPath);
+    if (!response.ok) throw new Error("Failed to load usage document");
     const markdown = await response.text();
     usageDialogBody.innerHTML = renderMarkdown(markdown);
   } catch (error) {
