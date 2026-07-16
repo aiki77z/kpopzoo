@@ -20,42 +20,9 @@
         </span>
       </a>
       <nav class="top-nav" aria-label="页面导航">
-        <a href="#apps">选择团体</a>
-        <a href="#guide">安装说明</a>
         <a href="#privacy">素材保护</a>
       </nav>
     </header>
-
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">All releases in one quiet place</p>
-          <h1 id="hero-title">把喜欢的团，轻轻放到桌面上。</h1>
-          <p class="hero-text">
-            KPOPZOO 集中发布你做过的桌宠应用。每个团体都有独立说明和安装包入口，
-            下载会直接开始，不需要跳转到 GitHub Release 页面。
-          </p>
-          <div class="hero-actions">
-            <a class="primary-action" href="#apps">选择团体</a>
-            <a class="secondary-action" href="#guide">查看安装说明</a>
-          </div>
-        </div>
-        <div class="hero-panel" aria-hidden="true">
-          <div class="orbit-card card-one">Windows Setup</div>
-          <div class="orbit-card card-two">macOS Apple Silicon</div>
-          <div class="orbit-card card-three">macOS Intel</div>
-          <div class="soft-disc"></div>
-        </div>
-      </section>
-
-      <section class="section-intro" id="apps">
-        <p class="eyebrow">Choose your zoo</p>
-        <h2>已有团体</h2>
-        <p>
-          选择一个团体后，下方会显示对应的使用说明和下载卡片。版本信息可以之后只改
-          <code>app.js</code> 里的数据，不需要重写页面。
-        </p>
-      </section>
 
       <section class="layout">
         <aside class="group-list" aria-label="团体列表">
@@ -97,23 +64,7 @@
           </section>
         </article>
       </section>
-
-      <section class="privacy-band" id="privacy">
-        <div>
-          <p class="eyebrow">Release-only public repo</p>
-          <h2>公开仓库只放下载页和安装包。</h2>
-        </div>
-        <p>
-          这个结构适合你现在的目标：桌宠源码、spritesheet、hatch-run、参考图都留在 private 仓库；
-          KPOPZOO 只作为公开下载入口。旧仓库历史里已经公开过的图片无法彻底收回，但后续版本可以从这里开始收口。
-        </p>
-      </section>
     </main>
-
-    <footer class="site-footer">
-      <span>KPOPZOO Desktop Pets</span>
-      <span>Made for tidy releases and safer artwork.</span>
-    </footer>
 
     <script src="app.js"></script>
   </body>
