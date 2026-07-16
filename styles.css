@@ -375,15 +375,110 @@ li {
 }
 
 .notes-grid section {
+  display: flex;
+  min-height: 10.6rem;
+  max-height: 10.6rem;
+  flex-direction: column;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.42);
   padding: 1.1rem;
+  overflow: hidden;
 }
 
 ul {
   margin: 0;
   padding-left: 1.1rem;
+}
+.usage-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.usage-title-row h3 {
+  margin: 0;
+}
+
+.usage-download {
+  position: relative;
+  display: grid;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--sage-dark);
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.usage-download:hover,
+.usage-download:focus-visible {
+  background: #fffdf9;
+  box-shadow: 0 10px 24px rgba(58, 45, 34, 0.1);
+  outline: none;
+}
+
+.usage-download[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.46;
+  pointer-events: none;
+}
+
+.usage-download::after {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 0.5rem);
+  z-index: 2;
+  width: max-content;
+  max-width: 11rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--ink);
+  color: #fffaf3;
+  content: attr(title);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.3;
+  opacity: 0;
+  padding: 0.42rem 0.55rem;
+  pointer-events: none;
+  transform: translateY(0.25rem);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease;
+}
+
+.usage-download:hover::after,
+.usage-download:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.usage-doc {
+  flex: 1 1 auto;
+  margin: 0;
+  overflow: auto;
+  color: var(--muted);
+  font: inherit;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.usage-doc::-webkit-scrollbar {
+  width: 0.55rem;
+}
+
+.usage-doc::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(99, 116, 95, 0.28);
 }
 
 .downloads {

@@ -25,15 +25,16 @@ const apps = [
     status: "Latest release",
     summary:
       "五只 NewJeans 风格桌宠，可以在桌面陪伴、移动和互动。适合想要轻量常驻的小桌面伙伴。",
+    docPath: "docs/newjeans.txt",
     notes: [
       "启动后桌宠会出现在桌面，可拖动到喜欢的位置。",
       "托盘菜单可以管理显示、隐藏和退出。",
       "如果 Windows 安全提示拦截，请选择保留并确认这是你自己发布的安装包。",
     ],
     files: {
-      windows: "NewJeans Pets Setup 1.0.1.exe",
-      macArm: "NewJeans Pets-1.0.1-arm64.dmg",
-      macX64: "NewJeans Pets-1.0.1-x64.dmg",
+      windows: "NewJeans.Pets.Setup.1.0.1.exe",
+      macArm: "NewJeans.Pets-1.0.1-arm64.dmg",
+      macX64: "NewJeans.Pets-1.0.1-x64.dmg",
     },
   },
   {
@@ -45,6 +46,7 @@ const apps = [
     status: "Latest release",
     summary:
       "BOYNEXTDOOR 桌宠合集，保留多角色互动和轻量桌面陪伴体验。",
+    docPath: "docs/boynextdoor.txt",
     notes: [
       "Windows 用户优先选择 Setup 安装包。",
       "macOS 安装包来自 release 附件，下载后拖入应用程序或直接打开。",
@@ -67,6 +69,7 @@ const apps = [
     status: "Latest release",
     summary:
       "TXT 桌宠合集，包含 Bamgeut、Hwangchoon、Choiyongmeong 等角色，适合日常常驻桌面。",
+    docPath: "docs/txt.txt",
     notes: [
       "支持拖动桌宠，拖动方向会触发对应移动状态。",
       "安装新版前可以先退出旧版桌宠，避免窗口状态没有刷新。",
@@ -75,7 +78,9 @@ const apps = [
     files: {
       windows: "TXT-Pets-win11-Setup-1.0.2.exe",
       macArm: "TXT.Pets-1.0.2-arm64.dmg",
-      macX64: "TXT.Pets-1.0.2-x64.dmg",
+    },
+    unavailableText: {
+      macX64: "未上传",
     },
   },
   {
@@ -87,6 +92,7 @@ const apps = [
     status: "Latest release",
     summary:
       "TWICE 风格桌宠合集，包含多成员角色、桌面拖动和基础互动。",
+    docPath: "docs/twice.txt",
     notes: [
       "下载对应系统版本后直接安装。",
       "如果同时打开多个角色，可以从托盘菜单统一管理。",
@@ -107,6 +113,7 @@ const apps = [
     status: "Latest release",
     summary:
       "RIIZE 桌宠合集，当前版本优化了默认启动角色和隐藏/恢复状态。",
+    docPath: "docs/riize.txt",
     notes: [
       "默认启动角色为 Rizuko。",
       "隐藏全部后再次恢复，会尽量回到隐藏前的角色集合。",
@@ -163,6 +170,7 @@ const selectedTitle = document.querySelector("#selectedTitle");
 const selectedVersion = document.querySelector("#selectedVersion");
 const selectedSummary = document.querySelector("#selectedSummary");
 const usageNotes = document.querySelector("#usageNotes");
+const usageDownload = document.querySelector("#usageDownload");
 const downloadCards = document.querySelector("#downloadCards");
 const downloadHint = document.querySelector("#downloadHint");
 const privacyButton = document.querySelector("#privacyButton");
@@ -170,6 +178,7 @@ const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
 const dialogClose = document.querySelector("#dialogClose");
+let usageRequestId = 0;
 
 function releaseUrl(app, filename) {
   return `https://github.com/${repository.owner}/${repository.repo}/releases/download/${app.tag}/${encodeURIComponent(filename)}`;
@@ -193,6 +202,39 @@ function renderButtons(activeId) {
     .join("");
 }
 
+async function loadUsageDocument(app) {
+  const requestId = ++usageRequestId;
+  usageNotes.textContent = app.notes.join("\n");
+
+  if (!app.docPath) {
+    usageDownload.removeAttribute("href");
+    usageDownload.removeAttribute("download");
+    usageDownload.setAttribute("aria-disabled", "true");
+    usageDownload.title = "暂无使用说明";
+    usageDownload.setAttribute("aria-label", "暂无使用说明");
+    return;
+  }
+
+  usageDownload.href = app.docPath;
+  usageDownload.download = `${app.id}-使用说明.txt`;
+  usageDownload.removeAttribute("aria-disabled");
+  usageDownload.title = "下载使用说明";
+  usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
+
+  try {
+    const response = await fetch(app.docPath);
+    if (!response.ok) throw new Error("Failed to load usage document");
+    const documentText = await response.text();
+    if (requestId === usageRequestId) {
+      usageNotes.textContent = documentText;
+    }
+  } catch (error) {
+    if (requestId === usageRequestId) {
+      usageNotes.textContent = app.notes.join("\n");
+    }
+  }
+}
+
 function renderApp(app) {
   selectedStatus.textContent = app.status;
   selectedTitle.textContent = app.name;
@@ -200,7 +242,7 @@ function renderApp(app) {
   selectedSummary.textContent = app.summary;
   downloadHint.textContent = app.tag ? "点击卡片直接下载" : "等待 release 附件";
 
-  usageNotes.innerHTML = app.notes.map((note) => `<li>${note}</li>`).join("");
+  loadUsageDocument(app);
 
   downloadCards.innerHTML = platforms
     .map((platform) => {

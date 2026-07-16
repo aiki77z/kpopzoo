@@ -42,9 +42,21 @@
           <p class="release-summary" id="selectedSummary"></p>
 
           <div class="notes-grid" id="guide">
-            <section>
-              <h3>使用说明</h3>
-              <ul id="usageNotes"></ul>
+            <section class="usage-card">
+              <div class="usage-title-row">
+                <h3>使用说明</h3>
+                <a
+                  class="usage-download"
+                  id="usageDownload"
+                  href="#"
+                  download
+                  title="下载使用说明"
+                  aria-label="下载使用说明"
+                >
+                  ↓
+                </a>
+              </div>
+              <pre id="usageNotes" class="usage-doc"></pre>
             </section>
             <section>
               <h3>安装提示</h3>
