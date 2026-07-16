@@ -449,8 +449,8 @@ ul {
 
 .usage-action::after {
   position: absolute;
-  right: 0;
-  bottom: calc(100% + 0.5rem);
+  top: calc(100% + 0.5rem);
+  left: 50%;
   z-index: 2;
   width: max-content;
   max-width: 11rem;
@@ -465,7 +465,7 @@ ul {
   opacity: 0;
   padding: 0.42rem 0.55rem;
   pointer-events: none;
-  transform: translateY(0.25rem);
+  transform: translate(-50%, -0.25rem);
   transition:
     opacity 140ms ease,
     transform 140ms ease;
@@ -862,4 +862,6 @@ ul {
     flex-direction: column;
   }
 }
+
+
 
