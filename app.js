@@ -32,8 +32,8 @@ const apps = [
     ],
     files: {
       windows: "NewJeans Pets Setup 1.0.1.exe",
-      macArm: "NewJeans.Pets-1.0.1-arm64.dmg",
-      macX64: "NewJeans.Pets-1.0.1-x64.dmg",
+      macArm: "NewJeans Pets-1.0.1-arm64.dmg",
+      macX64: "NewJeans Pets-1.0.1-x64.dmg",
     },
   },
   {
