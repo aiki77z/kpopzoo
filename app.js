@@ -20,8 +20,8 @@ const apps = [
     id: "newjeans",
     name: "NewJeans Pets",
     group: "NewJeans",
-    version: "1.0.3",
-    tag: "newjeans-v1.0.3",
+    version: "1.0.1",
+    tag: "newjeans-v1.0.1",
     status: "Latest release",
     summary:
       "五只 NewJeans 风格桌宠，可以在桌面陪伴、移动和互动。适合想要轻量常驻的小桌面伙伴。",
@@ -31,9 +31,9 @@ const apps = [
       "如果 Windows 安全提示拦截，请选择保留并确认这是你自己发布的安装包。",
     ],
     files: {
-      windows: "NewJeans-Pets-win11-Setup-1.0.3.exe",
-      macArm: "NewJeans.Pets-1.0.3-arm64.dmg",
-      macX64: "NewJeans.Pets-1.0.3-x64.dmg",
+      windows: "NewJeans Pets Setup 1.0.1.exe",
+      macArm: "NewJeans.Pets-1.0.1-arm64.dmg",
+      macX64: "NewJeans.Pets-1.0.1-x64.dmg",
     },
   },
   {
@@ -100,8 +100,8 @@ const apps = [
     id: "riize",
     name: "RIIZE Pets",
     group: "RIIZE",
-    version: "1.0.4",
-    tag: "riize-v1.0.4",
+    version: "1.0.3",
+    tag: "riize-v1.0.3",
     status: "Latest release",
     summary:
       "RIIZE 桌宠合集，当前版本优化了默认启动角色和隐藏/恢复状态。",
@@ -111,9 +111,9 @@ const apps = [
       "Windows 安装新版时建议先退出托盘里的旧版应用。",
     ],
     files: {
-      windows: "RIIZE-Pets-win11-Setup-1.0.4.exe",
-      macArm: "RIIZE.Pets-1.0.4-arm64.dmg",
-      macX64: "RIIZE.Pets-1.0.4-x64.dmg",
+      windows: "RIIZE-Pets-win11-Setup-1.0.3.exe",
+      macArm: "RIIZE.Pets-1.0.3-arm64.dmg",
+      macX64: "RIIZE.Pets-1.0.3-x64.dmg",
     },
   },
   {

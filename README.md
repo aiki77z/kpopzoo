@@ -23,10 +23,10 @@ When this page is hosted on GitHub Pages, `<owner>` and `<repo>` are detected au
 
 Use one tag per group release, for example:
 
-- `newjeans-v1.0.3`
+- `newjeans-v1.0.1`
 - `boynextdoor-v1.0.2`
 - `txt-v1.0.2`
 - `twice-v1.0.0`
-- `riize-v1.0.4`
+- `riize-v1.0.3`
 
 Upload the Windows Setup, macOS arm64, and macOS x64 installers as release assets under the matching tag.
