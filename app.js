@@ -32,9 +32,9 @@ const apps = [
       "如果 Windows 安全提示拦截，请选择保留并确认这是你自己发布的安装包。",
     ],
     files: {
-      windows: "NewJeans.Pets.Setup.1.0.1.exe",
-      macArm: "NewJeans.Pets-1.0.1-arm64.dmg",
-      macX64: "NewJeans.Pets-1.0.1-x64.dmg",
+      windows: "https://github.com/aiki77z/kpopzoo/releases/download/newjeans-v1.0.1/NewJeans.Pets.Setup.1.0.1.exe",
+      macArm: "https://github.com/aiki77z/kpopzoo/releases/download/newjeans-v1.0.1/NewJeans.Pets-1.0.1-arm64.dmg",
+      macX64: "https://github.com/aiki77z/kpopzoo/releases/download/newjeans-v1.0.1/NewJeans.Pets-1.0.1-x64.dmg",
     },
   },
   {
@@ -78,9 +78,7 @@ const apps = [
     files: {
       windows: "TXT-Pets-win11-Setup-1.0.2.exe",
       macArm: "TXT.Pets-1.0.2-arm64.dmg",
-    },
-    unavailableText: {
-      macX64: "未上传",
+      macX64: "TXT.Pets-1.0.2-x64.dmg",
     },
   },
   {
@@ -181,6 +179,10 @@ const dialogClose = document.querySelector("#dialogClose");
 let usageRequestId = 0;
 
 function releaseUrl(app, filename) {
+  if (/^https?:\/\//i.test(filename)) {
+    return filename;
+  }
+
   return `https://github.com/${repository.owner}/${repository.repo}/releases/download/${app.tag}/${encodeURIComponent(filename)}`;
 }
 
