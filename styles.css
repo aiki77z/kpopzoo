@@ -447,7 +447,7 @@ ul {
   pointer-events: none;
 }
 
-.usage-action::after {
+.usage-action[data-tooltip]::after {
   position: absolute;
   top: calc(100% + 0.5rem);
   left: 50%;
@@ -471,8 +471,8 @@ ul {
     transform 140ms ease;
 }
 
-.usage-action:hover::after,
-.usage-action:focus-visible::after {
+.usage-action[data-tooltip]:hover::after,
+.usage-action[data-tooltip]:focus-visible::after {
   opacity: 1;
   transform: translate(-50%, 0);
 }
@@ -733,6 +733,7 @@ ul {
 
 .usage-dialog-body h2,
 .usage-dialog-body h3,
+.usage-dialog-body h4,
 .usage-dialog-body p,
 .usage-dialog-body ul {
   margin-top: 0;
@@ -748,6 +749,24 @@ ul {
   margin: 1.15rem 0 0.45rem;
   color: var(--ink);
   font-size: 1.05rem;
+}
+
+.usage-dialog-body h4 {
+  margin: 1rem 0 0.35rem;
+  color: var(--ink);
+  font-size: 0.98rem;
+}
+
+.usage-dialog-body figure {
+  margin: 1.2rem 0;
+}
+
+.usage-dialog-body img {
+  display: block;
+  max-width: min(100%, 42rem);
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
 }
 
 .usage-dialog-body p,

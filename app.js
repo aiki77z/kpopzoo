@@ -218,25 +218,21 @@ function updateUsageActions(app) {
     usageDownload.removeAttribute("href");
     usageDownload.removeAttribute("download");
     usageDownload.setAttribute("aria-disabled", "true");
-    usageDownload.dataset.tooltip = "暂无使用说明";
     usageDownload.setAttribute("aria-label", "暂无使用说明");
   } else {
     usageDownload.href = app.docPath;
     usageDownload.download = `${app.id}-使用说明.txt`;
     usageDownload.removeAttribute("aria-disabled");
-    usageDownload.dataset.tooltip = "下载使用说明";
     usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
   }
 
   if (!app.releaseNotePath) {
     usageView.setAttribute("aria-disabled", "true");
     usageView.disabled = true;
-    usageView.dataset.tooltip = "暂无使用说明";
     usageView.setAttribute("aria-label", "暂无使用说明");
   } else {
     usageView.removeAttribute("aria-disabled");
     usageView.disabled = false;
-    usageView.dataset.tooltip = "阅览使用说明";
     usageView.setAttribute("aria-label", `阅览 ${app.group} 使用说明`);
   }
 }
@@ -251,10 +247,21 @@ function escapeHtml(value) {
 }
 
 function renderInlineMarkdown(value) {
-  return escapeHtml(value).replace(/`([^`]+)`/g, "<code>$1</code>");
+  return escapeHtml(value)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
-function renderMarkdown(markdown) {
+function resolveMarkdownAsset(path, basePath = "") {
+  if (/^(https?:)?\/\//i.test(path) || path.startsWith("/") || path.startsWith("data:")) {
+    return path;
+  }
+
+  const baseDirectory = basePath.includes("/") ? basePath.slice(0, basePath.lastIndexOf("/") + 1) : "";
+  return `${baseDirectory}${path}`;
+}
+
+function renderMarkdown(markdown, basePath = "") {
   const lines = markdown.split(/\r?\n/);
   const html = [];
   let inList = false;
@@ -283,6 +290,22 @@ function renderMarkdown(markdown) {
     if (trimmed.startsWith("## ")) {
       closeList();
       html.push(`<h3>${renderInlineMarkdown(trimmed.slice(3))}</h3>`);
+      return;
+    }
+
+    if (trimmed.startsWith("### ")) {
+      closeList();
+      html.push(`<h4>${renderInlineMarkdown(trimmed.slice(4))}</h4>`);
+      return;
+    }
+
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      closeList();
+      const [, alt, src] = imageMatch;
+      html.push(
+        `<figure><img src="${escapeHtml(resolveMarkdownAsset(src, basePath))}" alt="${escapeHtml(alt)}" loading="lazy"></figure>`,
+      );
       return;
     }
 
@@ -319,7 +342,7 @@ async function openUsageDialog() {
     const response = await fetch(app.releaseNotePath);
     if (!response.ok) throw new Error("Failed to load release note");
     const markdown = await response.text();
-    usageDialogBody.innerHTML = renderMarkdown(markdown);
+    usageDialogBody.innerHTML = renderMarkdown(markdown, app.releaseNotePath);
   } catch (error) {
     usageDialogBody.innerHTML = renderMarkdown(
       `# ${app.name} 使用说明\n\n${app.notes.map((note) => `- ${note}`).join("\n")}`,
