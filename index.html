@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KPOPZOO Desktop Pets</title>
+    <meta
+      name="description"
+      content="KPOPZOO 桌宠合集下载页，集中下载 Windows 与 macOS 版本。"
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="KPOPZOO 首页">
+        <span class="brand-mark">KZ</span>
+        <span>
+          <strong>KPOPZOO</strong>
+          <small>Desktop Pets</small>
+        </span>
+      </a>
+      <nav class="top-nav" aria-label="页面导航">
+        <a href="#apps">选择团体</a>
+        <a href="#guide">安装说明</a>
+        <a href="#privacy">素材保护</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">All releases in one quiet place</p>
+          <h1 id="hero-title">把喜欢的团，轻轻放到桌面上。</h1>
+          <p class="hero-text">
+            KPOPZOO 集中发布你做过的桌宠应用。每个团体都有独立说明和安装包入口，
+            下载会直接开始，不需要跳转到 GitHub Release 页面。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#apps">选择团体</a>
+            <a class="secondary-action" href="#guide">查看安装说明</a>
+          </div>
+        </div>
+        <div class="hero-panel" aria-hidden="true">
+          <div class="orbit-card card-one">Windows Setup</div>
+          <div class="orbit-card card-two">macOS Apple Silicon</div>
+          <div class="orbit-card card-three">macOS Intel</div>
+          <div class="soft-disc"></div>
+        </div>
+      </section>
+
+      <section class="section-intro" id="apps">
+        <p class="eyebrow">Choose your zoo</p>
+        <h2>已有团体</h2>
+        <p>
+          选择一个团体后，下方会显示对应的使用说明和下载卡片。版本信息可以之后只改
+          <code>app.js</code> 里的数据，不需要重写页面。
+        </p>
+      </section>
+
+      <section class="layout">
+        <aside class="group-list" aria-label="团体列表">
+          <div id="groupButtons" class="group-buttons"></div>
+        </aside>
+
+        <article class="release-detail" aria-live="polite">
+          <div class="release-heading">
+            <div>
+              <p class="eyebrow" id="selectedStatus">Latest release</p>
+              <h2 id="selectedTitle"></h2>
+            </div>
+            <span class="version-pill" id="selectedVersion"></span>
+          </div>
+
+          <p class="release-summary" id="selectedSummary"></p>
+
+          <div class="notes-grid" id="guide">
+            <section>
+              <h3>使用说明</h3>
+              <ul id="usageNotes"></ul>
+            </section>
+            <section>
+              <h3>安装提示</h3>
+              <ul>
+                <li>Windows 推荐下载 Setup 版，双击安装后从开始菜单启动。</li>
+                <li>macOS 首次打开如提示安全限制，请在系统设置中允许打开。</li>
+                <li>Apple Silicon 选择 arm64，Intel 芯片选择 x64。</li>
+              </ul>
+            </section>
+          </div>
+
+          <section class="downloads" aria-labelledby="download-title">
+            <div class="download-title-row">
+              <h3 id="download-title">下载</h3>
+              <span id="downloadHint"></span>
+            </div>
+            <div id="downloadCards" class="download-cards"></div>
+          </section>
+        </article>
+      </section>
+
+      <section class="privacy-band" id="privacy">
+        <div>
+          <p class="eyebrow">Release-only public repo</p>
+          <h2>公开仓库只放下载页和安装包。</h2>
+        </div>
+        <p>
+          这个结构适合你现在的目标：桌宠源码、spritesheet、hatch-run、参考图都留在 private 仓库；
+          KPOPZOO 只作为公开下载入口。旧仓库历史里已经公开过的图片无法彻底收回，但后续版本可以从这里开始收口。
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>KPOPZOO Desktop Pets</span>
+      <span>Made for tidy releases and safer artwork.</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
