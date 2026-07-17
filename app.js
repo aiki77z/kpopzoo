@@ -42,8 +42,8 @@ const apps = [
     id: "boynextdoor",
     name: "BOYNEXTDOOR Pets",
     group: "BOYNEXTDOOR",
-    version: "1.0.2",
-    tag: "boynextdoor-v1.0.2",
+    version: "1.0.3",
+    tag: "boynextdoor-v1.0.3",
     status: "Latest release",
     summary:
       "BOYNEXTDOOR 桌宠合集，保留多角色互动和轻量桌面陪伴体验。",
@@ -55,11 +55,9 @@ const apps = [
       "桌宠资源已经内置在安装包内，下载页不会公开 spritesheet 源文件。",
     ],
     files: {
-      windows: "BOYNEXTDOOR-Pets-win11-Setup-1.0.2.exe",
-    },
-    unavailableText: {
-      macArm: "未上传",
-      macX64: "未上传",
+      windows: "BOYNEXTDOOR-Pets-win11-Setup-1.0.3.exe",
+      macArm: "BOYNEXTDOOR.Pets-1.0.3-arm64.dmg",
+      macX64: "BOYNEXTDOOR.Pets-1.0.3-x64.dmg",
     },
   },
   {

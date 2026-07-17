@@ -1,14 +1,17 @@
-# BOYNEXTDOOR Pets v1.0.2
+# BOYNEXTDOOR Pets v1.0.3
 
 这是一个包含 6 只 BOYNEXTDOOR 主题桌宠的小应用。
 
 ## 下载说明
 
-- **BOYNEXTDOOR Pets Setup 1.0.2.exe**  
+- **BOYNEXTDOOR-Pets-win11-Setup-1.0.3.exe**  
   推荐普通用户下载。安装后会自动创建快捷方式。
 
-- **BOYNEXTDOOR Pets 1.0.2.exe**  
-  免安装版，下载后可直接运行。
+- **BOYNEXTDOOR.Pets-1.0.3-arm64.dmg**  
+  适用于 Apple Silicon（M 系列）Mac，下载后打开 `.dmg` 并拖入 `Applications`。
+
+- **BOYNEXTDOOR.Pets-1.0.3-x64.dmg**  
+  适用于 Intel Mac，下载后打开 `.dmg` 并拖入 `Applications`。
 
 ## 本次更新
 
