@@ -130,17 +130,23 @@ const apps = [
     id: "bt21",
     name: "BT21 Pets",
     group: "BT21",
-    version: "Preparing",
-    tag: "",
-    status: "Coming soon",
+    version: "1.0.0",
+    tag: "bt21-v1.0.0",
+    status: "Latest release",
     summary:
-      "BT21 桌宠合集正在整理中。安装包发布到 KPOPZOO Release 后，这里可以直接打开下载。",
+      "BT21 桌宠合集现已发布，支持 Windows 安装包和 macOS 双架构下载。",
+    docPath: "docs/bt21.txt",
+    releaseNotePath: "docs/bt21.md",
     notes: [
-      "当前先保留页面入口，方便之后补齐 release 附件。",
+      "Windows 用户优先选择 Setup 安装包。",
+      "macOS arm64 适合 Apple Silicon；x64 适合 Intel Mac。",
       "发布时只上传安装包，不公开源码和素材源文件。",
-      "补齐文件名后，下载卡片会自动变成可点击状态。",
     ],
-    files: {},
+    files: {
+      windows: "BT21-Pets-win11-Setup-1.0.0.exe",
+      macArm: "BT21.Pets-1.0.0-arm64.dmg",
+      macX64: "BT21.Pets-1.0.0-x64.dmg",
+    },
   },
 ];
 
