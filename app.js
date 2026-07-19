@@ -153,7 +153,7 @@ const apps = [
     name: "SVT Pets",
     group: "SVT",
     version: "1.0.1",
-    tag: "",
+    tag: "svt-v1.0.1",
     status: "Latest release",
     summary:
       "SVT 桌宠合集现已发布，包含 13 只角色，支持 Windows 安装包和 macOS 双架构下载。",
@@ -168,11 +168,6 @@ const apps = [
       windows: "SVT-Pets-win11-Setup-1.0.1.exe",
       macArm: "SVT.Pets-1.0.1-arm64.dmg",
       macX64: "SVT.Pets-1.0.1-x64.dmg",
-    },
-    unavailableText: {
-      windows: "暂未开放",
-      macArm: "暂未开放",
-      macX64: "暂未开放",
     },
   },
 ];
