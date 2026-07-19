@@ -148,6 +148,28 @@ const apps = [
       macX64: "BT21.Pets-1.0.0-x64.dmg",
     },
   },
+  {
+    id: "svt",
+    name: "SVT Pets",
+    group: "SVT",
+    version: "1.0.1",
+    tag: "svt-v1.0.1",
+    status: "Latest release",
+    summary:
+      "SVT 桌宠合集现已发布，包含 13 只角色，支持 Windows 安装包和 macOS 双架构下载。",
+    docPath: "docs/svt.txt",
+    releaseNotePath: "docs/svt.md",
+    notes: [
+      "Windows 用户优先选择 Setup 安装包。",
+      "macOS arm64 适合 Apple Silicon；x64 适合 Intel Mac。",
+      "发布时只上传安装包，不公开源码和素材源文件。",
+    ],
+    files: {
+      windows: "SVT-Pets-win11-Setup-1.0.1.exe",
+      macArm: "SVT.Pets-1.0.1-arm64.dmg",
+      macX64: "SVT.Pets-1.0.1-x64.dmg",
+    },
+  },
 ];
 
 const platforms = [
