@@ -152,23 +152,38 @@ const apps = [
     id: "svt",
     name: "SVT Pets",
     group: "SVT",
-    version: "1.0.1",
-    tag: "svt-v1.0.1",
+    version: "1.0.2",
+    tag: "svt-v1.0.2",
     status: "Latest release",
     summary:
-      "SVT 桌宠合集现已发布，包含 13 只角色，支持 Windows 安装包和 macOS 双架构下载。",
+      "SVT 桌宠合集现已发布，包含 13 只角色。Windows 现提供 v1.0.2 修复版与 v1.0.1 保留版双入口。",
     docPath: "docs/svt.txt",
     releaseNotePath: "docs/svt.md",
     notes: [
-      "Windows 用户优先选择 Setup 安装包。",
+      "Windows v1.0.2：修复画布占位过多问题，界面可能会和之前的版本不同。",
+      "Windows v1.0.1 保留下载，方便需要旧版界面的用户继续使用。",
       "macOS arm64 适合 Apple Silicon；x64 适合 Intel Mac。",
       "发布时只上传安装包，不公开源码和素材源文件。",
     ],
     files: {
-      windows: "SVT-Pets-win11-Setup-1.0.1.exe",
+      windows: "SVT-Pets-win11-Setup-1.0.2.exe",
       macArm: "SVT.Pets-1.0.1-arm64.dmg",
       macX64: "SVT.Pets-1.0.1-x64.dmg",
     },
+    downloadOptions: [
+      {
+        label: "Windows v1.0.2 修复版",
+        hint: "推荐 Windows 10/11",
+        meta: "修复画布占位过多问题",
+        filename: "SVT-Pets-win11-Setup-1.0.2.exe",
+      },
+      {
+        label: "Windows v1.0.1 保留版",
+        hint: "旧版界面入口",
+        meta: "保留旧版本下载",
+        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-win11-Setup-1.0.1.exe",
+      },
+    ],
   },
 ];
 
@@ -385,30 +400,44 @@ function renderApp(app) {
 
   updateUsageActions(app);
 
-  downloadCards.innerHTML = platforms
-    .map((platform) => {
-      const filename = app.files[platform.key];
-      const enabled = Boolean(app.tag && filename);
+  const cards = app.downloadOptions
+    ? app.downloadOptions.map((option) => ({
+        label: option.label,
+        hint: option.hint,
+        meta: option.meta,
+        filename: option.filename,
+      }))
+    : platforms.map((platform) => ({
+        key: platform.key,
+        label: platform.label,
+        hint: platform.hint,
+        meta: platform.meta,
+        filename: app.files[platform.key],
+      }));
+
+  downloadCards.innerHTML = cards
+    .map((card) => {
+      const enabled = Boolean(app.tag && card.filename);
 
       if (!enabled) {
         return `
           <div class="download-card disabled" aria-disabled="true">
             <div>
-              <strong>${platform.label}</strong>
-              <small>${platform.hint}</small>
+              <strong>${card.label}</strong>
+              <small>${card.hint}</small>
             </div>
-            <span>${app.unavailableText?.[platform.key] || "即将发布"}</span>
+            <span>${app.unavailableText?.[card.key] || "即将发布"}</span>
           </div>
         `;
       }
 
       return `
-        <a class="download-card" href="${releaseUrl(app, filename)}" download>
+        <a class="download-card" href="${releaseUrl(app, card.filename)}" download>
           <div>
-            <strong>${platform.label}</strong>
-            <small>${platform.hint}</small>
+            <strong>${card.label}</strong>
+            <small>${card.hint}</small>
           </div>
-          <span>${platform.meta}</span>
+          <span>${card.meta}</span>
         </a>
       `;
     })
