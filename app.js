@@ -183,6 +183,18 @@ const apps = [
         meta: "保留旧版本下载",
         filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-win11-Setup-1.0.1.exe",
       },
+      {
+        label: "macOS ARM64 v1.0.1",
+        hint: "Apple Silicon / M 系列",
+        meta: "保留 mac 1.0.1 下载",
+        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT.Pets-1.0.1-arm64.dmg",
+      },
+      {
+        label: "macOS x64 v1.0.1",
+        hint: "Intel Mac",
+        meta: "保留 mac 1.0.1 下载",
+        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT.Pets-1.0.1-x64.dmg",
+      },
     ],
   },
 ];
