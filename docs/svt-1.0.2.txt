@@ -1,0 +1,94 @@
+SVT Pets v1.0.2 使用说明
+
+这是一个包含 13 只 SVT 桌宠的 Windows 小应用。
+本版本是 Windows 原生版本，重点优化了桌宠画布占用、窗口边界、跳跃动作和资源打包方式。
+
+下载说明
+
+Windows
+- SVT-Pets-Setup-1.0.2.exe
+  当前推荐版本。
+  安装后应用名称为 SVT Pets。
+  宠物资源会被打包在单个 svt-pets-assets.pak 文件中，不会以单张 PNG 图片目录形式暴露在安装目录里。
+
+macOS
+- 本说明对应 Windows 原生 v1.0.2。
+- macOS 版本仍请使用原 Electron/mac 打包产物。
+
+安装提示
+
+- 双击 SVT-Pets-Setup-1.0.2.exe 安装。
+- Windows 可能提示“未知发布者”或 SmartScreen 安全提示，这是未签名个人应用的正常现象。
+- 安装后默认位置为：
+  %LOCALAPPDATA%\SVT Pets
+- 安装器会创建桌面快捷方式和开始菜单快捷方式，名称均为 SVT Pets。
+- 如果升级前已经打开旧版本，建议先退出旧版本后再安装。
+
+基础功能
+
+- 默认打开 Cherry。
+- 支持 13 只 SVT 桌宠。
+- 支持多只宠物同时显示。
+- 支持从托盘菜单 Show Cherry、Show All Pets、Hide All Pets。
+- Hide All Pets 只会隐藏宠物，不会退出应用；托盘仍会保留。
+- 支持右键或双击宠物打开控制面板。
+- 支持编辑宠物显示名称。
+- 支持编辑气泡台词，一行一句。
+- 支持显示/隐藏气泡。
+- 支持 Always On Top 置顶。
+- 支持 Reset Positions 重置宠物位置。
+- 支持 Patrol Mode 定期巡回模式。
+
+宠物操作
+
+- 鼠标左键单击宠物：触发 jumping 跳跃动作。
+- 鼠标左键拖动宠物：移动宠物位置。
+- 向左拖动：显示 running-left 动作。
+- 向右拖动：显示 running-right 动作。
+- 鼠标滚轮：缩放宠物，范围约为 25% 到 60%。
+- 数字键 1 到 9：切换不同宠物状态。
+- Space：循环切换状态。
+- Esc：退出应用。
+
+巡回模式
+
+- 在控制面板或托盘菜单中打开 Patrol Mode。
+- 打开后，空闲宠物会定期向左或向右走一小段。
+- 行走时会播放对应的 running-left 或 running-right 动画。
+- 巡回结束后会自动回到 idle 状态。
+
+控制面板
+
+- Active Pets：勾选要显示的宠物。
+- Edit Pet：选择要编辑的宠物。
+- Name：修改宠物显示名称。
+- Bubble Lines：修改气泡台词，一行一句。
+- 动作按钮：Idle、Right、Left、Wave、Jump、Fail、Wait、Busy、Review。
+- Show Bubbles：开启或关闭气泡。
+- Always On Top：开启或关闭置顶。
+- Patrol Mode：开启或关闭定期巡回。
+- Save Pet Text：保存名称和气泡台词。
+- Reset Positions：重置宠物位置。
+- Quit：退出应用。
+- Close Panel：关闭控制面板，但不退出应用。
+
+资源说明
+
+- v1.0.2 使用轻度隐藏资源包。
+- 安装目录中宠物资源为 svt-pets-assets.pak。
+- 这可以避免普通用户直接看到散装宠物 PNG 图片。
+- 但这不是强加密，懂技术的人仍然可能提取资源。
+
+常见问题
+
+- 如果 Hide All Pets 后看不到宠物：
+  在系统托盘右键 SVT Pets 图标，选择 Show Cherry 或 Show All Pets。
+
+- 如果想恢复默认位置：
+  打开控制面板或托盘菜单，点击 Reset Positions。
+
+- 如果安装后没有立刻看到宠物：
+  检查系统托盘中是否有 SVT Pets 图标，右键选择 Show Cherry。
+
+- 如果气泡文字显示不符合预期：
+  打开控制面板，选择对应宠物，在 Bubble Lines 中重新编辑并保存。
