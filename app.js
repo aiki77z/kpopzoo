@@ -166,7 +166,7 @@ const apps = [
       "发布时只上传安装包，不公开源码和素材源文件。",
     ],
     files: {
-      windows: "SVT-Pets-win11-Setup-1.0.2.exe",
+      windows: "SVT-Pets-Setup-1.0.2.exe",
       macArm: "SVT.Pets-1.0.1-arm64.dmg",
       macX64: "SVT.Pets-1.0.1-x64.dmg",
     },
@@ -175,13 +175,13 @@ const apps = [
         label: "Windows v1.0.2 修复版",
         hint: "推荐 Windows 10/11",
         meta: "修复画布占位过多问题",
-        filename: "SVT-Pets-win11-Setup-1.0.2.exe",
+        filename: "SVT-Pets-Setup-1.0.2.exe",
       },
       {
         label: "Windows v1.0.1 保留版",
         hint: "旧版界面入口",
         meta: "保留旧版本下载",
-        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-win11-Setup-1.0.1.exe",
+        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-Setup-1.0.1.exe",
       },
       {
         label: "macOS ARM64 v1.0.1",
