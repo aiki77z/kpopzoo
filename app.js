@@ -181,7 +181,7 @@ const apps = [
         label: "Windows v1.0.1 保留版",
         hint: "旧版界面入口",
         meta: "保留旧版本下载",
-        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-Setup-1.0.1.exe",
+        filename: "https://github.com/aiki77z/kpopzoo/releases/download/svt-v1.0.1/SVT-Pets-win11-Setup-1.0.1.exe",
       },
       {
         label: "macOS ARM64 v1.0.1",

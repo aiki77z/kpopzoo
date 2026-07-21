@@ -9,7 +9,7 @@ Windows
   当前推荐版本。
   修复画布占位过多问题，界面可能会和之前的版本不同。
 
-- SVT-Pets-Setup-1.0.1.exe
+- SVT-Pets-win11-Setup-1.0.1.exe
   保留旧版下载入口，方便继续使用之前的界面。
 
 macOS
