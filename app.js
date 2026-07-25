@@ -157,8 +157,8 @@ const apps = [
     status: "Latest release",
     summary:
       "SVT 桌宠合集现已发布，包含 13 只角色。Windows 现提供 v1.0.2 修复版与 v1.0.1 保留版双入口。",
-    docPath: "docs/svt.txt",
-    releaseNotePath: "docs/svt.md",
+    docPath: "docs/svt-1.0.2.txt",
+    releaseNotePath: "docs/svt-1.0.2.md",
     notes: [
       "Windows v1.0.2：修复画布占位过多问题，界面可能会和之前的版本不同。",
       "Windows v1.0.1 保留下载，方便需要旧版界面的用户继续使用。",
