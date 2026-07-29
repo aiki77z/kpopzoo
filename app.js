@@ -537,8 +537,8 @@ function openMessageDialog(title, body) {
 
 privacyButton.addEventListener("click", () => {
   openMessageDialog(
-    "素材保护",
-    "如果想要 spritesheet 图在 Codex 中直接养请 xhs 私信，sns 发布作品请标注来源。",
+    "素材",
+    "在 Codex 中直接养要用的spritesheet图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
   );
 });
 
