@@ -149,6 +149,56 @@ const apps = [
     },
   },
   {
+    id: "h2h",
+    name: "H2H Pets",
+    group: "H2H",
+    version: "Preparing",
+    tag: "",
+    status: "入口待开放",
+    summary:
+      "H2H 桌宠合集正在准备中，下载入口会在安装包上传后开放。使用说明可先在线阅览，也可以下载 PDF 留存。",
+    docPath: "docs/h2h.md",
+    docDownloadPath: "docs/h2h.pdf",
+    docDownloadName: "h2h-使用说明.pdf",
+    releaseNotePath: "docs/h2h.md",
+    notes: [
+      "H2H Pets 当前下载入口待开放。",
+      "Windows 将提供推荐安装包和备用安装包。",
+      "macOS 将提供 Apple Silicon 与 Intel 两个版本。",
+    ],
+    files: {},
+    downloadOptions: [
+      {
+        key: "windows",
+        label: "Windows v1.0.0 推荐版",
+        hint: "推荐 Windows 10/11",
+        meta: "入口待开放",
+        filename: "",
+      },
+      {
+        key: "windowsAlt",
+        label: "Windows v1.1.1 备用版",
+        hint: "如果推荐版不可用再选择",
+        meta: "入口待开放",
+        filename: "",
+      },
+      {
+        key: "macArm",
+        label: "macOS ARM64 v1.1.0",
+        hint: "Apple Silicon / M 系列",
+        meta: "入口待开放",
+        filename: "",
+      },
+      {
+        key: "macX64",
+        label: "macOS x64 v1.1.0",
+        hint: "Intel Mac",
+        meta: "入口待开放",
+        filename: "",
+      },
+    ],
+  },
+  {
     id: "svt",
     name: "SVT Pets",
     group: "SVT",
@@ -267,14 +317,16 @@ function renderButtons(activeId) {
 }
 
 function updateUsageActions(app) {
-  if (!app.docPath) {
+  const downloadPath = app.docDownloadPath || app.docPath;
+
+  if (!downloadPath) {
     usageDownload.removeAttribute("href");
     usageDownload.removeAttribute("download");
     usageDownload.setAttribute("aria-disabled", "true");
     usageDownload.setAttribute("aria-label", "暂无使用说明");
   } else {
-    usageDownload.href = app.docPath;
-    usageDownload.download = `${app.id}-使用说明.txt`;
+    usageDownload.href = downloadPath;
+    usageDownload.download = app.docDownloadName || `${app.id}-使用说明.txt`;
     usageDownload.removeAttribute("aria-disabled");
     usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
   }
