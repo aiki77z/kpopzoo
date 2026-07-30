@@ -152,11 +152,11 @@ const apps = [
     id: "h2h",
     name: "H2H Pets",
     group: "H2H",
-    version: "Preparing",
-    tag: "",
-    status: "入口待开放",
+    version: "1.1.1",
+    tag: "h2h-v1.1.1",
+    status: "Latest release",
     summary:
-      "H2H 桌宠合集正在准备中，下载入口会在安装包上传后开放。使用说明可先在线阅览，也可以下载 PDF 留存。",
+      "H2H 桌宠合集现已发布，包含 Windows 推荐安装包、Windows 备用安装包，以及 macOS 双架构下载。",
     docPath: "docs/h2h.md",
     docDownloadPath: "docs/h2h.pdf",
     docDownloadName: "h2h-使用说明.pdf",
@@ -166,35 +166,39 @@ const apps = [
       "Windows 将提供推荐安装包和备用安装包。",
       "macOS 将提供 Apple Silicon 与 Intel 两个版本。",
     ],
-    files: {},
+    files: {
+      windows: "H2H-Pets-Setup-1.0.0.exe",
+      macArm: "H2H.Pets-1.1.0-arm64.dmg",
+      macX64: "H2H.Pets-1.1.0-x64.dmg",
+    },
     downloadOptions: [
       {
         key: "windows",
         label: "Windows v1.0.0 推荐版",
         hint: "推荐 Windows 10/11",
-        meta: "入口待开放",
-        filename: "",
+        meta: "当前推荐版本",
+        filename: "H2H-Pets-Setup-1.0.0.exe",
       },
       {
         key: "windowsAlt",
         label: "Windows v1.1.1 备用版",
         hint: "如果推荐版不可用再选择",
-        meta: "入口待开放",
-        filename: "",
+        meta: "备用安装包",
+        filename: "H2H-Pets-win11-Setup-1.1.1.exe",
       },
       {
         key: "macArm",
         label: "macOS ARM64 v1.1.0",
         hint: "Apple Silicon / M 系列",
-        meta: "入口待开放",
-        filename: "",
+        meta: "磁盘映像 .dmg",
+        filename: "H2H.Pets-1.1.0-arm64.dmg",
       },
       {
         key: "macX64",
         label: "macOS x64 v1.1.0",
         hint: "Intel Mac",
-        meta: "入口待开放",
-        filename: "",
+        meta: "磁盘映像 .dmg",
+        filename: "H2H.Pets-1.1.0-x64.dmg",
       },
     ],
   },
@@ -538,7 +542,7 @@ function openMessageDialog(title, body) {
 privacyButton.addEventListener("click", () => {
   openMessageDialog(
     "素材",
-    "在 Codex 中直接养要用的spritesheet图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
+    "在 codex 中直接养要用的素材 spritesheet 图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
   );
 });
 
