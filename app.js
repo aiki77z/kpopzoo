@@ -251,6 +251,54 @@ const apps = [
       },
     ],
   },
+  {
+    id: "wish",
+    name: "WISH Pets",
+    group: "WISH",
+    version: "Preparing",
+    status: "Coming soon",
+    downloadHint: "下载入口灰度中",
+    summary:
+      "WISH 桌宠合集正在准备中，下载入口先灰度展示，发布后会开放 Windows 安装版、Windows 便携版和 macOS 双架构版本。",
+    notes: [
+      "WISH Pets 当前下载入口待开放。",
+      "Windows 将提供安装版和便携版两个入口。",
+      "macOS 将提供 Apple Silicon 与 Intel 两个版本。",
+    ],
+    files: {},
+    unavailableText: {
+      windowsSetup: "灰度中",
+      windowsPortable: "灰度中",
+      macArm: "灰度中",
+      macX64: "灰度中",
+    },
+    downloadOptions: [
+      {
+        key: "windowsSetup",
+        label: "Windows 安装版",
+        hint: "推荐 Windows 10/11",
+        meta: "安装包 .exe",
+      },
+      {
+        key: "windowsPortable",
+        label: "Windows 便携版",
+        hint: "免安装版本",
+        meta: "压缩包 .zip",
+      },
+      {
+        key: "macArm",
+        label: "macOS ARM64 版",
+        hint: "Apple Silicon / M 系列",
+        meta: "磁盘映像 .dmg",
+      },
+      {
+        key: "macX64",
+        label: "macOS x64 版",
+        hint: "Intel Mac",
+        meta: "磁盘映像 .dmg",
+      },
+    ],
+  },
 ];
 
 const platforms = [
@@ -464,12 +512,13 @@ function renderApp(app) {
   selectedTitle.textContent = app.name;
   selectedVersion.textContent = app.version === "Preparing" ? "Preparing" : `v${app.version}`;
   selectedSummary.textContent = app.summary;
-  downloadHint.textContent = app.tag ? "点击卡片直接下载" : "等待 release 附件";
+  downloadHint.textContent = app.downloadHint || (app.tag ? "点击卡片直接下载" : "等待 release 附件");
 
   updateUsageActions(app);
 
   const cards = app.downloadOptions
     ? app.downloadOptions.map((option) => ({
+        key: option.key,
         label: option.label,
         hint: option.hint,
         meta: option.meta,

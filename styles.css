@@ -282,30 +282,31 @@ li {
 
 .layout {
   display: grid;
-  grid-template-columns: 18rem minmax(0, 1fr);
-  gap: clamp(1.6rem, 3vw, 2.5rem);
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2.4vw, 1.5rem);
   align-items: start;
 }
 
 .group-list {
-  position: sticky;
-  top: 7rem;
+  position: static;
 }
 
 .group-buttons {
   display: grid;
-  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
 }
 
 .group-button {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.5);
   color: var(--ink);
   cursor: pointer;
-  padding: 0.9rem;
-  text-align: left;
+  min-height: 4.35rem;
+  padding: 0.78rem 0.9rem;
+  text-align: center;
 }
 
 .group-button strong,
@@ -314,13 +315,16 @@ li {
 }
 
 .group-button strong {
+  overflow: hidden;
   font-size: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .group-button span {
   margin-top: 0.2rem;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
 }
 
 .group-button[aria-selected="true"] {
@@ -497,7 +501,7 @@ ul {
 
 .download-cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.85rem;
 }
 
