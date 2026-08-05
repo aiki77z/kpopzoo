@@ -318,7 +318,7 @@ const apps = [
     docDownloadPath: "docs/ehp.pdf",
     docDownloadName: "enhypen-使用说明.pdf",
     releaseNotePath: "docs/ehp.md",
-    downloadHint: "下载入口即将开放",
+    downloadHint: "点击卡片直接下载",
     notes: [
       "Windows 用户优先选择 Setup 安装包。",
       "Windows 便携版适合不想安装的用户。",
@@ -329,12 +329,6 @@ const apps = [
       macArm: "ENHYPEN.Pets-1.1.2-arm64.dmg",
       macX64: "ENHYPEN.Pets-1.1.2-x64.dmg",
     },
-    unavailableText: {
-      windowsSetup: "即将开放",
-      windowsPortable: "即将开放",
-      macArm: "即将开放",
-      macX64: "即将开放",
-    },
     downloadOptions: [
       {
         key: "windowsSetup",
@@ -342,7 +336,6 @@ const apps = [
         hint: "推荐 Windows 10/11",
         meta: "安装包 .exe",
         filename: "ENHYPEN-Pets-win11-Setup-1.1.2.exe",
-        disabled: true,
       },
       {
         key: "windowsPortable",
@@ -350,7 +343,6 @@ const apps = [
         hint: "免安装版本",
         meta: "便携版 .exe",
         filename: "ENHYPEN-Pets-win11-1.1.2.exe",
-        disabled: true,
       },
       {
         key: "macArm",
@@ -358,7 +350,6 @@ const apps = [
         hint: "Apple Silicon / M 系列",
         meta: "磁盘映像 .dmg",
         filename: "ENHYPEN.Pets-1.1.2-arm64.dmg",
-        disabled: true,
       },
       {
         key: "macX64",
@@ -366,7 +357,6 @@ const apps = [
         hint: "Intel Mac",
         meta: "磁盘映像 .dmg",
         filename: "ENHYPEN.Pets-1.1.2-x64.dmg",
-        disabled: true,
       },
     ],
   },
