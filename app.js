@@ -305,6 +305,71 @@ const apps = [
       },
     ],
   },
+  {
+    id: "enhypen",
+    name: "ENHYPEN Pets",
+    group: "ENHYPEN",
+    version: "1.1.2",
+    tag: "enhypen-v1.1.2",
+    status: "Latest release",
+    summary:
+      "ENHYPEN 桌宠合集现已发布，包含 Windows 安装版、Windows 便携版，以及 macOS 双架构下载。",
+    docPath: "docs/ehp.md",
+    docDownloadPath: "docs/ehp.pdf",
+    docDownloadName: "enhypen-使用说明.pdf",
+    releaseNotePath: "docs/ehp.md",
+    downloadHint: "下载入口即将开放",
+    notes: [
+      "Windows 用户优先选择 Setup 安装包。",
+      "Windows 便携版适合不想安装的用户。",
+      "macOS arm64 适合 Apple Silicon；x64 适合 Intel Mac。",
+    ],
+    files: {
+      windows: "ENHYPEN-Pets-win11-Setup-1.1.2.exe",
+      macArm: "ENHYPEN.Pets-1.1.2-arm64.dmg",
+      macX64: "ENHYPEN.Pets-1.1.2-x64.dmg",
+    },
+    unavailableText: {
+      windowsSetup: "即将开放",
+      windowsPortable: "即将开放",
+      macArm: "即将开放",
+      macX64: "即将开放",
+    },
+    downloadOptions: [
+      {
+        key: "windowsSetup",
+        label: "Windows 安装版 v1.1.2",
+        hint: "推荐 Windows 10/11",
+        meta: "安装包 .exe",
+        filename: "ENHYPEN-Pets-win11-Setup-1.1.2.exe",
+        disabled: true,
+      },
+      {
+        key: "windowsPortable",
+        label: "Windows 便携版 v1.1.2",
+        hint: "免安装版本",
+        meta: "便携版 .exe",
+        filename: "ENHYPEN-Pets-win11-1.1.2.exe",
+        disabled: true,
+      },
+      {
+        key: "macArm",
+        label: "macOS ARM64 v1.1.2",
+        hint: "Apple Silicon / M 系列",
+        meta: "磁盘映像 .dmg",
+        filename: "ENHYPEN.Pets-1.1.2-arm64.dmg",
+        disabled: true,
+      },
+      {
+        key: "macX64",
+        label: "macOS x64 v1.1.2",
+        hint: "Intel Mac",
+        meta: "磁盘映像 .dmg",
+        filename: "ENHYPEN.Pets-1.1.2-x64.dmg",
+        disabled: true,
+      },
+    ],
+  },
 ];
 
 const platforms = [
@@ -529,6 +594,7 @@ function renderApp(app) {
         hint: option.hint,
         meta: option.meta,
         filename: option.filename,
+        disabled: option.disabled,
       }))
     : platforms.map((platform) => ({
         key: platform.key,
@@ -540,7 +606,7 @@ function renderApp(app) {
 
   downloadCards.innerHTML = cards
     .map((card) => {
-      const enabled = Boolean(app.tag && card.filename);
+      const enabled = Boolean(app.tag && card.filename && !card.disabled);
 
       if (!enabled) {
         return `
