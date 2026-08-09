@@ -318,13 +318,6 @@ const apps = [
     docDownloadPath: "docs/dream.pdf",
     docDownloadName: "dream-使用说明.pdf",
     releaseNotePath: "docs/dream.md",
-    downloadHint: "下载入口即将开放",
-    unavailableText: {
-      windowsSetup: "即将开放",
-      windowsPortable: "即将开放",
-      macArm: "即将开放",
-      macX64: "即将开放",
-    },
     notes: [
       "Windows 用户优先选择 Setup 安装包。",
       "Windows 便携版适合不想安装的用户。",
