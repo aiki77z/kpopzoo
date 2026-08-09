@@ -342,7 +342,6 @@ const apps = [
         hint: "推荐 Windows 10/11",
         meta: "安装包 .exe",
         filename: "DREAM-Pets-win11-Setup-1.1.0.exe",
-        disabled: true,
       },
       {
         key: "windowsPortable",
@@ -350,7 +349,6 @@ const apps = [
         hint: "免安装版本",
         meta: "便携版 .exe",
         filename: "DREAM-Pets-win11-1.1.0.exe",
-        disabled: true,
       },
       {
         key: "macArm",
@@ -358,7 +356,6 @@ const apps = [
         hint: "Apple Silicon / M 系列",
         meta: "磁盘映像 .dmg",
         filename: "DREAM.Pets-1.1.0-arm64.dmg",
-        disabled: true,
       },
       {
         key: "macX64",
@@ -366,7 +363,6 @@ const apps = [
         hint: "Intel Mac",
         meta: "磁盘映像 .dmg",
         filename: "DREAM.Pets-1.1.0-x64.dmg",
-        disabled: true,
       },
     ],
   },
