@@ -124,6 +124,22 @@ body[data-view="group"][data-group="twice"] {
   background-attachment: fixed;
 }
 
+body[data-view="group"][data-group="svt"] {
+  background:
+    radial-gradient(ellipse 80% 65% at 26% 22%, rgba(255, 219, 226, 0.78), transparent 58%),
+    radial-gradient(ellipse 76% 70% at 82% 68%, rgba(130, 160, 214, 0.7), transparent 62%),
+    linear-gradient(128deg, #f5c2c8 0%, #dec4db 44%, #91abd5 100%);
+  background-attachment: fixed;
+}
+
+body[data-view="group"][data-group="enhypen"] {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(204, 180, 255, 0.34), transparent 30%),
+    radial-gradient(circle at 84% 78%, rgba(150, 126, 226, 0.28), transparent 34%),
+    linear-gradient(135deg, #fbf8ff 0%, #eee7ff 46%, #d8cdfa 100%);
+  background-attachment: fixed;
+}
+
 body[data-view="group"][data-group="newjeans"]::before {
   position: fixed;
   inset: 0;
@@ -181,6 +197,26 @@ body[data-view="group"][data-group="twice"]::before {
   pointer-events: none;
 }
 
+body[data-view="group"][data-group="svt"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132' viewBox='0 0 132 132'%3E%3Ctext x='18' y='36' font-size='20' opacity='.42'%3E%F0%9F%92%8E%3C/text%3E%3Ctext x='80' y='92' font-size='17' opacity='.3' transform='rotate(-14 88 86)'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E") 0 0 / 132px 132px repeat;
+  content: "";
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+body[data-view="group"][data-group="enhypen"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Ctext x='24' y='44' font-size='26' opacity='.54'%3E%F0%9F%98%88%3C/text%3E%3Ctext x='92' y='110' font-size='20' opacity='.34' transform='rotate(-9 102 102)'%3E%F0%9F%98%88%3C/text%3E%3C/svg%3E") 0 0 / 150px 150px repeat;
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+}
+
 body[data-view="group"][data-group="newjeans"]::after {
   position: fixed;
   inset: 0;
@@ -201,7 +237,11 @@ body[data-view="group"][data-group="riize"] .app-root,
 body[data-view="group"][data-group="h2h"] .site-header,
 body[data-view="group"][data-group="h2h"] .app-root,
 body[data-view="group"][data-group="twice"] .site-header,
-body[data-view="group"][data-group="twice"] .app-root {
+body[data-view="group"][data-group="twice"] .app-root,
+body[data-view="group"][data-group="svt"] .site-header,
+body[data-view="group"][data-group="svt"] .app-root,
+body[data-view="group"][data-group="enhypen"] .site-header,
+body[data-view="group"][data-group="enhypen"] .app-root {
   position: relative;
   z-index: 1;
 }
@@ -668,7 +708,7 @@ body[data-view="home"] .splash-scene {
   aspect-ratio: 1;
   place-items: center;
   background: transparent;
-  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.14));
+  filter: drop-shadow(7px 7px 0 rgba(0, 0, 0, 0.14));
   transform: scale(var(--selector-scale)) rotate(var(--selector-rotation));
   animation: floatSoft 4.4s ease-in-out infinite;
   animation-delay: var(--selector-delay);
@@ -710,14 +750,18 @@ img.selector-logo-asset {
   z-index: 2;
   min-width: 62%;
   max-width: 92%;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--surface), white 24%);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
-  font-size: clamp(0.86rem, 1.5vw, 1.05rem);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: "Press Start 2P", "Silkscreen", "Pixelify Sans", "Courier New", var(--font-mono);
+  font-size: clamp(0.74rem, 1.35vw, 0.98rem);
   font-weight: 900;
-  padding: 0.5rem 0.7rem;
+  line-height: 1.18;
+  padding: 0.2rem 0.35rem;
   text-align: center;
+  text-shadow:
+    2px 2px 0 color-mix(in srgb, var(--surface), white 35%),
+    4px 4px 0 rgba(0, 0, 0, 0.16);
   transform: translateX(-50%) rotate(calc(var(--selector-rotation) * -0.45));
 }
 
@@ -743,6 +787,11 @@ img.selector-logo-asset {
   content: "";
   vertical-align: -0.05em;
   animation: cursorBlink 760ms steps(2, end) infinite;
+}
+
+.group-typed-title[data-typing="done"]::after,
+.group-select-title[data-typing="done"]::after {
+  animation: cursorBlinkOut 1520ms steps(2, end) forwards;
 }
 
 .detail-layout {
@@ -907,6 +956,86 @@ img.selector-logo-asset {
 
 .desktop-layer {
   z-index: 1;
+}
+
+.preview-fullscreen-toggle {
+  position: absolute;
+  top: clamp(0.55rem, 1.4vw, 0.9rem);
+  right: clamp(0.55rem, 1.4vw, 0.9rem);
+  z-index: 20;
+  display: grid;
+  width: clamp(2rem, 4vw, 2.55rem);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 8px;
+  background: rgba(20, 28, 34, 0.62);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  padding: 0;
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.preview-fullscreen-toggle:hover {
+  background: rgba(20, 28, 34, 0.78);
+  border-color: rgba(255, 255, 255, 0.82);
+  transform: translateY(-1px);
+}
+
+.preview-fullscreen-toggle span,
+.preview-fullscreen-toggle span::before {
+  display: block;
+  content: "";
+}
+
+.preview-fullscreen-toggle span {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1;
+}
+
+.device-screen:fullscreen,
+.device-screen.is-preview-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--screen-bg);
+}
+
+.device-screen:fullscreen .desktop-preview,
+.device-screen.is-preview-fullscreen .desktop-preview {
+  position: absolute;
+  inset: 0;
+}
+
+.device-screen:fullscreen .desktop-wallpaper,
+.device-screen.is-preview-fullscreen .desktop-wallpaper {
+  object-fit: cover;
+}
+
+.device-screen:fullscreen .pet-preview,
+.device-screen.is-preview-fullscreen .pet-preview {
+  --pet-scale: 1.65;
+}
+
+.device-screen:fullscreen .app-logo,
+.device-screen.is-preview-fullscreen .app-logo {
+  width: clamp(4.5rem, 7vw, 6.2rem);
+}
+
+.device-screen:fullscreen .preview-fullscreen-toggle,
+.device-screen.is-preview-fullscreen .preview-fullscreen-toggle {
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 3rem;
 }
 
 .desktop-decoration {
@@ -1448,6 +1577,21 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     opacity: 1;
   }
   49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursorBlinkOut {
+  0%,
+  24%,
+  50%,
+  74% {
+    opacity: 1;
+  }
+  25%,
+  49%,
+  75%,
   100% {
     opacity: 0;
   }

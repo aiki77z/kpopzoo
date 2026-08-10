@@ -1212,6 +1212,7 @@ function renderGroupDetail(app) {
   document.body.dataset.group = app.id;
   initGroupTypedTitle();
   initPetPreview(uiConfig);
+  initPreviewFullscreen();
 }
 
 function renderDevicePreview(app, uiConfig) {
@@ -1242,6 +1243,9 @@ function renderDesktopPreview(app, uiConfig) {
       <div class="desktop-layer">
         ${renderDesktopDecorations(desktop)}
         ${renderPetPreview(uiConfig)}
+        <button class="preview-fullscreen-toggle" type="button" data-preview-fullscreen aria-label="全屏预览">
+          <span aria-hidden="true">🔍</span>
+        </button>
         ${renderDesktopAppLogo(app, uiConfig)}
       </div>
     </div>
@@ -1587,6 +1591,45 @@ function initPetPreview(uiConfig) {
     });
     reaction.classList.remove("is-visible");
     topZ = 30;
+  });
+}
+
+function initPreviewFullscreen() {
+  const screen = appRoot.querySelector(".device-screen");
+  const toggle = appRoot.querySelector("[data-preview-fullscreen]");
+  if (!screen || !toggle) return;
+
+  const isFullscreen = () => document.fullscreenElement === screen || screen.classList.contains("is-preview-fullscreen");
+
+  const updateState = () => {
+    const active = isFullscreen();
+    screen.classList.toggle("is-preview-fullscreen", active && document.fullscreenElement !== screen);
+    toggle.classList.toggle("is-active", active);
+    toggle.setAttribute("aria-label", active ? "退出全屏预览" : "全屏预览");
+  };
+
+  toggle.addEventListener("click", async () => {
+    try {
+      if (document.fullscreenElement === screen) {
+        await document.exitFullscreen();
+      } else if (screen.requestFullscreen) {
+        await screen.requestFullscreen();
+      } else {
+        screen.classList.toggle("is-preview-fullscreen");
+      }
+    } catch (error) {
+      screen.classList.toggle("is-preview-fullscreen");
+    }
+
+    updateState();
+  });
+
+  document.addEventListener("fullscreenchange", updateState, { once: false });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && screen.classList.contains("is-preview-fullscreen")) {
+      screen.classList.remove("is-preview-fullscreen");
+      updateState();
+    }
   });
 }
 
