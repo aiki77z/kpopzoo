@@ -129,7 +129,7 @@ const apps = [
   {
     id: "bt21",
     name: "BT21 Pets",
-    group: "BT21",
+    group: "BTS",
     version: "1.0.0",
     tag: "bt21-v1.0.0",
     status: "Latest release",
@@ -205,7 +205,7 @@ const apps = [
   {
     id: "svt",
     name: "SVT Pets",
-    group: "SVT",
+    group: "SEVENTEEN",
     version: "1.0.2",
     tag: "svt-v1.0.2",
     status: "Latest release",
@@ -254,7 +254,7 @@ const apps = [
   {
     id: "wish",
     name: "WISH Pets",
-    group: "WISH",
+    group: "NCT WISH",
     version: "1.1.2",
     tag: "wish-v1.1.2",
     status: "Latest release",
@@ -308,7 +308,7 @@ const apps = [
   {
     id: "dream",
     name: "DREAM Pets",
-    group: "DREAM",
+    group: "NCT DREAM",
     version: "1.1.0",
     tag: "dream-v1.1.0",
     status: "Latest release",
@@ -425,11 +425,11 @@ const uiText = {
   usage: "使用说明 →",
   usageDownload: "下载使用说明",
   usageView: "阅览使用说明",
-  mailboxEyebrow: "投稿箱",
-  mailboxTitle: "想看哪个团？",
-  mailboxBody: "打开飞书表单提交团名、角色或其他建议，我会按呼声整理后续桌宠。",
-  mailboxAction: "去飞书投稿",
-  mailboxNote: "会在新页面打开表单，提交后建议集中保存",
+  mailboxEyebrow: "留言板",
+  mailboxTitle: "投稿，评论，建议……",
+  mailboxBody: "请点击此链接打开飞书共享表单留下所有想说的！",
+  mailboxAction: "去飞书",
+  mailboxNote: "会在新页面打开表单",
   downloadHint: "点击卡片直接下载",
   waitingRelease: "等待 release 附件",
   comingSoon: "即将发布",
@@ -457,7 +457,7 @@ const siteAssets = {
 const groupAppLogoSources = {
   newjeans: "assets/groups/newjeans/app-logo.ico",
   boynextdoor: "assets/groups/boynextdoor/app-logo.ico",
-  svt: "assets/groups/svt/app-logo.ico",
+  svt: "assets/groups/svt/app-logo.png",
   dream: "assets/groups/dream/app-logo.png",
   wish: "assets/groups/wish/app-logo.ico",
   enhypen: "assets/groups/enhypen/app-logo.png",
@@ -466,6 +466,95 @@ const groupAppLogoSources = {
   twice: "assets/groups/twice/app-logo.ico",
   txt: "assets/groups/txt/app-logo.ico",
   bt21: "assets/groups/bt21/app-logo.ico",
+};
+
+const groupPetCollections = {
+  boynextdoor: ["assets/groups/boynextdoor/pet/312.gif", "assets/groups/boynextdoor/pet/catbbi.gif", "assets/groups/boynextdoor/pet/dalring.gif", "assets/groups/boynextdoor/pet/hantatpung.gif", "assets/groups/boynextdoor/pet/myngmyng.gif", "assets/groups/boynextdoor/pet/woonbaby.gif"],
+  bt21: ["assets/groups/bt21/pet/chimmy.gif", "assets/groups/bt21/pet/cooky.gif", "assets/groups/bt21/pet/koya.gif", "assets/groups/bt21/pet/mang.gif", "assets/groups/bt21/pet/rj.gif", "assets/groups/bt21/pet/shooky.gif", "assets/groups/bt21/pet/tata.gif", "assets/groups/bt21/pet/van.gif"],
+  dream: ["assets/groups/dream/pet/boohoo.gif", "assets/groups/dream/pet/eihei.gif", "assets/groups/dream/pet/gumi.gif", "assets/groups/dream/pet/hengqiebeng.gif", "assets/groups/dream/pet/mengmeng.gif", "assets/groups/dream/pet/niangao.gif", "assets/groups/dream/pet/pinky.gif"],
+  enhypen: ["assets/groups/enhypen/pet/jakey.gif", "assets/groups/enhypen/pet/kishu.gif", "assets/groups/enhypen/pet/noxstar.gif", "assets/groups/enhypen/pet/pu-ni.gif", "assets/groups/enhypen/pet/snowe.gif", "assets/groups/enhypen/pet/wonchu.gif"],
+  h2h: ["assets/groups/h2h/pet/ana.gif", "assets/groups/h2h/pet/carmen.gif", "assets/groups/h2h/pet/fans.gif", "assets/groups/h2h/pet/ian.gif", "assets/groups/h2h/pet/jiwoo.gif", "assets/groups/h2h/pet/juun.gif", "assets/groups/h2h/pet/stella.gif", "assets/groups/h2h/pet/yeon.gif", "assets/groups/h2h/pet/yuha.gif"],
+  newjeans: ["assets/groups/newjeans/pet/daniel.gif", "assets/groups/newjeans/pet/haerin.gif", "assets/groups/newjeans/pet/hanni.gif", "assets/groups/newjeans/pet/hyein.gif", "assets/groups/newjeans/pet/minji.gif"],
+  riize: ["assets/groups/riize/pet/doolbyeong.gif", "assets/groups/riize/pet/meongryongie.gif", "assets/groups/riize/pet/rizuko.gif", "assets/groups/riize/pet/songyongdoli.gif", "assets/groups/riize/pet/tonangdeok.gif", "assets/groups/riize/pet/urakbam.gif"],
+  svt: ["assets/groups/svt/pet/bboogyuli.gif", "assets/groups/svt/pet/chandalee.gif", "assets/groups/svt/pet/cherry.gif", "assets/groups/svt/pet/doa.gif", "assets/groups/svt/pet/foxdungee.gif", "assets/groups/svt/pet/kimja.gif", "assets/groups/svt/pet/nonver.gif", "assets/groups/svt/pet/ocl.gif", "assets/groups/svt/pet/ppyopuli.gif", "assets/groups/svt/pet/shuasumi.gif", "assets/groups/svt/pet/tamtam.gif", "assets/groups/svt/pet/thepalee.gif", "assets/groups/svt/pet/toram.gif"],
+  twice: ["assets/groups/twice/pet/chaengvely.gif", "assets/groups/twice/pet/davely.gif", "assets/groups/twice/pet/jeongvely.gif", "assets/groups/twice/pet/jively.gif", "assets/groups/twice/pet/mively.gif", "assets/groups/twice/pet/movely.gif", "assets/groups/twice/pet/navely.gif", "assets/groups/twice/pet/savely.gif", "assets/groups/twice/pet/tsuvely.gif"],
+  txt: ["assets/groups/txt/pet/bamgeut.gif", "assets/groups/txt/pet/choiyongmeong.gif", "assets/groups/txt/pet/dagonyang.gif", "assets/groups/txt/pet/hhmnyaring.gif", "assets/groups/txt/pet/hwangchoon.gif"],
+  wish: ["assets/groups/wish/pet/jaehee.gif", "assets/groups/wish/pet/kuri.gif", "assets/groups/wish/pet/ryo.gif", "assets/groups/wish/pet/sakupang.gif", "assets/groups/wish/pet/sioning.gif", "assets/groups/wish/pet/yushi.gif"],
+};
+
+const groupWallpaperSources = {
+  newjeans: "source/njz3.jpg",
+  boynextdoor: "source/bnd1.jpg",
+  txt: "source/txt1.jpg",
+  twice: "source/twice1.jpg",
+  riize: "source/riize.jpg",
+  bt21: "source/bts.jpg",
+  h2h: "source/h2h.jpg",
+  svt: "source/svt.jpg",
+  wish: "source/wish.jpg",
+  dream: "source/dream.jpg",
+  enhypen: "source/ehp.jpg",
+};
+
+const groupPetPreviewLayouts = {
+  h2h: {
+    width: 58,
+    widthStep: 0,
+    positions: [
+      [8.5, 58],
+      [17.5, 59],
+      [26.5, 56],
+      [35, 55],
+      [44, 55],
+      [52.5, 54],
+      [61, 53],
+      [70, 55],
+      [79.5, 55],
+    ],
+    rotations: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  },
+  txt: {
+    width: 78,
+    widthStep: 0,
+    positions: [
+      [27, 71],
+      [36.5, 71],
+      [49, 71],
+      [60.5, 71],
+      [72.5, 71],
+    ],
+    rotations: [0, 0, 0, 0, 0],
+  },
+  twice: {
+    width: 70,
+    widthStep: 0,
+    positions: [
+      [8.5, 56],
+      [19.5, 51],
+      [30.5, 55],
+      [41.5, 54],
+      [52.5, 53],
+      [63.5, 54],
+      [74.5, 55],
+      [84.5, 57],
+      [92, 56],
+    ],
+    rotations: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  },
+};
+
+const groupTrackConfig = {
+  newjeans: { title: "Super Shy", artist: "NewJeans", src: null, cover: null },
+  boynextdoor: { title: "Earth, Wind & Fire", artist: "BOYNEXTDOOR", src: null, cover: null },
+  txt: { title: "Deja Vu", artist: "TXT", src: null, cover: null },
+  twice: { title: "Feel Special", artist: "TWICE", src: null, cover: null },
+  riize: { title: "Get A Guitar", artist: "RIIZE", src: null, cover: null },
+  bt21: { title: "BT21 Theme", artist: "BT21", src: null, cover: null },
+  h2h: { title: "The Chase", artist: "H2H", src: null, cover: null },
+  svt: { title: "God of Music", artist: "SEVENTEEN", src: null, cover: null },
+  wish: { title: "WISH", artist: "NCT WISH", src: null, cover: null },
+  dream: { title: "Smoothie", artist: "NCT DREAM", src: null, cover: null },
+  enhypen: { title: "XO", artist: "ENHYPEN", src: null, cover: null },
 };
 
 const homeCollage = [
@@ -529,74 +618,62 @@ const groupThemeSeeds = {
     device: "pixel-laptop",
     player: "cd",
     light: ["#f5fff8", "#fcfff9", "#c9e5d8", "#7aa7e8", "#1f2f38", "#f6fbff"],
-    dark: ["#111f24", "#182b30", "#5f9dbb", "#a9e8d0", "#eefcff", "#122228"],
   },
   boynextdoor: {
     device: "house-window",
     player: "vinyl",
     light: ["#fff8ec", "#fffdf7", "#f0d89b", "#e17c6c", "#2c2520", "#f7efe3"],
-    dark: ["#221916", "#31221c", "#e6b766", "#ff9b82", "#fff8ec", "#1c1512"],
   },
   txt: {
     device: "story-door",
     player: "minidisc",
     light: ["#f6f0ff", "#fffaff", "#d8c7ff", "#7e68c8", "#28213d", "#fbf8ff"],
-    dark: ["#181326", "#241d38", "#9181d9", "#cbbdff", "#f8f3ff", "#161122"],
   },
   twice: {
     device: "soft-laptop",
     player: "cd",
     light: ["#fff5f7", "#fffdf9", "#ffd2df", "#f181a6", "#332026", "#fff8fa"],
-    dark: ["#25171d", "#341f28", "#df7898", "#ffc0d0", "#fff5f8", "#201217"],
   },
   riize: {
     device: "media-machine",
     player: "vinyl",
     light: ["#f6f7f2", "#fffdf7", "#dad4bd", "#9b8a69", "#27251f", "#f4f1e8"],
-    dark: ["#191917", "#282821", "#908568", "#d9ca9f", "#fffbe8", "#151512"],
   },
   bt21: {
     device: "mini-homepage",
     player: "disc",
     light: ["#f8f9ff", "#ffffff", "#c8dbff", "#6489dc", "#20283a", "#f5f8ff"],
-    dark: ["#11182a", "#1c2740", "#668fd8", "#9fc0ff", "#f2f6ff", "#101624"],
   },
   h2h: {
     device: "clear-summer",
     player: "disc",
     light: ["#f7fff5", "#fffff7", "#d7ef9d", "#6fb77b", "#203025", "#fbfff4"],
-    dark: ["#101d16", "#1b2b21", "#83bd74", "#d7f39b", "#f8fff0", "#0f1a14"],
   },
   svt: {
     device: "archive-console",
     player: "minidisc",
     light: ["#f7f5ef", "#fffdf7", "#d8cec0", "#577d93", "#252728", "#f3f0e8"],
-    dark: ["#171819", "#24282a", "#6d94a7", "#aac8d4", "#f4f2ea", "#131516"],
   },
   wish: {
     device: "sky-notebook",
     player: "cd",
     light: ["#f3fbff", "#ffffff", "#bfe3ff", "#5e9ed5", "#1d2b38", "#f5fbff"],
-    dark: ["#111b25", "#1b2a38", "#639dca", "#a9d8ff", "#f1f9ff", "#101820"],
   },
   dream: {
     device: "translucent-windows",
     player: "disc",
     light: ["#f2fff9", "#ffffff", "#b7eadb", "#43a6a6", "#1d3132", "#f4fffb"],
-    dark: ["#0f2021", "#193234", "#46a9a6", "#95eee0", "#f0fffb", "#0e1b1d"],
   },
   enhypen: {
     device: "night-console",
     player: "vinyl",
     light: ["#f8f6ff", "#ffffff", "#d6d0f4", "#7768bd", "#27243a", "#faf8ff"],
-    dark: ["#151226", "#211d35", "#7d70c6", "#bfb5ff", "#f8f5ff", "#111020"],
   },
 };
 
 const groupUIConfig = apps.reduce((config, app, index) => {
   const seed = groupThemeSeeds[app.id] || groupThemeSeeds.newjeans;
   const [background, surface, shell, accent, text, screen] = seed.light;
-  const [darkBackground, darkSurface, darkShell, darkAccent, darkText, darkScreen] = seed.dark;
 
   config[app.id] = {
     selector: {
@@ -624,15 +701,6 @@ const groupUIConfig = apps.reduce((config, app, index) => {
         screen,
         card: "rgba(255, 255, 255, 0.72)",
       },
-      dark: {
-        background: darkBackground,
-        surface: darkSurface,
-        shell: darkShell,
-        accent: darkAccent,
-        text: darkText,
-        screen: darkScreen,
-        card: "rgba(28, 32, 38, 0.78)",
-      },
     },
     collage: [],
     device: {
@@ -644,28 +712,26 @@ const groupUIConfig = apps.reduce((config, app, index) => {
     },
     desktop: {
       variant: "configured",
-      wallpaper: null,
+      wallpaper: groupWallpaperSources[app.id] || null,
       overlayAssets: [],
-      decorations: [
-        { id: "note", type: "note", text: app.group, x: 10 + (index % 4) * 4, y: 14 + (index % 3) * 5 },
-        { id: "spark", type: "spark", text: "✦", x: 72 - (index % 5) * 3, y: 68 - (index % 3) * 6 },
-      ],
+      decorations: [],
       cursor: null,
     },
     petPreview: {
       idle: null,
+      items: buildPetPreviewItems(app.id),
       walking: null,
       click: null,
       fallback: "css-pet",
-      width: 80,
-      startX: 45,
+      width: 92,
+      startX: 47,
       startY: 58,
     },
     player: {
       variant: seed.player,
       cover: null,
     },
-    track: {
+    track: groupTrackConfig[app.id] || {
       title: "",
       artist: "",
       src: null,
@@ -675,9 +741,100 @@ const groupUIConfig = apps.reduce((config, app, index) => {
   return config;
 }, {});
 
+function buildPetPreviewItems(groupId) {
+  const sources = groupPetCollections[groupId] || [];
+  const layout = groupPetPreviewLayouts[groupId] || getPetPreviewLayout(sources.length);
+
+  return sources.map((src, index) => {
+    const [x, y] = layout.positions[index % layout.positions.length];
+    const name = src.split("/").pop().replace(/\.[^.]+$/, "");
+    return {
+      id: name,
+      src,
+      x,
+      y,
+      width: layout.width + (index % 2) * layout.widthStep,
+      rotation: layout.rotations[index % layout.rotations.length],
+    };
+  });
+}
+
+function getPetPreviewLayout(count) {
+  if (count >= 10) {
+    return {
+      width: count >= 12 ? 54 : 60,
+      widthStep: 4,
+      positions: [
+        [17, 35],
+        [34, 30],
+        [51, 35],
+        [68, 31],
+        [23, 52],
+        [40, 48],
+        [57, 53],
+        [74, 49],
+        [18, 70],
+        [35, 66],
+        [52, 72],
+        [69, 68],
+        [84, 78],
+      ],
+      rotations: [-7, 4, -2, 6, -4, 3, -6, 5, -1, 7, -5, 2, -3],
+    };
+  }
+
+  if (count >= 8) {
+    return {
+      width: 64,
+      widthStep: 5,
+      positions: [
+        [18, 37],
+        [38, 32],
+        [58, 39],
+        [24, 57],
+        [46, 54],
+        [68, 58],
+        [32, 75],
+        [54, 73],
+        [76, 76],
+      ],
+      rotations: [-7, 4, -2, 6, -4, 3, -6, 5, -1],
+    };
+  }
+
+  if (count >= 6) {
+    return {
+      width: 72,
+      widthStep: 6,
+      positions: [
+        [24, 40],
+        [47, 34],
+        [70, 43],
+        [30, 65],
+        [54, 62],
+        [76, 70],
+        [43, 78],
+      ],
+      rotations: [-7, 4, -2, 6, -4, 3, -6],
+    };
+  }
+
+  return {
+    width: 82,
+    widthStep: 7,
+    positions: [
+      [25, 47],
+      [47, 36],
+      [69, 48],
+      [36, 70],
+      [61, 68],
+    ],
+    rotations: [-7, 4, -2, 6, -4],
+  };
+}
+
 const appRoot = document.querySelector("#appRoot");
 const privacyButton = document.querySelector("#privacyButton");
-const colorModeToggle = document.querySelector("#colorModeToggle");
 const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
@@ -689,8 +846,7 @@ const usageDialogClose = document.querySelector("#usageDialogClose");
 
 const state = {
   currentApp: apps[0],
-  colorMode: getInitialColorMode(),
-  splashSeen: sessionStorage.getItem("kpopzoo:splashSeen") === "true",
+  colorMode: "light",
   audio: null,
   audioAppId: null,
 };
@@ -816,12 +972,6 @@ async function openUsageDialog() {
   }
 }
 
-function getInitialColorMode() {
-  const stored = localStorage.getItem("kpopzoo:colorMode");
-  if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
 function resolveAsset(assetConfig, fallback = null) {
   if (!assetConfig) return { src: null, fallback };
   if (typeof assetConfig === "string") return { src: assetConfig, fallback };
@@ -840,18 +990,15 @@ function assetHtml(assetConfig, className, fallback = "", alt = "") {
 }
 
 function applyColorMode(mode) {
-  state.colorMode = mode === "dark" ? "dark" : "light";
-  document.body.dataset.colorMode = state.colorMode;
-  localStorage.setItem("kpopzoo:colorMode", state.colorMode);
-  colorModeToggle?.setAttribute("aria-label", state.colorMode === "dark" ? "切换到日间模式" : "切换到夜间模式");
-  const icon = colorModeToggle?.querySelector("span");
-  if (icon) icon.textContent = state.colorMode === "dark" ? "☀" : "☾";
+  state.colorMode = "light";
+  document.body.dataset.colorMode = "light";
+  localStorage.removeItem("kpopzoo:colorMode");
   applyGroupTheme(state.currentApp?.id);
 }
 
 function applyGroupTheme(groupId) {
   const config = groupUIConfig[groupId] || groupUIConfig[apps[0].id];
-  const theme = config.theme[state.colorMode] || config.theme.light;
+  const theme = config.theme.light;
   const root = document.body.style;
   root.setProperty("--page-bg", theme.background);
   root.setProperty("--page-text", theme.text);
@@ -879,17 +1026,14 @@ function navigateTo(route, options = {}) {
 
 function showView(name, html) {
   appRoot.dataset.view = name;
+  document.body.dataset.view = name;
+  delete document.body.dataset.group;
   appRoot.innerHTML = html;
   bindViewEvents();
 }
 
 function handleRoute() {
   const route = window.location.hash || "#/home";
-
-  if (!state.splashSeen) {
-    renderSplash(route);
-    return;
-  }
 
   if (route === "#/home" || route === "#/" || route === "#") {
     state.currentApp = apps[0];
@@ -916,41 +1060,76 @@ function handleRoute() {
   navigateTo("#/home", { replace: true });
 }
 
-function renderSplash(targetRoute) {
-  showView(
-    "splash",
-    `
-      <section class="splash-view" aria-label="KPOPZOO opening">
-        <div class="splash-broccoli">${assetHtml(siteAssets.broccoli, "splash-broccoli-asset", siteAssets.broccoli.fallback, "")}</div>
-        <p>${escapeHtml(uiText.entering)}</p>
-      </section>
-    `,
-  );
-
-  window.setTimeout(() => {
-    state.splashSeen = true;
-    sessionStorage.setItem("kpopzoo:splashSeen", "true");
-    navigateTo(targetRoute || "#/home", { replace: true });
-  }, 2300);
-}
-
 function renderHome() {
   showView(
     "home",
-    `
-      <section class="home-view">
-        <div class="home-copy">
-          <h1><span>KPOP</span><span>ZOO</span></h1>
-          <button class="primary-action" type="button" data-route="#/groups">${escapeHtml(uiText.chooseGroup)}</button>
-        </div>
-        <div class="home-stage" aria-hidden="true">
-          <div class="home-broccoli">${assetHtml(siteAssets.broccoli, "home-broccoli-asset", siteAssets.broccoli.fallback, "")}</div>
-          <div class="home-collage">${renderHomeCollage()}</div>
-        </div>
-      </section>
-      ${renderMailbox()}
-    `,
+    renderIntroScene(),
   );
+}
+
+function renderIntroScene() {
+  return `
+    <section class="splash-view" aria-label="KPOPZOO opening">
+      <div class="splash-scene">
+        <div class="intro-ascii-computer" aria-hidden="true">
+          <pre class="intro-ascii-frame" data-intro-ascii-frame></pre>
+          <pre class="intro-ascii-kaomoji" data-intro-ascii-kaomoji></pre>
+        </div>
+        <div class="intro-copy" aria-label="Something has moved into your desktop.">
+          <p class="intro-line intro-line-01">something</p>
+          <p class="intro-line intro-line-02">has moved</p>
+          <p class="intro-line intro-line-03">into your desktop.</p>
+        </div>
+        <p class="intro-produced">produced by broccoli</p>
+        <div class="intro-actions">
+          <button class="intro-action" type="button" data-route="#/groups">ENTERING KPOPZOO →</button>
+          <a class="intro-action" href="https://petdex.dev/u/nf2q40sq">PETDEX →</a>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function getIntroAsciiComputer() {
+  return [
+    "                         .-,uod8BBbbuo,.",
+    "                  .-,uod8BBBBBBBBBBBBBBBBBRPFT?!::.",
+    "              ,=m8BBBBBBBBBBBBBBBBBBRPFT?|||||||||||||.",
+    "            !....:!TVBBBBRPFT||||||||||||!!^^\"\"'   ||||",
+    "            !......:!?|||||!!^^\"\"'                 ||||",
+    "            !........||||                         ||||",
+    "            !........||||                         ||||",
+    "            !........||||                         ||||",
+    "            !........||||                         ||||",
+    "            !........||||                         ||||",
+    "            !........||||                         ||||",
+    "            `........||||                       ,||||",
+    "              `;.....||||                  _-!!|||||",
+    "        .-,uodWBBBBb..||||          _-!!|||||||||!:'",
+    "   !YBBBBBBBBBBBBBBBBb.||||._-!!|||||||||!iof68BBBBb....",
+    "   !..YBBBBBBBBBBBBBBBBb||||||||||!iof68BBBBBBRPFT?!::  `.",
+    "   !....YBBBBBBBBBBBBBBBBbaaitf68BBBBBBRPFT?!:::::::::    `.",
+    "   !......YBBBBBBBBBBBBBBBBBBBRPFT?!::::::::;!^\"`;::::      `.",
+    "   !........YBBBBBBBBBBRPFT?!::::::::::::::::::::::::;        iBBbo.",
+    "   `..........YBRPFT?!::::::::::::::::::::::::;iof68bo.       WBBBbo.",
+    "     `...............:::::::::::::::::::::;iof6888888888b.     `YBBBP^'",
+    "       `............:::::::::::::::::;iof68888888888888888b.     `",
+    "         `........:::::::::::::;iof688888888888888888888888b.",
+    "           `.....::::::::;iof688888888888888888888888888899fT!",
+    "             `..::!888888888888888888888888888888899fT|!^\"'",
+    "                `' !!988888888888888888888888899fT|!^\"'",
+    "                    `!!888888888888888888899fT|!^\"'",
+    "                       `!988888888899fT|!^\"'",
+    "                          `!999fT|!^\"'",
+  ].join("\n");
+}
+
+function getIntroAsciiKaomoji() {
+  return [
+    "(\\_/)",
+    "( •.•)",
+    "c(\")(\")",
+  ].join("\n");
 }
 
 function renderHomeCollage() {
@@ -1008,7 +1187,7 @@ function renderGroupDetail(app) {
           <button class="text-link" type="button" data-route="#/groups">${escapeHtml(uiText.allGroups)}</button>
           <span class="version-pill">${escapeHtml(app.version === "Preparing" ? "Preparing" : `v${app.version}`)}</span>
         </div>
-        <h1>${escapeHtml(app.group)}</h1>
+        <h1 class="group-typed-title" data-group-typed-title="${escapeHtml(app.group)}" aria-label="${escapeHtml(app.group)}"></h1>
         <div class="detail-layout">
           <section class="preview-column" aria-label="${escapeHtml(app.group)} 桌面预览">
             ${renderDevicePreview(app, uiConfig)}
@@ -1025,8 +1204,9 @@ function renderGroupDetail(app) {
       </section>
     `,
   );
+  document.body.dataset.group = app.id;
+  initGroupTypedTitle();
   initPetPreview(uiConfig);
-  initMusicPlayer(app, uiConfig);
 }
 
 function renderDevicePreview(app, uiConfig) {
@@ -1039,7 +1219,7 @@ function renderDevicePreview(app, uiConfig) {
     <div class="device-shell ${escapeHtml(device.shellClass || "")}" data-device="${escapeHtml(device.variant)}" data-shell-mode="${hasShellAsset ? "image" : "css"}">
       ${hasShellAsset ? `<img class="device-shell-image" src="${escapeHtml(device.shellAsset)}" alt="">` : ""}
       <div class="device-decoration" aria-hidden="true"></div>
-      <div class="device-screen" style="${screenStyle}" role="button" tabindex="0" aria-label="${escapeHtml(uiText.petHint)}">
+      <div class="device-screen" style="${screenStyle}" role="region" aria-label="${escapeHtml(uiText.petHint)}">
         ${renderDesktopPreview(app, uiConfig)}
       </div>
       <div class="device-controls" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -1055,12 +1235,21 @@ function renderDesktopPreview(app, uiConfig) {
     <div class="desktop-preview" data-desktop="${escapeHtml(desktop.variant)}">
       ${wallpaper}
       <div class="desktop-layer">
-        ${renderMusicPlayer(uiConfig)}
         ${renderDesktopDecorations(desktop)}
         ${renderPetPreview(uiConfig)}
-        <div class="app-logo">${assetHtml(siteAssets.appLogo, "app-logo-asset", siteAssets.appLogo.fallbackText, "KPOPZOO")}</div>
+        ${renderDesktopAppLogo(app, uiConfig)}
       </div>
     </div>
+  `;
+}
+
+function renderDesktopAppLogo(app, uiConfig) {
+  const logo = uiConfig.selector?.appLogo || siteAssets.appLogo;
+  const fallback = logo.fallbackText || app.group;
+  return `
+    <button class="app-logo" type="button" data-reset-pets aria-label="恢复宠物初始位置">
+      ${assetHtml(logo, "app-logo-asset", fallback, app.group)}
+    </button>
   `;
 }
 
@@ -1078,29 +1267,37 @@ function renderDesktopDecorations(desktop) {
 
 function renderPetPreview(uiConfig) {
   const pet = uiConfig.petPreview;
-  const style = `--pet-x:${pet.startX}%;--pet-y:${pet.startY}%;--pet-width:${pet.width}px;`;
-  const imageSrc = pet.idle || pet.fallbackAsset;
+  const items = pet.items?.length
+    ? pet.items
+    : [
+        {
+          id: "fallback",
+          src: pet.idle || pet.fallbackAsset,
+          x: pet.startX,
+          y: pet.startY,
+          width: pet.width,
+          rotation: 0,
+        },
+      ];
 
   return `
-    <button class="pet-preview" type="button" style="${style}" aria-label="${escapeHtml(uiText.petHint)}">
-      ${
-        imageSrc
-          ? `<img src="${escapeHtml(imageSrc)}" alt="">`
-          : `<span class="css-pet" aria-hidden="true"><span></span></span>`
-      }
-    </button>
+    <div class="pet-playground" aria-label="${escapeHtml(uiText.petHint)}">
+      ${items
+        .map((item, index) => {
+          const style = `--pet-x:${item.x}%;--pet-y:${item.y}%;--pet-width:${item.width}px;--pet-rotation:${item.rotation || 0}deg;--pet-z:${10 + index};`;
+          return `
+            <button class="pet-preview" type="button" data-pet-id="${escapeHtml(item.id)}" style="${style}" aria-label="拖动 ${escapeHtml(item.id)}">
+              ${
+                item.src
+                  ? `<img src="${escapeHtml(item.src)}" alt="">`
+                  : `<span class="css-pet" aria-hidden="true"><span></span></span>`
+              }
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
     <span class="pet-reaction" aria-hidden="true"></span>
-  `;
-}
-
-function renderMusicPlayer(uiConfig) {
-  const player = uiConfig.player || {};
-  const track = uiConfig.track || {};
-  const cover = track.cover || player.cover;
-  return `
-    <button class="music-player" type="button" data-player="${escapeHtml(player.variant || "disc")}" aria-label="播放或暂停音乐" aria-pressed="false">
-      ${cover ? `<img src="${escapeHtml(cover)}" alt="">` : `<span class="disc-face" aria-hidden="true"></span>`}
-    </button>
   `;
 }
 
@@ -1231,80 +1428,159 @@ function bindViewEvents() {
   });
 
   appRoot.querySelector("[data-usage-view]")?.addEventListener("click", openUsageDialog);
+  initIntroAsciiBackground();
+}
+
+function initGroupTypedTitle() {
+  const title = appRoot.querySelector("[data-group-typed-title]");
+  if (!title) return;
+
+  const text = title.dataset.groupTypedTitle || "";
+  let index = 0;
+  title.textContent = "";
+  title.dataset.typing = "true";
+
+  const typeNext = () => {
+    if (!title.isConnected) return;
+    index = Math.min(text.length, index + 1);
+    title.textContent = text.slice(0, index);
+
+    if (index < text.length) {
+      window.setTimeout(typeNext, 58);
+      return;
+    }
+
+    title.dataset.typing = "done";
+  };
+
+  window.setTimeout(typeNext, 120);
+}
+
+function initIntroAsciiBackground() {
+  const frameTarget = appRoot.querySelector("[data-intro-ascii-frame]");
+  const kaomojiTarget = appRoot.querySelector("[data-intro-ascii-kaomoji]");
+  if (!frameTarget || !kaomojiTarget) return;
+
+  const frameSource = getIntroAsciiComputer();
+  const kaomojiSource = getIntroAsciiKaomoji();
+  const isMobile = window.matchMedia("(max-width: 760px)").matches;
+  const frameChunk = isMobile ? 12 : 20;
+  const kaomojiChunk = isMobile ? 1 : 2;
+
+  frameTarget.textContent = "";
+  kaomojiTarget.textContent = "";
+  frameTarget.dataset.typing = "true";
+  kaomojiTarget.dataset.typing = "waiting";
+
+  const typeText = (target, source, chunkSize, done) => {
+    let index = 0;
+
+    const typeNext = () => {
+      if (!target.isConnected) return;
+      index = Math.min(source.length, index + chunkSize);
+      target.textContent = source.slice(0, index);
+
+      if (index < source.length) {
+        window.setTimeout(typeNext, 18);
+        return;
+      }
+
+      target.dataset.typing = "done";
+      done?.();
+    };
+
+    typeNext();
+  };
+
+  window.setTimeout(() => {
+    typeText(frameTarget, frameSource, frameChunk, () => {
+      kaomojiTarget.dataset.typing = "true";
+      window.setTimeout(() => typeText(kaomojiTarget, kaomojiSource, kaomojiChunk), 180);
+    });
+  }, 260);
 }
 
 function initPetPreview(uiConfig) {
   const screen = appRoot.querySelector(".device-screen");
-  const pet = appRoot.querySelector(".pet-preview");
+  const pets = Array.from(appRoot.querySelectorAll(".pet-preview"));
   const reaction = appRoot.querySelector(".pet-reaction");
-  if (!screen || !pet || !reaction) return;
+  if (!screen || !pets.length || !reaction) return;
 
-  const movePet = (event) => {
-    if (event.target.closest(".pet-preview, .music-player, a, button:not(.device-screen)")) return;
+  let topZ = 30;
+  const initialItems = uiConfig.petPreview.items || [];
+
+  const placePet = (pet, clientX, clientY) => {
     const rect = screen.getBoundingClientRect();
-    const x = Math.max(8, Math.min(88, ((event.clientX - rect.left) / rect.width) * 100));
-    const y = Math.max(18, Math.min(84, ((event.clientY - rect.top) / rect.height) * 100));
+    const x = Math.max(8, Math.min(88, ((clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(18, Math.min(84, ((clientY - rect.top) / rect.height) * 100));
     pet.style.setProperty("--pet-x", `${x}%`);
     pet.style.setProperty("--pet-y", `${y}%`);
     reaction.style.left = `calc(${x}% + 3rem)`;
     reaction.style.top = `calc(${y}% - 3rem)`;
-    pet.classList.remove("is-bouncing");
-    requestAnimationFrame(() => pet.classList.add("is-bouncing"));
+    return { x, y };
   };
 
-  screen.addEventListener("click", movePet);
-  screen.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      const rect = screen.getBoundingClientRect();
-      movePet({ target: screen, clientX: rect.left + rect.width * 0.62, clientY: rect.top + rect.height * 0.56 });
-    }
-  });
+  pets.forEach((pet) => {
+    let dragging = false;
+    let moved = false;
 
-  pet.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const reactions = ["♡", "☆", "!", "…"];
-    reaction.textContent = reactions[Math.floor(Math.random() * reactions.length)];
-    reaction.classList.remove("is-visible");
-    pet.classList.remove("is-jumping");
-    requestAnimationFrame(() => {
-      pet.classList.add("is-jumping");
-      reaction.classList.add("is-visible");
+    pet.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      dragging = true;
+      moved = false;
+      pet.setPointerCapture(event.pointerId);
+      pet.classList.add("is-dragging");
+      pet.style.setProperty("--pet-z", `${topZ++}`);
+      placePet(pet, event.clientX, event.clientY);
+    });
+
+    pet.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      moved = true;
+      placePet(pet, event.clientX, event.clientY);
+    });
+
+    const stopDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      if (pet.hasPointerCapture?.(event.pointerId)) {
+        pet.releasePointerCapture(event.pointerId);
+      }
+      pet.classList.remove("is-dragging");
+
+      if (!moved) {
+        const reactions = ["♡", "☆", "!", "…"];
+        const rect = pet.getBoundingClientRect();
+        reaction.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+        reaction.style.left = `${rect.left - screen.getBoundingClientRect().left + rect.width * 0.75}px`;
+        reaction.style.top = `${rect.top - screen.getBoundingClientRect().top}px`;
+        reaction.classList.remove("is-visible");
+        pet.classList.remove("is-jumping");
+        requestAnimationFrame(() => {
+          pet.classList.add("is-jumping");
+          reaction.classList.add("is-visible");
+        });
+      }
+    };
+
+    pet.addEventListener("pointerup", stopDrag);
+    pet.addEventListener("pointercancel", stopDrag);
+    pet.addEventListener("animationend", () => {
+      pet.classList.remove("is-jumping");
     });
   });
 
-  pet.addEventListener("animationend", () => {
-    pet.classList.remove("is-bouncing", "is-jumping");
-  });
-}
-
-function initMusicPlayer(app, uiConfig) {
-  const button = appRoot.querySelector(".music-player");
-  if (!button) return;
-
-  button.addEventListener("click", () => {
-    const track = uiConfig.track;
-    const willPlay = button.getAttribute("aria-pressed") !== "true";
-    button.setAttribute("aria-pressed", String(willPlay));
-    button.classList.toggle("is-playing", willPlay);
-
-    if (!track?.src) return;
-
-    if (!state.audio || state.audioAppId !== app.id) {
-      state.audio?.pause();
-      state.audio = new Audio(track.src);
-      state.audio.loop = true;
-      state.audioAppId = app.id;
-    }
-
-    if (willPlay) {
-      state.audio.play().catch(() => {
-        button.setAttribute("aria-pressed", "false");
-        button.classList.remove("is-playing");
-      });
-    } else {
-      state.audio.pause();
-    }
+  appRoot.querySelector("[data-reset-pets]")?.addEventListener("click", () => {
+    pets.forEach((pet, index) => {
+      const item = initialItems[index];
+      if (!item) return;
+      pet.style.setProperty("--pet-x", `${item.x}%`);
+      pet.style.setProperty("--pet-y", `${item.y}%`);
+      pet.style.setProperty("--pet-z", `${10 + index}`);
+      pet.classList.remove("is-dragging", "is-jumping");
+    });
+    reaction.classList.remove("is-visible");
+    topZ = 30;
   });
 }
 
@@ -1326,10 +1602,6 @@ privacyButton.addEventListener("click", () => {
 
 document.querySelectorAll(".site-header [data-route]").forEach((control) => {
   control.addEventListener("click", () => navigateTo(control.dataset.route));
-});
-
-colorModeToggle.addEventListener("click", () => {
-  applyColorMode(state.colorMode === "dark" ? "light" : "dark");
 });
 
 dialogClose.addEventListener("click", () => {
