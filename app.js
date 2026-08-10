@@ -15,6 +15,9 @@
   };
 })();
 
+const transparentPixel =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
 const apps = [
   {
     id: "newjeans",
@@ -984,7 +987,7 @@ function resolveAsset(assetConfig, fallback = null) {
 function assetHtml(assetConfig, className, fallback = "", alt = "") {
   const asset = resolveAsset(assetConfig, fallback);
   if (asset.src) {
-    return `<img class="${className}" src="${escapeHtml(asset.src)}" alt="${escapeHtml(alt)}" loading="lazy">`;
+    return `<img class="${className}" src="${escapeHtml(asset.src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`;
   }
   return `<span class="${className} asset-fallback" aria-hidden="${alt ? "false" : "true"}">${escapeHtml(asset.fallback || fallback)}</span>`;
 }
@@ -1290,7 +1293,7 @@ function renderPetPreview(uiConfig) {
             <button class="pet-preview" type="button" data-pet-id="${escapeHtml(item.id)}" style="${style}" aria-label="拖动 ${escapeHtml(item.id)}">
               ${
                 item.src
-                  ? `<img src="${escapeHtml(item.src)}" alt="">`
+                  ? `<img src="${transparentPixel}" data-src="${escapeHtml(item.src)}" alt="" loading="lazy" decoding="async">`
                   : `<span class="css-pet" aria-hidden="true"><span></span></span>`
               }
             </button>
@@ -1506,6 +1509,7 @@ function initPetPreview(uiConfig) {
   const pets = Array.from(appRoot.querySelectorAll(".pet-preview"));
   const reaction = appRoot.querySelector(".pet-reaction");
   if (!screen || !pets.length || !reaction) return;
+  hydratePetImages();
 
   let topZ = 30;
   const initialItems = uiConfig.petPreview.items || [];
@@ -1582,6 +1586,22 @@ function initPetPreview(uiConfig) {
     });
     reaction.classList.remove("is-visible");
     topZ = 30;
+  });
+}
+
+function hydratePetImages() {
+  const images = Array.from(appRoot.querySelectorAll(".pet-preview img[data-src]"));
+  const schedule = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 1));
+
+  images.forEach((image, index) => {
+    window.setTimeout(() => {
+      if (!image.isConnected || !image.dataset.src) return;
+      schedule(() => {
+        if (!image.isConnected || !image.dataset.src) return;
+        image.src = image.dataset.src;
+        delete image.dataset.src;
+      });
+    }, index * 80);
   });
 }
 
