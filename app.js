@@ -416,37 +416,268 @@ const apps = [
   },
 ];
 
-const platforms = [
-  {
-    key: "windows",
-    label: "Windows Setup 版",
-    hint: "推荐 Windows 10/11",
-    meta: "安装包 .exe",
+const uiText = {
+  entering: "entering kpopzoo...",
+  chooseGroup: "选择团体 →",
+  allGroups: "← 全部团体",
+  groupSelectTitle: "PICK YOUR GROUP",
+  download: "下载",
+  usage: "使用说明 →",
+  usageDownload: "下载使用说明",
+  usageView: "阅览使用说明",
+  mailboxEyebrow: "投稿箱",
+  mailboxTitle: "想看哪个团？",
+  mailboxBody: "打开飞书表单提交团名、角色或其他建议，我会按呼声整理后续桌宠。",
+  mailboxAction: "去飞书投稿",
+  mailboxNote: "会在新页面打开表单，提交后建议集中保存",
+  downloadHint: "点击卡片直接下载",
+  waitingRelease: "等待 release 附件",
+  comingSoon: "即将发布",
+  materialTitle: "素材",
+  materialBody: "在 codex 中直接养要用的素材 spritesheet 图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
+  loadingUsage: "正在加载使用说明...",
+  petHint: "点击屏幕试试看",
+  windowsInstaller: "Windows 安装版",
+  windowsPortable: "Windows 便携版",
+  macAppleSilicon: "Mac M 系列芯片版",
+  macIntel: "Mac Intel 芯片版",
+};
+
+const siteAssets = {
+  broccoli: {
+    src: null,
+    fallback: "🥦",
   },
-  {
-    key: "macArm",
-    label: "macOS ARM64 版",
-    hint: "Apple Silicon / M 系列",
-    meta: "磁盘映像 .dmg",
+  appLogo: {
+    src: null,
+    fallbackText: "KZ",
   },
-  {
-    key: "macX64",
-    label: "macOS x64 版",
-    hint: "Intel Mac",
-    meta: "磁盘映像 .dmg",
-  },
+};
+
+const groupAppLogoSources = {
+  newjeans: "assets/groups/newjeans/app-logo.ico",
+  boynextdoor: "assets/groups/boynextdoor/app-logo.ico",
+  svt: "assets/groups/svt/app-logo.ico",
+  dream: "assets/groups/dream/app-logo.png",
+  wish: "assets/groups/wish/app-logo.ico",
+  enhypen: "assets/groups/enhypen/app-logo.png",
+  h2h: "assets/groups/h2h/app-logo.png",
+  riize: "assets/groups/riize/app-logo.ico",
+  twice: "assets/groups/twice/app-logo.ico",
+  txt: "assets/groups/txt/app-logo.ico",
+  bt21: "assets/groups/bt21/app-logo.ico",
+};
+
+const homeCollage = [
+  { id: "paper-01", type: "paper", className: "home-paper-01" },
+  { id: "paper-02", type: "paper", className: "home-paper-02" },
+  { id: "photo-01", type: "image", src: null, className: "home-photo-01", fallback: "KPOPZOO" },
+  { id: "tape-01", type: "tape", className: "home-tape-01" },
+  { id: "stamp-01", type: "stamp", className: "home-stamp-01", fallback: "desktop pets" },
 ];
 
-const groupButtons = document.querySelector("#groupButtons");
-const selectedStatus = document.querySelector("#selectedStatus");
-const selectedTitle = document.querySelector("#selectedTitle");
-const selectedVersion = document.querySelector("#selectedVersion");
-const selectedSummary = document.querySelector("#selectedSummary");
-const usageDownload = document.querySelector("#usageDownload");
-const usageView = document.querySelector("#usageView");
-const downloadCards = document.querySelector("#downloadCards");
-const downloadHint = document.querySelector("#downloadHint");
+const downloadPresentationMap = {
+  windows: {
+    type: "windowsInstaller",
+    label: uiText.windowsInstaller,
+    subLabel: ".exe",
+    badge: "推荐",
+  },
+  windowsSetup: {
+    type: "windowsInstaller",
+    label: uiText.windowsInstaller,
+    subLabel: ".exe",
+    badge: "推荐",
+  },
+  windowsAlt: {
+    type: "windowsInstaller",
+    label: uiText.windowsInstaller,
+    subLabel: ".exe",
+    badge: "备用",
+  },
+  windowsPortable: {
+    type: "windowsPortable",
+    label: uiText.windowsPortable,
+    subLabel: ".exe",
+    badge: "免安装",
+  },
+  macArm: {
+    type: "macArm",
+    label: uiText.macAppleSilicon,
+    subLabel: "Apple Silicon · .dmg",
+    badge: "M",
+  },
+  macX64: {
+    type: "macX64",
+    label: uiText.macIntel,
+    subLabel: "Intel · .dmg",
+    badge: "Intel",
+  },
+};
+
+const downloadIcons = {
+  windowsInstaller: { src: null, fallback: "WIN" },
+  windowsPortable: { src: null, fallback: "EXE" },
+  macArm: { src: null, fallback: "M" },
+  macX64: { src: null, fallback: "INT" },
+};
+
+const defaultDownloadKeys = ["windows", "windowsPortable", "macArm", "macX64"];
+
+const groupThemeSeeds = {
+  newjeans: {
+    device: "pixel-laptop",
+    player: "cd",
+    light: ["#f5fff8", "#fcfff9", "#c9e5d8", "#7aa7e8", "#1f2f38", "#f6fbff"],
+    dark: ["#111f24", "#182b30", "#5f9dbb", "#a9e8d0", "#eefcff", "#122228"],
+  },
+  boynextdoor: {
+    device: "house-window",
+    player: "vinyl",
+    light: ["#fff8ec", "#fffdf7", "#f0d89b", "#e17c6c", "#2c2520", "#f7efe3"],
+    dark: ["#221916", "#31221c", "#e6b766", "#ff9b82", "#fff8ec", "#1c1512"],
+  },
+  txt: {
+    device: "story-door",
+    player: "minidisc",
+    light: ["#f6f0ff", "#fffaff", "#d8c7ff", "#7e68c8", "#28213d", "#fbf8ff"],
+    dark: ["#181326", "#241d38", "#9181d9", "#cbbdff", "#f8f3ff", "#161122"],
+  },
+  twice: {
+    device: "soft-laptop",
+    player: "cd",
+    light: ["#fff5f7", "#fffdf9", "#ffd2df", "#f181a6", "#332026", "#fff8fa"],
+    dark: ["#25171d", "#341f28", "#df7898", "#ffc0d0", "#fff5f8", "#201217"],
+  },
+  riize: {
+    device: "media-machine",
+    player: "vinyl",
+    light: ["#f6f7f2", "#fffdf7", "#dad4bd", "#9b8a69", "#27251f", "#f4f1e8"],
+    dark: ["#191917", "#282821", "#908568", "#d9ca9f", "#fffbe8", "#151512"],
+  },
+  bt21: {
+    device: "mini-homepage",
+    player: "disc",
+    light: ["#f8f9ff", "#ffffff", "#c8dbff", "#6489dc", "#20283a", "#f5f8ff"],
+    dark: ["#11182a", "#1c2740", "#668fd8", "#9fc0ff", "#f2f6ff", "#101624"],
+  },
+  h2h: {
+    device: "clear-summer",
+    player: "disc",
+    light: ["#f7fff5", "#fffff7", "#d7ef9d", "#6fb77b", "#203025", "#fbfff4"],
+    dark: ["#101d16", "#1b2b21", "#83bd74", "#d7f39b", "#f8fff0", "#0f1a14"],
+  },
+  svt: {
+    device: "archive-console",
+    player: "minidisc",
+    light: ["#f7f5ef", "#fffdf7", "#d8cec0", "#577d93", "#252728", "#f3f0e8"],
+    dark: ["#171819", "#24282a", "#6d94a7", "#aac8d4", "#f4f2ea", "#131516"],
+  },
+  wish: {
+    device: "sky-notebook",
+    player: "cd",
+    light: ["#f3fbff", "#ffffff", "#bfe3ff", "#5e9ed5", "#1d2b38", "#f5fbff"],
+    dark: ["#111b25", "#1b2a38", "#639dca", "#a9d8ff", "#f1f9ff", "#101820"],
+  },
+  dream: {
+    device: "translucent-windows",
+    player: "disc",
+    light: ["#f2fff9", "#ffffff", "#b7eadb", "#43a6a6", "#1d3132", "#f4fffb"],
+    dark: ["#0f2021", "#193234", "#46a9a6", "#95eee0", "#f0fffb", "#0e1b1d"],
+  },
+  enhypen: {
+    device: "night-console",
+    player: "vinyl",
+    light: ["#f8f6ff", "#ffffff", "#d6d0f4", "#7768bd", "#27243a", "#faf8ff"],
+    dark: ["#151226", "#211d35", "#7d70c6", "#bfb5ff", "#f8f5ff", "#111020"],
+  },
+};
+
+const groupUIConfig = apps.reduce((config, app, index) => {
+  const seed = groupThemeSeeds[app.id] || groupThemeSeeds.newjeans;
+  const [background, surface, shell, accent, text, screen] = seed.light;
+  const [darkBackground, darkSurface, darkShell, darkAccent, darkText, darkScreen] = seed.dark;
+
+  config[app.id] = {
+    selector: {
+      broccoliSrc: null,
+      appLogo: {
+        src: groupAppLogoSources[app.id] || null,
+        fallbackText: app.group
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join("")
+          .slice(0, 4)
+          .toUpperCase(),
+      },
+      scale: 0.94 + (index % 4) * 0.04,
+      rotation: [-7, 4, -2, 8][index % 4],
+      floatDelay: index * 0.13,
+    },
+    theme: {
+      light: {
+        background,
+        surface,
+        shell,
+        accent,
+        text,
+        screen,
+        card: "rgba(255, 255, 255, 0.72)",
+      },
+      dark: {
+        background: darkBackground,
+        surface: darkSurface,
+        shell: darkShell,
+        accent: darkAccent,
+        text: darkText,
+        screen: darkScreen,
+        card: "rgba(28, 32, 38, 0.78)",
+      },
+    },
+    collage: [],
+    device: {
+      variant: seed.device,
+      shellAsset: null,
+      shellClass: `device-${app.id}`,
+      screenRect: { x: 13, y: 15, width: 74, height: 55 },
+      keyboard: !["house-window", "mini-homepage"].includes(seed.device),
+    },
+    desktop: {
+      variant: "configured",
+      wallpaper: null,
+      overlayAssets: [],
+      decorations: [
+        { id: "note", type: "note", text: app.group, x: 10 + (index % 4) * 4, y: 14 + (index % 3) * 5 },
+        { id: "spark", type: "spark", text: "✦", x: 72 - (index % 5) * 3, y: 68 - (index % 3) * 6 },
+      ],
+      cursor: null,
+    },
+    petPreview: {
+      idle: null,
+      walking: null,
+      click: null,
+      fallback: "css-pet",
+      width: 80,
+      startX: 45,
+      startY: 58,
+    },
+    player: {
+      variant: seed.player,
+      cover: null,
+    },
+    track: {
+      title: "",
+      artist: "",
+      src: null,
+      cover: null,
+    },
+  };
+  return config;
+}, {});
+
+const appRoot = document.querySelector("#appRoot");
 const privacyButton = document.querySelector("#privacyButton");
+const colorModeToggle = document.querySelector("#colorModeToggle");
 const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
@@ -455,7 +686,14 @@ const usageDialog = document.querySelector("#usageDialog");
 const usageDialogTitle = document.querySelector("#usageDialogTitle");
 const usageDialogBody = document.querySelector("#usageDialogBody");
 const usageDialogClose = document.querySelector("#usageDialogClose");
-let currentApp = apps[0];
+
+const state = {
+  currentApp: apps[0],
+  colorMode: getInitialColorMode(),
+  splashSeen: sessionStorage.getItem("kpopzoo:splashSeen") === "true",
+  audio: null,
+  audioAppId: null,
+};
 
 function releaseUrl(app, filename) {
   if (/^https?:\/\//i.test(filename)) {
@@ -465,52 +703,8 @@ function releaseUrl(app, filename) {
   return `https://github.com/${repository.owner}/${repository.repo}/releases/download/${app.tag}/${encodeURIComponent(filename)}`;
 }
 
-function renderButtons(activeId) {
-  groupButtons.innerHTML = apps
-    .map(
-      (app) => `
-        <button
-          class="group-button"
-          type="button"
-          data-app="${app.id}"
-          aria-selected="${app.id === activeId}"
-        >
-          <strong>${app.group}</strong>
-          <span>${app.status} · ${app.version}</span>
-        </button>
-      `,
-    )
-    .join("");
-}
-
-function updateUsageActions(app) {
-  const downloadPath = app.docDownloadPath || app.docPath;
-
-  if (!downloadPath) {
-    usageDownload.removeAttribute("href");
-    usageDownload.removeAttribute("download");
-    usageDownload.setAttribute("aria-disabled", "true");
-    usageDownload.setAttribute("aria-label", "暂无使用说明");
-  } else {
-    usageDownload.href = downloadPath;
-    usageDownload.download = app.docDownloadName || `${app.id}-使用说明.txt`;
-    usageDownload.removeAttribute("aria-disabled");
-    usageDownload.setAttribute("aria-label", `下载 ${app.group} 使用说明`);
-  }
-
-  if (!app.releaseNotePath) {
-    usageView.setAttribute("aria-disabled", "true");
-    usageView.disabled = true;
-    usageView.setAttribute("aria-label", "暂无使用说明");
-  } else {
-    usageView.removeAttribute("aria-disabled");
-    usageView.disabled = false;
-    usageView.setAttribute("aria-label", `阅览 ${app.group} 使用说明`);
-  }
-}
-
 function escapeHtml(value) {
-  return value
+  return String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -599,12 +793,12 @@ function renderMarkdown(markdown, basePath = "") {
 }
 
 async function openUsageDialog() {
-  const app = currentApp;
+  const app = state.currentApp;
 
   if (!app.releaseNotePath) return;
 
   usageDialogTitle.textContent = `${app.group} 使用说明`;
-  usageDialogBody.innerHTML = "<p>正在加载使用说明...</p>";
+  usageDialogBody.innerHTML = `<p>${uiText.loadingUsage}</p>`;
 
   if (typeof usageDialog.showModal === "function") {
     usageDialog.showModal();
@@ -622,75 +816,497 @@ async function openUsageDialog() {
   }
 }
 
-function renderApp(app) {
-  selectedStatus.textContent = app.status;
-  selectedTitle.textContent = app.name;
-  selectedVersion.textContent = app.version === "Preparing" ? "Preparing" : `v${app.version}`;
-  selectedSummary.textContent = app.summary;
-  downloadHint.textContent = app.downloadHint || (app.tag ? "点击卡片直接下载" : "等待 release 附件");
+function getInitialColorMode() {
+  const stored = localStorage.getItem("kpopzoo:colorMode");
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
-  updateUsageActions(app);
+function resolveAsset(assetConfig, fallback = null) {
+  if (!assetConfig) return { src: null, fallback };
+  if (typeof assetConfig === "string") return { src: assetConfig, fallback };
+  return {
+    src: assetConfig.src || null,
+    fallback: assetConfig.fallback || assetConfig.fallbackText || fallback,
+  };
+}
 
-  const cards = app.downloadOptions
-    ? app.downloadOptions.map((option) => ({
-        key: option.key,
-        label: option.label,
-        hint: option.hint,
-        meta: option.meta,
-        filename: option.filename,
-        disabled: option.disabled,
-      }))
-    : platforms.map((platform) => ({
-        key: platform.key,
-        label: platform.label,
-        hint: platform.hint,
-        meta: platform.meta,
-        filename: app.files[platform.key],
-      }));
+function assetHtml(assetConfig, className, fallback = "", alt = "") {
+  const asset = resolveAsset(assetConfig, fallback);
+  if (asset.src) {
+    return `<img class="${className}" src="${escapeHtml(asset.src)}" alt="${escapeHtml(alt)}" loading="lazy">`;
+  }
+  return `<span class="${className} asset-fallback" aria-hidden="${alt ? "false" : "true"}">${escapeHtml(asset.fallback || fallback)}</span>`;
+}
 
-  downloadCards.innerHTML = cards
-    .map((card) => {
-      const enabled = Boolean(app.tag && card.filename && !card.disabled);
+function applyColorMode(mode) {
+  state.colorMode = mode === "dark" ? "dark" : "light";
+  document.body.dataset.colorMode = state.colorMode;
+  localStorage.setItem("kpopzoo:colorMode", state.colorMode);
+  colorModeToggle?.setAttribute("aria-label", state.colorMode === "dark" ? "切换到日间模式" : "切换到夜间模式");
+  const icon = colorModeToggle?.querySelector("span");
+  if (icon) icon.textContent = state.colorMode === "dark" ? "☀" : "☾";
+  applyGroupTheme(state.currentApp?.id);
+}
 
-      if (!enabled) {
-        return `
-          <div class="download-card disabled" aria-disabled="true">
-            <div>
-              <strong>${card.label}</strong>
-              <small>${card.hint}</small>
-            </div>
-            <span>${app.unavailableText?.[card.key] || "即将发布"}</span>
-          </div>
-        `;
+function applyGroupTheme(groupId) {
+  const config = groupUIConfig[groupId] || groupUIConfig[apps[0].id];
+  const theme = config.theme[state.colorMode] || config.theme.light;
+  const root = document.body.style;
+  root.setProperty("--page-bg", theme.background);
+  root.setProperty("--page-text", theme.text);
+  root.setProperty("--surface", theme.surface);
+  root.setProperty("--device-shell", theme.shell);
+  root.setProperty("--screen-bg", theme.screen);
+  root.setProperty("--accent", theme.accent);
+  root.setProperty("--card-bg", theme.card);
+}
+
+function navigateTo(route, options = {}) {
+  if (options.replace) {
+    history.replaceState(null, "", route);
+    handleRoute();
+    return;
+  }
+
+  if (window.location.hash === route) {
+    handleRoute();
+    return;
+  }
+
+  window.location.hash = route;
+}
+
+function showView(name, html) {
+  appRoot.dataset.view = name;
+  appRoot.innerHTML = html;
+  bindViewEvents();
+}
+
+function handleRoute() {
+  const route = window.location.hash || "#/home";
+
+  if (!state.splashSeen) {
+    renderSplash(route);
+    return;
+  }
+
+  if (route === "#/home" || route === "#/" || route === "#") {
+    state.currentApp = apps[0];
+    applyGroupTheme(apps[0].id);
+    renderHome();
+    return;
+  }
+
+  if (route === "#/groups") {
+    applyGroupTheme(state.currentApp?.id || apps[0].id);
+    renderGroupSelector(apps);
+    return;
+  }
+
+  const groupMatch = route.match(/^#\/group\/([^/]+)$/);
+  if (groupMatch) {
+    const app = apps.find((item) => item.id === groupMatch[1]) || apps[0];
+    state.currentApp = app;
+    applyGroupTheme(app.id);
+    renderGroupDetail(app);
+    return;
+  }
+
+  navigateTo("#/home", { replace: true });
+}
+
+function renderSplash(targetRoute) {
+  showView(
+    "splash",
+    `
+      <section class="splash-view" aria-label="KPOPZOO opening">
+        <div class="splash-broccoli">${assetHtml(siteAssets.broccoli, "splash-broccoli-asset", siteAssets.broccoli.fallback, "")}</div>
+        <p>${escapeHtml(uiText.entering)}</p>
+      </section>
+    `,
+  );
+
+  window.setTimeout(() => {
+    state.splashSeen = true;
+    sessionStorage.setItem("kpopzoo:splashSeen", "true");
+    navigateTo(targetRoute || "#/home", { replace: true });
+  }, 2300);
+}
+
+function renderHome() {
+  showView(
+    "home",
+    `
+      <section class="home-view">
+        <div class="home-copy">
+          <h1><span>KPOP</span><span>ZOO</span></h1>
+          <button class="primary-action" type="button" data-route="#/groups">${escapeHtml(uiText.chooseGroup)}</button>
+        </div>
+        <div class="home-stage" aria-hidden="true">
+          <div class="home-broccoli">${assetHtml(siteAssets.broccoli, "home-broccoli-asset", siteAssets.broccoli.fallback, "")}</div>
+          <div class="home-collage">${renderHomeCollage()}</div>
+        </div>
+      </section>
+      ${renderMailbox()}
+    `,
+  );
+}
+
+function renderHomeCollage() {
+  return homeCollage
+    .map((item) => {
+      const classes = `collage-item ${item.type} ${item.className || ""}`;
+      if (item.src) {
+        return `<img class="${classes}" src="${escapeHtml(item.src)}" alt="" loading="lazy">`;
       }
-
-      return `
-        <a class="download-card" href="${releaseUrl(app, card.filename)}" download>
-          <div>
-            <strong>${card.label}</strong>
-            <small>${card.hint}</small>
-          </div>
-          <span>${card.meta}</span>
-        </a>
-      `;
+      return `<span class="${classes}">${escapeHtml(item.fallback || "")}</span>`;
     })
     .join("");
 }
 
-function selectApp(appId) {
-  const app = apps.find((item) => item.id === appId) || apps[0];
-  currentApp = app;
-  renderButtons(app.id);
-  renderApp(app);
+function renderGroupSelector(groupApps) {
+  showView(
+    "groups",
+    `
+      <section class="group-select-view">
+        <div class="view-topline">
+          <button class="text-link" type="button" data-route="#/home">← KPOPZOO</button>
+        </div>
+        <h1>${escapeHtml(uiText.groupSelectTitle)}</h1>
+        <div class="selector-grid" aria-label="团体列表">
+          ${groupApps.map(renderGroupSelectorItem).join("")}
+        </div>
+      </section>
+      ${renderMailbox()}
+    `,
+  );
 }
 
-groupButtons.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-app]");
-  if (!button) return;
-  selectApp(button.dataset.app);
-});
+function renderGroupSelectorItem(app) {
+  const config = groupUIConfig[app.id] || groupUIConfig[apps[0].id];
+  const selector = config.selector;
+  const style = `--selector-scale:${selector.scale};--selector-rotation:${selector.rotation}deg;--selector-delay:${selector.floatDelay}s;`;
+  const logo = selector.appLogo || siteAssets.appLogo;
+  const fallback = selector.appLogo?.fallbackText || app.group;
 
-selectApp(apps[0].id);
+  return `
+    <button class="selector-card" type="button" data-group="${escapeHtml(app.id)}" style="${style}" aria-label="打开 ${escapeHtml(app.group)}">
+      <span class="selector-logo">${assetHtml(logo, "selector-logo-asset", fallback, app.group)}</span>
+      <span class="selector-label">${escapeHtml(app.group)}</span>
+    </button>
+  `;
+}
+
+function renderGroupDetail(app) {
+  const uiConfig = groupUIConfig[app.id] || groupUIConfig[apps[0].id];
+  showView(
+    "group",
+    `
+      <section class="group-detail-view">
+        <div class="view-topline">
+          <button class="text-link" type="button" data-route="#/groups">${escapeHtml(uiText.allGroups)}</button>
+          <span class="version-pill">${escapeHtml(app.version === "Preparing" ? "Preparing" : `v${app.version}`)}</span>
+        </div>
+        <h1>${escapeHtml(app.group)}</h1>
+        <div class="detail-layout">
+          <section class="preview-column" aria-label="${escapeHtml(app.group)} 桌面预览">
+            ${renderDevicePreview(app, uiConfig)}
+          </section>
+          <aside class="download-panel" aria-labelledby="download-title">
+            <div class="download-title-row">
+              <h2 id="download-title">${escapeHtml(uiText.download)}</h2>
+              ${renderUsageActions(app)}
+            </div>
+            <p class="download-hint">${escapeHtml(app.downloadHint || (app.tag ? uiText.downloadHint : uiText.waitingRelease))}</p>
+            ${renderDownloadOptions(app)}
+          </aside>
+        </div>
+      </section>
+    `,
+  );
+  initPetPreview(uiConfig);
+  initMusicPlayer(app, uiConfig);
+}
+
+function renderDevicePreview(app, uiConfig) {
+  const device = uiConfig.device;
+  const hasShellAsset = Boolean(device.shellAsset);
+  const rect = device.screenRect || { x: 13, y: 15, width: 74, height: 55 };
+  const screenStyle = `--screen-x:${rect.x}%;--screen-y:${rect.y}%;--screen-w:${rect.width}%;--screen-h:${rect.height}%;`;
+
+  return `
+    <div class="device-shell ${escapeHtml(device.shellClass || "")}" data-device="${escapeHtml(device.variant)}" data-shell-mode="${hasShellAsset ? "image" : "css"}">
+      ${hasShellAsset ? `<img class="device-shell-image" src="${escapeHtml(device.shellAsset)}" alt="">` : ""}
+      <div class="device-decoration" aria-hidden="true"></div>
+      <div class="device-screen" style="${screenStyle}" role="button" tabindex="0" aria-label="${escapeHtml(uiText.petHint)}">
+        ${renderDesktopPreview(app, uiConfig)}
+      </div>
+      <div class="device-controls" aria-hidden="true"><span></span><span></span><span></span></div>
+      ${device.keyboard ? `<div class="device-keyboard" aria-hidden="true">${Array.from({ length: 24 }, () => "<span></span>").join("")}</div>` : ""}
+    </div>
+  `;
+}
+
+function renderDesktopPreview(app, uiConfig) {
+  const desktop = uiConfig.desktop;
+  const wallpaper = desktop.wallpaper ? `<img class="desktop-wallpaper" src="${escapeHtml(desktop.wallpaper)}" alt="">` : "";
+  return `
+    <div class="desktop-preview" data-desktop="${escapeHtml(desktop.variant)}">
+      ${wallpaper}
+      <div class="desktop-layer">
+        ${renderMusicPlayer(uiConfig)}
+        ${renderDesktopDecorations(desktop)}
+        ${renderPetPreview(uiConfig)}
+        <div class="app-logo">${assetHtml(siteAssets.appLogo, "app-logo-asset", siteAssets.appLogo.fallbackText, "KPOPZOO")}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderDesktopDecorations(desktop) {
+  return (desktop.decorations || [])
+    .map(
+      (item) => `
+        <span class="desktop-decoration ${escapeHtml(item.type)}" style="left:${Number(item.x) || 0}%;top:${Number(item.y) || 0}%;">
+          ${escapeHtml(item.text || "")}
+        </span>
+      `,
+    )
+    .join("");
+}
+
+function renderPetPreview(uiConfig) {
+  const pet = uiConfig.petPreview;
+  const style = `--pet-x:${pet.startX}%;--pet-y:${pet.startY}%;--pet-width:${pet.width}px;`;
+  const imageSrc = pet.idle || pet.fallbackAsset;
+
+  return `
+    <button class="pet-preview" type="button" style="${style}" aria-label="${escapeHtml(uiText.petHint)}">
+      ${
+        imageSrc
+          ? `<img src="${escapeHtml(imageSrc)}" alt="">`
+          : `<span class="css-pet" aria-hidden="true"><span></span></span>`
+      }
+    </button>
+    <span class="pet-reaction" aria-hidden="true"></span>
+  `;
+}
+
+function renderMusicPlayer(uiConfig) {
+  const player = uiConfig.player || {};
+  const track = uiConfig.track || {};
+  const cover = track.cover || player.cover;
+  return `
+    <button class="music-player" type="button" data-player="${escapeHtml(player.variant || "disc")}" aria-label="播放或暂停音乐" aria-pressed="false">
+      ${cover ? `<img src="${escapeHtml(cover)}" alt="">` : `<span class="disc-face" aria-hidden="true"></span>`}
+    </button>
+  `;
+}
+
+function renderUsageActions(app) {
+  const downloadPath = app.docDownloadPath || app.docPath;
+  const downloadAction = downloadPath
+    ? `<a class="usage-link" href="${escapeHtml(downloadPath)}" download="${escapeHtml(app.docDownloadName || `${app.id}-使用说明.txt`)}" aria-label="下载 ${escapeHtml(app.group)} 使用说明">${escapeHtml(uiText.usageDownload)}</a>`
+    : "";
+  const viewAction = app.releaseNotePath
+    ? `<button class="usage-link" type="button" data-usage-view aria-label="阅览 ${escapeHtml(app.group)} 使用说明">${escapeHtml(uiText.usage)}</button>`
+    : "";
+  return `<div class="usage-actions">${downloadAction}${viewAction}</div>`;
+}
+
+function getDownloadCards(app) {
+  if (app.downloadOptions) {
+    return app.downloadOptions.map((option, index) => {
+      const key = inferDownloadKey(option, index);
+      return {
+        key,
+        filename: option.filename,
+        disabled: option.disabled,
+        legacyLabel: option.label,
+        hint: option.hint,
+        meta: option.meta,
+      };
+    });
+  }
+
+  return defaultDownloadKeys.map((key) => ({
+    key,
+    filename: key === "windowsPortable" ? app.files?.windowsPortable : app.files?.[key],
+  }));
+}
+
+function inferDownloadKey(option, index) {
+  if (option.key) return option.key;
+  const label = `${option.label || ""} ${option.filename || ""}`.toLowerCase();
+  if (label.includes("portable") || label.includes("便携")) return "windowsPortable";
+  if (label.includes("arm64") || label.includes("apple") || label.includes("m 系列")) return "macArm";
+  if (label.includes("x64") || label.includes("intel")) return "macX64";
+  if (index === 1 && label.includes("windows")) return "windowsAlt";
+  return "windows";
+}
+
+function renderDownloadOptions(app) {
+  const cards = getDownloadCards(app);
+  return `
+    <div class="download-cards">
+      ${cards.map((card) => renderDownloadCard(app, card)).join("")}
+    </div>
+  `;
+}
+
+function renderDownloadCard(app, card) {
+  const presentation = downloadPresentationMap[card.key] || downloadPresentationMap.windows;
+  const icon = downloadIcons[presentation.type] || downloadIcons.windowsInstaller;
+  const enabled = Boolean(app.tag && card.filename && !card.disabled);
+  const label = presentation.label;
+  const detail = getDownloadDetail(card, presentation);
+  const iconHtml = icon.src
+    ? `<img src="${escapeHtml(icon.src)}" alt="">`
+    : `<span aria-hidden="true">${escapeHtml(icon.fallback)}</span>`;
+
+  const content = `
+    <span class="download-icon">${iconHtml}</span>
+    <span class="download-copy">
+      <strong>${escapeHtml(label)}</strong>
+      <small>${escapeHtml(presentation.subLabel)}</small>
+      ${detail ? `<em>${escapeHtml(detail)}</em>` : ""}
+    </span>
+    <span class="download-badge">${escapeHtml(presentation.badge || "")}</span>
+  `;
+
+  if (!enabled) {
+    return `<div class="download-card disabled" aria-disabled="true">${content}<span class="download-unavailable">${escapeHtml(app.unavailableText?.[card.key] || uiText.comingSoon)}</span></div>`;
+  }
+
+  return `<a class="download-card" href="${escapeHtml(releaseUrl(app, card.filename))}" download>${content}</a>`;
+}
+
+function getDownloadDetail(card, presentation) {
+  if (card.key === "windows" || card.key === "windowsSetup" || card.key === "windowsAlt") {
+    return ".exe";
+  }
+
+  if (card.key === "windowsPortable") {
+    return "免安装 · .exe";
+  }
+
+  if (card.key === "macArm") {
+    return "Apple Silicon · .dmg";
+  }
+
+  if (card.key === "macX64") {
+    return "Intel · .dmg";
+  }
+
+  return card.meta || card.hint || presentation.subLabel;
+}
+
+function renderMailbox() {
+  return `
+    <section class="mailbox-section" aria-labelledby="mailbox-title">
+      <div class="mailbox-icon" aria-hidden="true">✉</div>
+      <div class="mailbox-copy">
+        <p class="eyebrow">${escapeHtml(uiText.mailboxEyebrow)}</p>
+        <h2 id="mailbox-title">${escapeHtml(uiText.mailboxTitle)}</h2>
+        <p>${escapeHtml(uiText.mailboxBody)}</p>
+      </div>
+      <div class="mailbox-actions">
+        <a class="mailbox-primary" href="https://gcncng3okwer.feishu.cn/wiki/Je24wMjm4irpsskyOoGcI7ftnJb?from=from_copylink" target="_blank" rel="noopener noreferrer">
+          ${escapeHtml(uiText.mailboxAction)}
+        </a>
+        <p class="mailbox-note">${escapeHtml(uiText.mailboxNote)}</p>
+      </div>
+    </section>
+  `;
+}
+
+function bindViewEvents() {
+  appRoot.querySelectorAll("[data-route]").forEach((control) => {
+    control.addEventListener("click", () => navigateTo(control.dataset.route));
+  });
+
+  appRoot.querySelectorAll("[data-group]").forEach((control) => {
+    control.addEventListener("click", () => navigateTo(`#/group/${control.dataset.group}`));
+  });
+
+  appRoot.querySelector("[data-usage-view]")?.addEventListener("click", openUsageDialog);
+}
+
+function initPetPreview(uiConfig) {
+  const screen = appRoot.querySelector(".device-screen");
+  const pet = appRoot.querySelector(".pet-preview");
+  const reaction = appRoot.querySelector(".pet-reaction");
+  if (!screen || !pet || !reaction) return;
+
+  const movePet = (event) => {
+    if (event.target.closest(".pet-preview, .music-player, a, button:not(.device-screen)")) return;
+    const rect = screen.getBoundingClientRect();
+    const x = Math.max(8, Math.min(88, ((event.clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(18, Math.min(84, ((event.clientY - rect.top) / rect.height) * 100));
+    pet.style.setProperty("--pet-x", `${x}%`);
+    pet.style.setProperty("--pet-y", `${y}%`);
+    reaction.style.left = `calc(${x}% + 3rem)`;
+    reaction.style.top = `calc(${y}% - 3rem)`;
+    pet.classList.remove("is-bouncing");
+    requestAnimationFrame(() => pet.classList.add("is-bouncing"));
+  };
+
+  screen.addEventListener("click", movePet);
+  screen.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      const rect = screen.getBoundingClientRect();
+      movePet({ target: screen, clientX: rect.left + rect.width * 0.62, clientY: rect.top + rect.height * 0.56 });
+    }
+  });
+
+  pet.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const reactions = ["♡", "☆", "!", "…"];
+    reaction.textContent = reactions[Math.floor(Math.random() * reactions.length)];
+    reaction.classList.remove("is-visible");
+    pet.classList.remove("is-jumping");
+    requestAnimationFrame(() => {
+      pet.classList.add("is-jumping");
+      reaction.classList.add("is-visible");
+    });
+  });
+
+  pet.addEventListener("animationend", () => {
+    pet.classList.remove("is-bouncing", "is-jumping");
+  });
+}
+
+function initMusicPlayer(app, uiConfig) {
+  const button = appRoot.querySelector(".music-player");
+  if (!button) return;
+
+  button.addEventListener("click", () => {
+    const track = uiConfig.track;
+    const willPlay = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", String(willPlay));
+    button.classList.toggle("is-playing", willPlay);
+
+    if (!track?.src) return;
+
+    if (!state.audio || state.audioAppId !== app.id) {
+      state.audio?.pause();
+      state.audio = new Audio(track.src);
+      state.audio.loop = true;
+      state.audioAppId = app.id;
+    }
+
+    if (willPlay) {
+      state.audio.play().catch(() => {
+        button.setAttribute("aria-pressed", "false");
+        button.classList.remove("is-playing");
+      });
+    } else {
+      state.audio.pause();
+    }
+  });
+}
 
 function openMessageDialog(title, body) {
   dialogTitle.textContent = title;
@@ -705,18 +1321,20 @@ function openMessageDialog(title, body) {
 }
 
 privacyButton.addEventListener("click", () => {
-  openMessageDialog(
-    "素材",
-    "在 codex 中直接养要用的素材 spritesheet 图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
-  );
+  openMessageDialog(uiText.materialTitle, uiText.materialBody);
 });
 
+document.querySelectorAll(".site-header [data-route]").forEach((control) => {
+  control.addEventListener("click", () => navigateTo(control.dataset.route));
+});
+
+colorModeToggle.addEventListener("click", () => {
+  applyColorMode(state.colorMode === "dark" ? "light" : "dark");
+});
 
 dialogClose.addEventListener("click", () => {
   messageDialog.close();
 });
-
-usageView.addEventListener("click", openUsageDialog);
 
 messageDialog.addEventListener("click", (event) => {
   if (event.target === messageDialog) {
@@ -734,3 +1352,6 @@ usageDialog.addEventListener("click", (event) => {
   }
 });
 
+window.addEventListener("hashchange", handleRoute);
+applyColorMode(state.colorMode);
+handleRoute();

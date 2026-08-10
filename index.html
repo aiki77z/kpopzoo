@@ -8,109 +8,28 @@
       name="description"
       content="KPOPZOO 桌宠合集下载页，集中下载 Windows 与 macOS 版本。"
     >
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top" aria-label="KPOPZOO 首页">
-        <span class="brand-mark">🥦</span>
+      <a class="brand" href="#/home" aria-label="KPOPZOO 首页">
+        <span class="brand-mark" data-site-broccoli aria-hidden="true">🥦</span>
         <span>
           <strong>KPOPZOO</strong>
           <small>Desktop Pets</small>
         </span>
       </a>
       <nav class="top-nav" aria-label="页面导航">
+        <button class="nav-button" type="button" data-route="#/groups">全部团体</button>
+        <button class="icon-button" type="button" id="colorModeToggle" aria-label="切换日夜模式">
+          <span aria-hidden="true">☾</span>
+        </button>
         <button class="nav-button" type="button" id="privacyButton">素材</button>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="layout">
-        <aside class="group-list" aria-label="团体列表">
-          <div id="groupButtons" class="group-buttons"></div>
-        </aside>
-
-        <article class="release-detail" aria-live="polite">
-          <div class="release-heading">
-            <div>
-              <p class="eyebrow" id="selectedStatus">Latest release</p>
-              <h2 id="selectedTitle"></h2>
-            </div>
-            <span class="version-pill" id="selectedVersion"></span>
-          </div>
-
-          <p class="release-summary" id="selectedSummary"></p>
-
-          <div class="notes-grid" id="guide">
-            <section class="usage-card">
-              <div class="usage-title-row">
-                <h3>使用说明</h3>
-                <div class="usage-actions" aria-label="使用说明操作">
-                  <a
-                    class="usage-action"
-                    id="usageDownload"
-                    href="#"
-                    download
-                    data-tooltip="下载使用说明"
-                    aria-label="下载使用说明"
-                  >
-                    ⬇️
-                  </a>
-                  <button
-                    class="usage-action"
-                    id="usageView"
-                    type="button"
-                    data-tooltip="阅览使用说明"
-                    aria-label="阅览使用说明"
-                  >
-                    👀
-                  </button>
-                </div>
-              </div>
-              <ul>
-                <li>气泡框的台词可以修改当做桌面备忘录！</li>
-                <li>安装和使用过程中如有问题，欢迎随时询问及建议，或在投稿处共享文档中留言。</li>
-              </ul>
-            </section>
-            <section>
-              <h3>安装提示</h3>
-              <ul>
-                <li>Windows 推荐下载 Setup 版，双击安装后从开始菜单启动。</li>
-                <li>macOS 首次打开如提示安全限制，请在系统设置中允许打开。</li>
-                <li>Apple Silicon 选择 arm64，Intel 芯片选择 x64。</li>
-              </ul>
-            </section>
-          </div>
-
-          <section class="downloads" aria-labelledby="download-title">
-            <div class="download-title-row">
-              <h3 id="download-title">下载</h3>
-              <span id="downloadHint"></span>
-            </div>
-            <div id="downloadCards" class="download-cards"></div>
-          </section>
-        </article>
-      </section>
-
-      <section class="mailbox-section" aria-labelledby="mailbox-title">
-        <div class="mailbox-icon" aria-hidden="true">✉</div>
-        <div class="mailbox-copy">
-          <p class="eyebrow">投稿箱</p>
-          <h2 id="mailbox-title">想看哪个团？</h2>
-          <p>打开飞书表单提交团名、角色或其他建议，我会按呼声整理后续桌宠。</p>
-        </div>
-        <div class="mailbox-actions">
-          <a
-            class="mailbox-primary"
-            href="https://gcncng3okwer.feishu.cn/wiki/Je24wMjm4irpsskyOoGcI7ftnJb?from=from_copylink"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            去飞书投稿
-          </a>
-          <p class="mailbox-note">会在新页面打开表单，提交后建议集中保存</p>
-        </div>
-      </section>
+    <main id="appRoot" class="app-root" aria-live="polite">
     </main>
 
     <dialog class="message-dialog" id="messageDialog" aria-labelledby="dialogTitle">
