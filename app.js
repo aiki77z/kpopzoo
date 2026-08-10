@@ -1087,6 +1087,7 @@ function renderIntroScene() {
         <div class="intro-actions">
           <button class="intro-action" type="button" data-route="#/groups">ENTERING KPOPZOO →</button>
           <a class="intro-action" href="https://petdex.dev/u/nf2q40sq">PETDEX →</a>
+          <a class="intro-action" href="https://www.xiaohongshu.com/collection/item/6a1143d10f00000000000001?xhsshare=&appuid=5f18e32c00000000010094f7&apptime=1786361079&share_id=79d8ec913bff4692853982526d8e6361&share_channel=copy_link" target="_blank" rel="noopener noreferrer">小红书合集 →</a>
         </div>
       </div>
     </section>
