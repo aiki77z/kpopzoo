@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KPOPZOO Motion Prototype</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #201f25;
+        --muted: #6c6673;
+        --paper: #fffaf3;
+        --line: rgba(32, 31, 37, 0.13);
+        --shadow: 0 24px 70px rgba(32, 31, 37, 0.16);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Microsoft YaHei", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 8% 8%, rgba(176, 224, 164, 0.54), transparent 28rem),
+          radial-gradient(circle at 84% 14%, rgba(255, 116, 154, 0.28), transparent 26rem),
+          linear-gradient(135deg, #fffaf4 0%, #eef3ec 48%, #f8edf3 100%);
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .prototype-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem clamp(1rem, 4vw, 4rem);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 2.7rem;
+        height: 2.7rem;
+        place-items: center;
+        border: 1px solid rgba(32, 31, 37, 0.14);
+        border-radius: 16px;
+        background: #fffdf8;
+        box-shadow: 0 12px 28px rgba(32, 31, 37, 0.1);
+        font-size: 1.45rem;
+      }
+
+      .prototype-link {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.62);
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 800;
+        padding: 0.7rem 1rem;
+      }
+
+      main {
+        width: min(1220px, calc(100% - clamp(1.4rem, 4vw, 4rem)));
+        margin: 0 auto 4rem;
+      }
+
+      .prototype-shell {
+        position: relative;
+      }
+
+      .prototype-shell input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .welcome-stage {
+        position: relative;
+        display: grid;
+        min-height: min(760px, calc(100vh - 7rem));
+        align-items: end;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.78);
+        border-radius: 30px;
+        background:
+          linear-gradient(100deg, rgba(255, 250, 243, 0.96), rgba(255, 250, 243, 0.32)),
+          linear-gradient(135deg, #f7f1ea, #e9f3e6 48%, #ffeaf0);
+        box-shadow: var(--shadow);
+        transition:
+          background 260ms ease,
+          color 260ms ease;
+      }
+
+      .welcome-stage::before {
+        position: absolute;
+        inset: auto 0 0;
+        height: 42%;
+        background:
+          linear-gradient(rgba(32, 31, 37, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(32, 31, 37, 0.07) 1px, transparent 1px);
+        background-size: 3rem 3rem;
+        content: "";
+        mask-image: linear-gradient(transparent 0%, black 32%);
+        transform: perspective(34rem) rotateX(62deg) translateY(17%);
+        transform-origin: bottom;
+      }
+
+      .welcome-stage::after {
+        position: absolute;
+        inset: 10% 10% auto auto;
+        width: min(42vw, 31rem);
+        aspect-ratio: 1;
+        border: 1px solid rgba(93, 123, 84, 0.22);
+        border-radius: 50%;
+        background: conic-gradient(
+          from 160deg,
+          rgba(255, 255, 255, 0.72),
+          rgba(183, 224, 164, 0.15),
+          rgba(255, 116, 154, 0.16),
+          rgba(255, 255, 255, 0.72)
+        );
+        content: "";
+        mask-image: radial-gradient(transparent 56%, black 57%, black 68%, transparent 69%);
+        opacity: 0.9;
+        transform: rotate(-12deg);
+      }
+
+      .broccoli-dream {
+        position: absolute;
+        right: clamp(1rem, 9vw, 8rem);
+        top: clamp(1.2rem, 6vw, 5.4rem);
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        width: min(52vw, 33rem);
+        aspect-ratio: 1;
+        pointer-events: none;
+      }
+
+      .broccoli-dream::before,
+      .broccoli-dream::after {
+        position: absolute;
+        content: "";
+      }
+
+      .broccoli-dream::before {
+        inset: 9%;
+        border: 2px dashed rgba(93, 123, 84, 0.28);
+        border-radius: 41% 59% 52% 48%;
+        background:
+          repeating-linear-gradient(
+            -12deg,
+            rgba(255, 255, 255, 0.34) 0 0.65rem,
+            rgba(176, 224, 164, 0.18) 0.65rem 1.3rem
+          );
+        transform: rotate(10deg);
+      }
+
+      .broccoli-dream::after {
+        right: 2%;
+        bottom: 16%;
+        width: 46%;
+        height: 3.2rem;
+        border: 1px solid rgba(32, 31, 37, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 250, 243, 0.74);
+        box-shadow: 0 18px 40px rgba(32, 31, 37, 0.1);
+        transform: rotate(-8deg);
+      }
+
+      .broccoli-emoji {
+        position: relative;
+        z-index: 2;
+        font-size: clamp(10rem, 30vw, 23rem);
+        line-height: 1;
+        text-shadow:
+          0.22rem 0.22rem 0 rgba(255, 116, 154, 0.25),
+          -0.2rem -0.16rem 0 rgba(145, 207, 255, 0.3);
+        transform: rotate(-8deg);
+        filter: drop-shadow(0 30px 44px rgba(32, 31, 37, 0.2));
+        animation: broccoliFloat 5.5s ease-in-out infinite;
+      }
+
+      .broccoli-label {
+        position: absolute;
+        z-index: 3;
+        left: 5%;
+        top: 18%;
+        border: 1px solid rgba(32, 31, 37, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 250, 243, 0.78);
+        box-shadow: 0 16px 36px rgba(32, 31, 37, 0.1);
+        color: #5d7b54;
+        font-size: clamp(0.72rem, 1.6vw, 0.9rem);
+        font-weight: 950;
+        padding: 0.65rem 0.8rem;
+        transform: rotate(11deg);
+      }
+
+      .dream-ticker {
+        position: absolute;
+        z-index: 3;
+        right: 2%;
+        top: 11%;
+        writing-mode: vertical-rl;
+        color: rgba(32, 31, 37, 0.42);
+        font-size: clamp(0.72rem, 1.6vw, 0.95rem);
+        font-weight: 950;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      @keyframes broccoliFloat {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-8deg) scale(1);
+        }
+
+        50% {
+          transform: translateY(-0.8rem) rotate(-5deg) scale(1.025);
+        }
+      }
+
+      .welcome-copy {
+        position: relative;
+        z-index: 4;
+        display: grid;
+        gap: 1.4rem;
+        max-width: 38rem;
+        padding: clamp(2rem, 5vw, 4.4rem);
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: #5d7b54;
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 0;
+        font-size: clamp(3.6rem, 10vw, 8.6rem);
+        line-height: 0.88;
+        letter-spacing: 0;
+      }
+
+      .welcome-copy p:not(.eyebrow) {
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.8vw, 1.18rem);
+        line-height: 1.8;
+      }
+
+      .selector {
+        position: relative;
+        z-index: 4;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0 clamp(2rem, 5vw, 4.4rem) clamp(2rem, 5vw, 4.4rem);
+      }
+
+      .selector label {
+        display: inline-flex;
+        min-height: 2.9rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(32, 31, 37, 0.14);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.72);
+        cursor: pointer;
+        font-weight: 900;
+        padding: 0.7rem 1rem;
+        transition:
+          transform 160ms ease,
+          background 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .selector label:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(32, 31, 37, 0.12);
+      }
+
+      .photocard-wall {
+        position: absolute;
+        right: clamp(1rem, 5vw, 4rem);
+        bottom: clamp(7rem, 14vw, 11rem);
+        z-index: 3;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(6rem, 8.6rem));
+        gap: 0.85rem;
+        transform: rotate(-5deg);
+      }
+
+      .photocard {
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+        border: 0.48rem solid rgba(255, 255, 255, 0.84);
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 20px 44px rgba(32, 31, 37, 0.16);
+      }
+
+      .photocard:nth-child(2n) {
+        transform: translateY(2.2rem) rotate(7deg);
+      }
+
+      .photocard img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .theme-panel {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 0.7fr);
+        gap: clamp(1rem, 3vw, 3rem);
+        align-items: center;
+        padding: clamp(2rem, 5vw, 4.4rem);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(1.2rem);
+        transition:
+          opacity 240ms ease,
+          transform 240ms ease;
+      }
+
+      .theme-title {
+        max-width: 8ch;
+        margin-bottom: 1rem;
+        font-size: clamp(3.4rem, 8vw, 7.2rem);
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .theme-panel p {
+        max-width: 36rem;
+        color: rgba(32, 31, 37, 0.68);
+        font-size: 1.05rem;
+        line-height: 1.78;
+      }
+
+      .style-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-top: 1.4rem;
+      }
+
+      .style-tags span {
+        border: 1px solid rgba(32, 31, 37, 0.13);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.64);
+        font-weight: 850;
+        padding: 0.55rem 0.75rem;
+      }
+
+      .collage {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.85rem;
+        transform: rotate(4deg);
+      }
+
+      .collage img,
+      .collage div {
+        min-height: 10rem;
+        overflow: hidden;
+        border: 0.42rem solid rgba(255, 255, 255, 0.84);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+        box-shadow: 0 18px 40px rgba(32, 31, 37, 0.13);
+      }
+
+      .collage img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .collage div {
+        display: grid;
+        place-items: center;
+        font-size: 3rem;
+        font-weight: 950;
+      }
+
+      #pick-newjeans:checked ~ .welcome-stage {
+        background:
+          linear-gradient(100deg, rgba(255, 251, 239, 0.96), rgba(241, 247, 255, 0.34)),
+          linear-gradient(135deg, #fff7df, #dfefff 50%, #ffeff5);
+      }
+
+      #pick-txt:checked ~ .welcome-stage {
+        background:
+          linear-gradient(100deg, rgba(249, 255, 244, 0.95), rgba(234, 250, 255, 0.32)),
+          linear-gradient(135deg, #e6f9d9, #dff9ff 50%, #fff7c8);
+      }
+
+      #pick-svt:checked ~ .welcome-stage {
+        background:
+          linear-gradient(100deg, rgba(255, 250, 243, 0.96), rgba(246, 236, 255, 0.32)),
+          linear-gradient(135deg, #f5e7ff, #dfeaff 52%, #ffe7ef);
+      }
+
+      #pick-enhypen:checked ~ .welcome-stage {
+        background:
+          linear-gradient(100deg, rgba(255, 248, 242, 0.96), rgba(255, 236, 218, 0.3)),
+          linear-gradient(135deg, #fff0df, #f8d8c4 50%, #e8f0ef);
+      }
+
+      #pick-newjeans:checked ~ .welcome-stage .theme-newjeans,
+      #pick-txt:checked ~ .welcome-stage .theme-txt,
+      #pick-svt:checked ~ .welcome-stage .theme-svt,
+      #pick-enhypen:checked ~ .welcome-stage .theme-enhypen {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      #pick-newjeans:checked ~ .welcome-stage .welcome-copy,
+      #pick-txt:checked ~ .welcome-stage .welcome-copy,
+      #pick-svt:checked ~ .welcome-stage .welcome-copy,
+      #pick-enhypen:checked ~ .welcome-stage .welcome-copy,
+      #pick-newjeans:checked ~ .welcome-stage .photocard-wall,
+      #pick-txt:checked ~ .welcome-stage .photocard-wall,
+      #pick-svt:checked ~ .welcome-stage .photocard-wall,
+      #pick-enhypen:checked ~ .welcome-stage .photocard-wall,
+      #pick-newjeans:checked ~ .welcome-stage .broccoli-dream,
+      #pick-txt:checked ~ .welcome-stage .broccoli-dream,
+      #pick-svt:checked ~ .welcome-stage .broccoli-dream,
+      #pick-enhypen:checked ~ .welcome-stage .broccoli-dream {
+        opacity: 0.08;
+      }
+
+      #pick-newjeans:checked ~ .selector label[for="pick-newjeans"],
+      #pick-txt:checked ~ .selector label[for="pick-txt"],
+      #pick-svt:checked ~ .selector label[for="pick-svt"],
+      #pick-enhypen:checked ~ .selector label[for="pick-enhypen"] {
+        background: var(--ink);
+        color: #fffaf3;
+      }
+
+      .proposal {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .proposal-card {
+        border: 1px solid rgba(255, 255, 255, 0.74);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.62);
+        box-shadow: 0 18px 42px rgba(32, 31, 37, 0.09);
+        padding: 1.25rem;
+      }
+
+      .proposal-card strong {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .proposal-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      @media (max-width: 860px) {
+        .welcome-stage {
+          min-height: 820px;
+        }
+
+        .photocard-wall {
+          right: 1.4rem;
+          bottom: 10rem;
+          grid-template-columns: repeat(2, minmax(5.4rem, 7rem));
+          opacity: 0.72;
+        }
+
+        .broccoli-dream {
+          right: -1rem;
+          top: 6rem;
+          width: min(78vw, 27rem);
+          opacity: 0.9;
+        }
+
+        .theme-panel,
+        .proposal {
+          grid-template-columns: 1fr;
+        }
+
+        .theme-panel {
+          align-content: center;
+        }
+
+        .collage {
+          transform: none;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .prototype-header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .welcome-stage {
+          border-radius: 22px;
+        }
+
+        .selector {
+          padding-inline: 1rem;
+        }
+
+        .selector label {
+          flex: 1 1 42%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="prototype-header">
+      <a class="brand" href="../index.html" aria-label="返回 KPOPZOO">
+        <span class="brand-mark">🥦</span>
+        <span>KPOPZOO Motion Prototype</span>
+      </a>
+      <a class="prototype-link" href="../index.html">返回当前页面</a>
+    </header>
+
+    <main>
+      <section class="prototype-shell" aria-label="欢迎页原型">
+        <input id="pick-welcome" name="group" type="radio" checked>
+        <input id="pick-newjeans" name="group" type="radio">
+        <input id="pick-txt" name="group" type="radio">
+        <input id="pick-svt" name="group" type="radio">
+        <input id="pick-enhypen" name="group" type="radio">
+
+        <div class="welcome-stage">
+          <div class="broccoli-dream" aria-hidden="true">
+            <span class="broccoli-label">BROCCOLI PORTAL</span>
+            <span class="broccoli-emoji">🥦</span>
+            <span class="dream-ticker">KPOPZOO DREAM SIGNAL</span>
+          </div>
+
+          <div class="welcome-copy">
+            <p class="eyebrow">Broccoli Dream Portal</p>
+            <h1>KPOPZOO</h1>
+            <p>
+              开屏先进入巨型西兰花梦核入口，不默认选中任何团体。用户从下方选择团体后，
+              背景、字体气质、照片拼贴和下载信息区域再切换到对应团体主题。
+            </p>
+          </div>
+
+          <div class="photocard-wall" aria-hidden="true">
+            <div class="photocard"><img src="pic/njz.jpg" alt=""></div>
+            <div class="photocard"><img src="pic/txt.png" alt=""></div>
+            <div class="photocard"><img src="pic/svt.png" alt=""></div>
+            <div class="photocard"><img src="pic/riize.png" alt=""></div>
+            <div class="photocard"><img src="pic/wish.png" alt=""></div>
+            <div class="photocard"><img src="pic/ehp.png" alt=""></div>
+          </div>
+
+          <article class="theme-panel theme-newjeans">
+            <div>
+              <p class="eyebrow">Soft Y2K / Sticker Wall</p>
+              <h2 class="theme-title">New Jeans</h2>
+              <p>轻盈的粉蓝、奶油白和手帐贴纸感，适合做成横向漂移的拍立得拼贴。</p>
+              <div class="style-tags">
+                <span>圆润无衬线</span>
+                <span>贴纸边框</span>
+                <span>柔光闪片</span>
+              </div>
+            </div>
+            <div class="collage">
+              <img src="pic/njz.jpg" alt="NewJeans 原型拼贴图">
+              <div>NJ</div>
+              <div>★</div>
+              <img src="pic/h2h.png" alt="拼贴占位图">
+            </div>
+          </article>
+
+          <article class="theme-panel theme-txt">
+            <div>
+              <p class="eyebrow">Dream Pop / Bright Stage</p>
+              <h2 class="theme-title">TXT</h2>
+              <p>更亮的青柠、天空蓝和星星纸屑，页面切换时可以像舞台灯打开一样扫过。</p>
+              <div class="style-tags">
+                <span>高亮标题</span>
+                <span>星轨动线</span>
+                <span>清爽背景</span>
+              </div>
+            </div>
+            <div class="collage">
+              <img src="pic/txt.png" alt="TXT 原型拼贴图">
+              <div>TXT</div>
+              <div>✦</div>
+              <img src="pic/dream.png" alt="拼贴占位图">
+            </div>
+          </article>
+
+          <article class="theme-panel theme-svt">
+            <div>
+              <p class="eyebrow">Concert Poster / Pastel Chrome</p>
+              <h2 class="theme-title">SVT</h2>
+              <p>用粉紫和雾蓝做演唱会海报感，13 人团适合做密集但有秩序的照片墙。</p>
+              <div class="style-tags">
+                <span>海报大字</span>
+                <span>票根元素</span>
+                <span>分组拼贴</span>
+              </div>
+            </div>
+            <div class="collage">
+              <img src="pic/svt.png" alt="SVT 原型拼贴图">
+              <div>SVT</div>
+              <div>13</div>
+              <img src="pic/bt21.png" alt="拼贴占位图">
+            </div>
+          </article>
+
+          <article class="theme-panel theme-enhypen">
+            <div>
+              <p class="eyebrow">Editorial Stage / Warm Flash</p>
+              <h2 class="theme-title">ENHYPEN</h2>
+              <p>偏杂志感的暖色闪光、深浅对比和胶片边框，适合进入时做快门闪白转场。</p>
+              <div class="style-tags">
+                <span>胶片边框</span>
+                <span>暖色光斑</span>
+                <span>杂志排版</span>
+              </div>
+            </div>
+            <div class="collage">
+              <img src="pic/ehp.png" alt="ENHYPEN 原型拼贴图">
+              <div>EHP</div>
+              <div>●</div>
+              <img src="pic/riize.png" alt="拼贴占位图">
+            </div>
+          </article>
+        </div>
+
+        <div class="selector" aria-label="选择团体原型">
+          <label for="pick-newjeans">NewJeans</label>
+          <label for="pick-txt">TXT</label>
+          <label for="pick-svt">SVT</label>
+          <label for="pick-enhypen">ENHYPEN</label>
+          <label for="pick-welcome">回到欢迎页</label>
+        </div>
+      </section>
+
+      <section class="proposal" aria-label="动效方案">
+        <article class="proposal-card">
+          <strong>1. 入场</strong>
+          <p>页面先显示巨型 🥦，它像梦核入口一样轻微漂浮；照片卡片从侧边排入，底部团体按钮延迟出现。</p>
+        </article>
+        <article class="proposal-card">
+          <strong>2. 选择</strong>
+          <p>用户点团体后，按钮短暂高亮，西兰花变成低透明背景符号，页面做舞台灯扫光转场。</p>
+        </article>
+        <article class="proposal-card">
+          <strong>3. 主题页</strong>
+          <p>对应团体的字体、色彩、拼贴照片和下载区域进入；之后切团只替换主题，不刷新页面。</p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
