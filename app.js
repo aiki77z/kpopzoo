@@ -151,7 +151,7 @@ const apps = [
   {
     id: "h2h",
     name: "H2H Pets",
-    group: "H2H",
+    group: "Hearts2hearts",
     version: "1.1.1",
     tag: "h2h-v1.1.1",
     status: "Latest release",

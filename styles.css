@@ -98,6 +98,32 @@ body[data-view="group"][data-group="boynextdoor"] {
   background-attachment: fixed;
 }
 
+body[data-view="group"][data-group="riize"] {
+  background:
+    radial-gradient(circle, rgba(30, 42, 48, 0.1) 0 1.2px, transparent 1.45px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.88) 0 1px, transparent 1.25px),
+    radial-gradient(circle at 22% 18%, rgba(255, 128, 186, 0.14), transparent 28%),
+    radial-gradient(circle at 82% 78%, rgba(82, 183, 255, 0.16), transparent 30%),
+    linear-gradient(135deg, #fffefa 0%, #f4fbf7 48%, #f8f4ff 100%);
+  background-attachment: fixed;
+  background-position: 0 0, 6px 6px, 0 0, 0 0, 0 0;
+  background-size: 12px 12px, 12px 12px, auto, auto, auto;
+}
+
+body[data-view="group"][data-group="h2h"] {
+  background: #fff6be;
+  background-attachment: fixed;
+}
+
+body[data-view="group"][data-group="twice"] {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 248, 174, 0.48), transparent 30%),
+    radial-gradient(circle at 82% 16%, rgba(255, 173, 209, 0.34), transparent 36%),
+    radial-gradient(circle at 18% 86%, rgba(255, 196, 139, 0.34), transparent 34%),
+    linear-gradient(135deg, #fffbe0 0%, #ffd9ad 40%, #ffc7dc 70%, #ead0ff 100%);
+  background-attachment: fixed;
+}
+
 body[data-view="group"][data-group="newjeans"]::before {
   position: fixed;
   inset: 0;
@@ -121,6 +147,40 @@ body[data-view="group"][data-group="boynextdoor"]::before {
   pointer-events: none;
 }
 
+body[data-view="group"][data-group="riize"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle, rgba(120, 128, 135, 0.12) 0 1.05px, transparent 1.25px) 0 0 / 8px 8px,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1180' height='900' viewBox='0 0 1180 900'%3E%3Cdefs%3E%3Cpattern id='dots' width='7' height='7' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='2' cy='2' r='.82' fill='%230d1115' opacity='.28'/%3E%3Ccircle cx='5.4' cy='5.4' r='.68' fill='%23ffffff' opacity='.32'/%3E%3C/pattern%3E%3Cfilter id='soft'%3E%3CfeGaussianBlur stdDeviation='.3'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23soft)'%3E%3Cpath d='M128 70 154 149 238 149 170 198 196 278 128 229 60 278 86 198 18 149 102 149Z' fill='none' stroke='%23101418' stroke-width='7' opacity='.72'/%3E%3Cpath d='M285 26 303 82 362 82 314 116 333 172 285 138 237 172 256 116 208 82 267 82Z' fill='%23ffffff' stroke='%23101418' stroke-width='6' opacity='.62'/%3E%3Cpath d='M452 110 474 174 542 174 487 214 508 280 452 240 397 280 418 214 363 174 431 174Z' fill='none' stroke='%23101418' stroke-width='5' opacity='.78'/%3E%3Cpath d='M982 54 1020 166 1137 166 1042 234 1078 346 982 278 888 346 924 234 829 166 946 166Z' fill='%23101418' opacity='.66'/%3E%3Cpath d='M200 510 224 581 299 581 238 624 262 696 200 652 139 696 162 624 101 581 176 581Z' fill='%23101418' opacity='.64'/%3E%3Cpath d='M782 536 816 638 924 638 836 700 870 802 782 739 696 802 729 700 641 638 749 638Z' fill='%23101418' opacity='.66'/%3E%3Cpath d='M582 470 600 526 659 526 612 561 630 618 582 583 534 618 552 561 505 526 564 526Z' fill='%23f7f7f2' stroke='%23101418' stroke-width='5' opacity='.5'/%3E%3Cpath d='M1018 512 1035 562 1088 562 1045 593 1062 644 1018 613 975 644 991 593 948 562 1001 562Z' fill='none' stroke='%23101418' stroke-width='5' opacity='.42'/%3E%3Cpath d='M652 128 666 171 712 171 675 197 689 241 652 214 615 241 629 197 592 171 638 171Z' fill='%2394979a' opacity='.48'/%3E%3Cpath d='M390 626 402 664 442 664 410 687 422 726 390 702 358 726 370 687 338 664 378 664Z' fill='none' stroke='%23888c91' stroke-width='4' opacity='.58'/%3E%3Cpath d='M106 720 120 763 166 763 129 790 143 834 106 807 69 834 83 790 46 763 92 763Z' fill='%23ffffff' stroke='%23101418' stroke-width='4' opacity='.48'/%3E%3Cpath d='M514 762 528 805 574 805 537 832 551 876 514 849 477 876 491 832 454 805 500 805Z' fill='%23101418' opacity='.42'/%3E%3Cpath d='M970 742 987 792 1040 792 997 823 1014 874 970 843 927 874 943 823 900 792 953 792Z' fill='none' stroke='%23101418' stroke-width='4' opacity='.44'/%3E%3C/g%3E%3Crect width='1180' height='900' fill='url(%23dots)' opacity='.3'/%3E%3C/svg%3E") center 10px / min(92vw, 980px) auto no-repeat;
+  content: "";
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+body[data-view="group"][data-group="h2h"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='156' height='156' viewBox='0 0 156 156'%3E%3Ctext x='24' y='40' font-size='25' opacity='.64'%3E%F0%9F%8D%8B%3C/text%3E%3Ctext x='98' y='112' font-size='19' opacity='.42' transform='rotate(-12 108 104)'%3E%F0%9F%8D%8B%3C/text%3E%3C/svg%3E") 0 0 / 156px 156px repeat,
+    radial-gradient(circle, rgba(255, 220, 63, 0.18) 0 1.2px, transparent 1.5px) 0 0 / 18px 18px;
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+body[data-view="group"][data-group="twice"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='148' height='148' viewBox='0 0 148 148'%3E%3Ctext x='22' y='42' font-size='25' opacity='.52'%3E%F0%9F%90%B0%3C/text%3E%3Ctext x='92' y='108' font-size='19' opacity='.34' transform='rotate(10 102 100)'%3E%F0%9F%90%B0%3C/text%3E%3C/svg%3E") 0 0 / 148px 148px repeat;
+  content: "";
+  opacity: 0.76;
+  pointer-events: none;
+}
+
 body[data-view="group"][data-group="newjeans"]::after {
   position: fixed;
   inset: 0;
@@ -135,7 +195,13 @@ body[data-view="group"][data-group="newjeans"]::after {
 body[data-view="group"][data-group="newjeans"] .site-header,
 body[data-view="group"][data-group="newjeans"] .app-root,
 body[data-view="group"][data-group="boynextdoor"] .site-header,
-body[data-view="group"][data-group="boynextdoor"] .app-root {
+body[data-view="group"][data-group="boynextdoor"] .app-root,
+body[data-view="group"][data-group="riize"] .site-header,
+body[data-view="group"][data-group="riize"] .app-root,
+body[data-view="group"][data-group="h2h"] .site-header,
+body[data-view="group"][data-group="h2h"] .app-root,
+body[data-view="group"][data-group="twice"] .site-header,
+body[data-view="group"][data-group="twice"] .app-root {
   position: relative;
   z-index: 1;
 }
