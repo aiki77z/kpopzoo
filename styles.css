@@ -521,10 +521,10 @@ body[data-view="home"] .splash-scene {
 .home-copy h1,
 .group-select-view h1 {
   margin-bottom: clamp(1.4rem, 3vw, 2rem);
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-weight: 900;
   letter-spacing: 0;
-  line-height: 0.88;
+  line-height: 0.94;
 }
 
 .home-copy h1 {
@@ -638,8 +638,11 @@ body[data-view="home"] .splash-scene {
   padding: 0.6rem 0.9rem;
 }
 
-.group-select-view h1 {
-  font-size: clamp(3.2rem, 10vw, 8.5rem);
+.group-select-view h1,
+.group-select-title {
+  min-height: clamp(2.8rem, 6vw, 5.4rem);
+  font-size: clamp(2.6rem, 6.5vw, 5.8rem);
+  white-space: nowrap;
 }
 
 .selector-grid {
@@ -730,7 +733,8 @@ img.selector-logo-asset {
   white-space: nowrap;
 }
 
-.group-typed-title::after {
+.group-typed-title::after,
+.group-select-title::after {
   display: inline-block;
   width: 0.16em;
   height: 0.76em;
@@ -1649,6 +1653,10 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   .group-detail-view h1 {
     font-size: clamp(2.4rem, 15vw, 4.6rem);
     white-space: normal;
+  }
+
+  .group-select-view h1 {
+    font-size: clamp(2rem, 12vw, 3.8rem);
   }
 
   .download-card {

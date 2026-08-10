@@ -420,7 +420,7 @@ const uiText = {
   entering: "entering kpopzoo...",
   chooseGroup: "选择团体 →",
   allGroups: "← 全部团体",
-  groupSelectTitle: "PICK YOUR GROUP",
+  groupSelectTitle: "Pick your group",
   download: "下载",
   usage: "使用说明 →",
   usageDownload: "下载使用说明",
@@ -1152,7 +1152,7 @@ function renderGroupSelector(groupApps) {
         <div class="view-topline">
           <button class="text-link" type="button" data-route="#/home">← KPOPZOO</button>
         </div>
-        <h1>${escapeHtml(uiText.groupSelectTitle)}</h1>
+        <h1 class="group-select-title" data-group-typed-title="${escapeHtml(uiText.groupSelectTitle)}" aria-label="${escapeHtml(uiText.groupSelectTitle)}"></h1>
         <div class="selector-grid" aria-label="团体列表">
           ${groupApps.map(renderGroupSelectorItem).join("")}
         </div>
@@ -1160,6 +1160,7 @@ function renderGroupSelector(groupApps) {
       ${renderMailbox()}
     `,
   );
+  initGroupTypedTitle();
 }
 
 function renderGroupSelectorItem(app) {
