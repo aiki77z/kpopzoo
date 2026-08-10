@@ -437,7 +437,7 @@ const uiText = {
   waitingRelease: "等待 release 附件",
   comingSoon: "即将发布",
   materialTitle: "素材",
-  materialBody: "在 codex 中直接养要用的素材 spritesheet 图麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
+  materialBody: "在 codex 中直接养要用的素材 spritesheet 图部分已经上传petdex，可以点击导入页面的petdex按钮。没有上传的麻烦小红书私信我发你。sns 发布基于此的二创请标注来源。",
   loadingUsage: "正在加载使用说明...",
   petHint: "点击屏幕试试看",
   windowsInstaller: "Windows 安装版",
