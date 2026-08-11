@@ -424,6 +424,11 @@ const uiText = {
   chooseGroup: "选择团体 →",
   allGroups: "← Groups",
   groupSelectTitle: "Pick your group",
+  wallpaperTitle: "制作动态桌面",
+  wallpaperSubtitle: "上传一张 png/jpg 背景，选择喜欢的宠物，拖到画面里摆好，再导出给 Windows/macOS 动态壁纸工具使用。",
+  wallpaperUploadTitle: "上传桌面图片",
+  wallpaperPetTitle: "选择宠物",
+  wallpaperPreviewTitle: "预览导出",
   download: "下载",
   usage: "使用说明 →",
   usageDownload: "下载使用说明",
@@ -1051,6 +1056,13 @@ function handleRoute() {
     return;
   }
 
+  if (route === "#/wallpaper") {
+    state.currentApp = apps[0];
+    applyGroupTheme(apps[0].id);
+    renderWallpaperMaker();
+    return;
+  }
+
   const groupMatch = route.match(/^#\/group\/([^/]+)$/);
   if (groupMatch) {
     const app = apps.find((item) => item.id === groupMatch[1]) || apps[0];
@@ -1179,6 +1191,115 @@ function renderGroupSelectorItem(app) {
       <span class="selector-logo">${assetHtml(logo, "selector-logo-asset", fallback, app.group)}</span>
       <span class="selector-label">${escapeHtml(app.group)}</span>
     </button>
+  `;
+}
+
+function renderWallpaperMaker() {
+  const petOptions = getWallpaperPetOptions();
+  showView(
+    "wallpaper",
+    `
+      <section class="wallpaper-maker" aria-labelledby="wallpaper-title">
+        <div class="view-topline">
+          <button class="text-link" type="button" data-route="#/home">← KPOPZOO</button>
+          <button class="text-link" type="button" data-route="#/groups">全部团体</button>
+        </div>
+        <div class="wallpaper-heading">
+          <h1 id="wallpaper-title">${escapeHtml(uiText.wallpaperTitle)}</h1>
+          <p>${escapeHtml(uiText.wallpaperSubtitle)}</p>
+        </div>
+        <div class="wallpaper-layout">
+          <aside class="wallpaper-panel wallpaper-controls" aria-label="动态桌面制作工具">
+            <section class="wallpaper-step">
+              <h2>${escapeHtml(uiText.wallpaperUploadTitle)}</h2>
+              <label class="wallpaper-upload">
+                <input type="file" accept="image/png,image/jpeg" data-wallpaper-upload>
+                <span>选择 png / jpg 图片</span>
+                <small data-wallpaper-file-name>还没有上传图片</small>
+              </label>
+            </section>
+            <section class="wallpaper-step">
+              <div class="wallpaper-step-title">
+                <h2>${escapeHtml(uiText.wallpaperPetTitle)}</h2>
+                <div class="wallpaper-mini-actions">
+                  <button type="button" data-wallpaper-select-all>全选</button>
+                  <button type="button" data-wallpaper-clear>清空</button>
+                </div>
+              </div>
+              <label class="wallpaper-filter">
+                <span>团体</span>
+                <select data-wallpaper-group-filter>
+                  <option value="all">全部宠物</option>
+                  ${apps.map((app) => `<option value="${escapeHtml(app.id)}">${escapeHtml(app.group)}</option>`).join("")}
+                </select>
+              </label>
+              <div class="wallpaper-pet-list" data-wallpaper-pet-list>
+                ${petOptions.map(renderWallpaperPetChoice).join("")}
+              </div>
+            </section>
+          </aside>
+          <section class="wallpaper-panel wallpaper-preview-panel" aria-labelledby="wallpaper-preview-title">
+            <div class="wallpaper-preview-head">
+              <div>
+                <h2 id="wallpaper-preview-title">${escapeHtml(uiText.wallpaperPreviewTitle)}</h2>
+                <p>拖动宠物调整位置，导出的 HTML 会保留背景和 GIF 动画。</p>
+              </div>
+              <div class="wallpaper-export-actions">
+                <button class="primary-action" type="button" data-wallpaper-reset>重置摆放</button>
+                <button class="primary-action" type="button" data-wallpaper-export>导出 HTML</button>
+              </div>
+            </div>
+            <div class="wallpaper-stage" data-wallpaper-stage>
+              <div class="wallpaper-empty" data-wallpaper-empty>
+                <strong>上传图片后开始制作</strong>
+                <span>也可以先选择宠物，摆放位置会一起保存。</span>
+              </div>
+              <div class="wallpaper-pet-layer" data-wallpaper-pet-layer></div>
+            </div>
+            <div class="wallpaper-howto">
+              <article>
+                <h3>Windows</h3>
+                <p>导出 HTML 后，可用 Lively Wallpaper 或 Wallpaper Engine 这类支持网页壁纸的工具导入，本页里的 GIF 宠物会继续循环播放。</p>
+              </article>
+              <article>
+                <h3>macOS</h3>
+                <p>导出的 HTML 可交给支持网页桌面/网页壁纸的工具使用；如果只想当普通桌面背景，可以在预览中截取静态画面。</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    `,
+  );
+  initWallpaperMaker(petOptions);
+}
+
+function getWallpaperPetOptions() {
+  return apps.flatMap((app) => {
+    const sources = groupPetCollections[app.id] || [];
+    return sources.map((src) => {
+      const id = src.split("/").pop().replace(/\.[^.]+$/, "");
+      return {
+        id: `${app.id}-${id}`,
+        name: id,
+        groupId: app.id,
+        group: app.group,
+        src,
+      };
+    });
+  });
+}
+
+function renderWallpaperPetChoice(pet) {
+  return `
+    <label class="wallpaper-pet-choice" data-wallpaper-choice data-group-id="${escapeHtml(pet.groupId)}">
+      <input type="checkbox" value="${escapeHtml(pet.id)}" data-wallpaper-pet-check>
+      <img src="${escapeHtml(pet.src)}" alt="" loading="lazy" decoding="async">
+      <span>
+        <strong>${escapeHtml(pet.name)}</strong>
+        <small>${escapeHtml(pet.group)}</small>
+      </span>
+    </label>
   `;
 }
 
@@ -1463,6 +1584,274 @@ function initGroupTypedTitle() {
   };
 
   window.setTimeout(typeNext, 120);
+}
+
+function initWallpaperMaker(petOptions) {
+  const stage = appRoot.querySelector("[data-wallpaper-stage]");
+  const layer = appRoot.querySelector("[data-wallpaper-pet-layer]");
+  const empty = appRoot.querySelector("[data-wallpaper-empty]");
+  const upload = appRoot.querySelector("[data-wallpaper-upload]");
+  const fileName = appRoot.querySelector("[data-wallpaper-file-name]");
+  const filter = appRoot.querySelector("[data-wallpaper-group-filter]");
+  const checks = Array.from(appRoot.querySelectorAll("[data-wallpaper-pet-check]"));
+  const choices = Array.from(appRoot.querySelectorAll("[data-wallpaper-choice]"));
+  const selected = new Map();
+  const petLookup = new Map(petOptions.map((pet) => [pet.id, pet]));
+  let backgroundUrl = "";
+  let backgroundDataUrl = "";
+  let topZ = 40;
+
+  const defaultPlacement = (index) => ({
+    x: 22 + (index % 4) * 17,
+    y: 68 + (Math.floor(index / 4) % 2) * 10,
+    width: 118,
+    z: 20 + index,
+  });
+
+  const syncEmptyState = () => {
+    const hasBackground = Boolean(backgroundUrl);
+    stage.classList.toggle("has-background", hasBackground);
+    empty.hidden = hasBackground || selected.size > 0;
+  };
+
+  const placePet = (button, clientX, clientY) => {
+    const rect = stage.getBoundingClientRect();
+    const x = Math.max(6, Math.min(94, ((clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(10, Math.min(92, ((clientY - rect.top) / rect.height) * 100));
+    button.style.setProperty("--wallpaper-pet-x", `${x}%`);
+    button.style.setProperty("--wallpaper-pet-y", `${y}%`);
+
+    const item = selected.get(button.dataset.wallpaperPetId);
+    if (item) {
+      item.x = x;
+      item.y = y;
+      item.z = Number(button.style.getPropertyValue("--wallpaper-pet-z")) || item.z;
+    }
+  };
+
+  const bindWallpaperPetDrag = (button) => {
+    let dragging = false;
+
+    button.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      dragging = true;
+      button.setPointerCapture(event.pointerId);
+      button.classList.add("is-dragging");
+      button.style.setProperty("--wallpaper-pet-z", `${topZ++}`);
+      placePet(button, event.clientX, event.clientY);
+    });
+
+    button.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      placePet(button, event.clientX, event.clientY);
+    });
+
+    const stopDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      if (button.hasPointerCapture?.(event.pointerId)) {
+        button.releasePointerCapture(event.pointerId);
+      }
+      button.classList.remove("is-dragging");
+    };
+
+    button.addEventListener("pointerup", stopDrag);
+    button.addEventListener("pointercancel", stopDrag);
+  };
+
+  const renderSelectedPets = () => {
+    layer.innerHTML = Array.from(selected.values())
+      .map(
+        (item) => `
+          <button
+            class="wallpaper-pet"
+            type="button"
+            data-wallpaper-pet-id="${escapeHtml(item.id)}"
+            style="--wallpaper-pet-x:${item.x}%;--wallpaper-pet-y:${item.y}%;--wallpaper-pet-width:${item.width}px;--wallpaper-pet-z:${item.z};"
+            aria-label="拖动 ${escapeHtml(item.name)}"
+          >
+            <img src="${escapeHtml(item.src)}" alt="" draggable="false">
+          </button>
+        `,
+      )
+      .join("");
+
+    Array.from(layer.querySelectorAll(".wallpaper-pet")).forEach(bindWallpaperPetDrag);
+    syncEmptyState();
+  };
+
+  upload?.addEventListener("change", () => {
+    const file = upload.files?.[0];
+    if (!file) return;
+
+    if (!/^image\/(png|jpe?g)$/i.test(file.type)) {
+      openMessageDialog("格式不支持", "请上传 png 或 jpg 图片。");
+      upload.value = "";
+      return;
+    }
+
+    if (backgroundUrl) {
+      URL.revokeObjectURL(backgroundUrl);
+    }
+
+    backgroundUrl = URL.createObjectURL(file);
+    stage.style.backgroundImage = `url("${backgroundUrl}")`;
+    fileName.textContent = file.name;
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      backgroundDataUrl = String(reader.result || "");
+    });
+    reader.readAsDataURL(file);
+    syncEmptyState();
+  });
+
+  checks.forEach((check) => {
+    check.addEventListener("change", () => {
+      const pet = petLookup.get(check.value);
+      if (!pet) return;
+
+      if (check.checked) {
+        const placement = defaultPlacement(selected.size);
+        selected.set(pet.id, { ...pet, ...placement });
+      } else {
+        selected.delete(pet.id);
+      }
+
+      renderSelectedPets();
+    });
+  });
+
+  filter?.addEventListener("change", () => {
+    const groupId = filter.value;
+    choices.forEach((choice) => {
+      choice.hidden = groupId !== "all" && choice.dataset.groupId !== groupId;
+    });
+  });
+
+  appRoot.querySelector("[data-wallpaper-select-all]")?.addEventListener("click", () => {
+    checks.forEach((check) => {
+      const choice = check.closest("[data-wallpaper-choice]");
+      if (choice?.hidden || check.checked) return;
+      check.checked = true;
+      const pet = petLookup.get(check.value);
+      if (!pet) return;
+      selected.set(pet.id, { ...pet, ...defaultPlacement(selected.size) });
+    });
+    renderSelectedPets();
+  });
+
+  appRoot.querySelector("[data-wallpaper-clear]")?.addEventListener("click", () => {
+    checks.forEach((check) => {
+      check.checked = false;
+    });
+    selected.clear();
+    renderSelectedPets();
+  });
+
+  appRoot.querySelector("[data-wallpaper-reset]")?.addEventListener("click", () => {
+    Array.from(selected.values()).forEach((item, index) => {
+      Object.assign(item, defaultPlacement(index));
+    });
+    topZ = 40;
+    renderSelectedPets();
+  });
+
+  appRoot.querySelector("[data-wallpaper-export]")?.addEventListener("click", async () => {
+    if (!backgroundDataUrl) {
+      openMessageDialog("先上传背景", "请选择一张 png 或 jpg 图片，再导出动态桌面。");
+      return;
+    }
+
+    if (!selected.size) {
+      openMessageDialog("先选择宠物", "至少选择一只宠物放进动态桌面。");
+      return;
+    }
+
+    try {
+      await exportWallpaperHtml(Array.from(selected.values()), backgroundDataUrl);
+    } catch (error) {
+      openMessageDialog("导出失败", "浏览器没有成功打包素材，可以刷新页面后再试一次。");
+    }
+  });
+
+  syncEmptyState();
+}
+
+async function exportWallpaperHtml(selectedPets, backgroundDataUrl) {
+  const pets = await Promise.all(
+    selectedPets.map(async (pet) => ({
+      ...pet,
+      dataSrc: await assetToDataUrl(pet.src),
+    })),
+  );
+
+  const petMarkup = pets
+    .map(
+      (pet) => `
+        <img
+          class="pet"
+          src="${pet.dataSrc}"
+          alt=""
+          style="left:${pet.x}%;top:${pet.y}%;width:${pet.width}px;z-index:${pet.z};"
+        >`,
+    )
+    .join("");
+
+  const html = `<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KPOPZOO Dynamic Desktop</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; }
+    body {
+      background-image: url("${backgroundDataUrl}");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .pet {
+      position: absolute;
+      display: block;
+      aspect-ratio: 1;
+      object-fit: contain;
+      filter: drop-shadow(0 22px 20px rgba(0, 0, 0, 0.2));
+      transform: translate(-50%, -50%);
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+  </style>
+</head>
+<body>
+${petMarkup}
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `kpopzoo-dynamic-desktop-${Date.now()}.html`;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+}
+
+async function assetToDataUrl(src) {
+  const response = await fetch(src);
+  if (!response.ok) throw new Error(`Failed to load ${src}`);
+  const blob = await response.blob();
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(String(reader.result || "")));
+    reader.addEventListener("error", reject);
+    reader.readAsDataURL(blob);
+  });
 }
 
 function initIntroAsciiBackground() {

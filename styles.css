@@ -398,7 +398,7 @@ body[data-view="home"] .splash-scene {
 .intro-ascii-frame,
 .intro-ascii-kaomoji {
   margin: 0;
-  font-family: var(--font-mono);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 900;
   letter-spacing: 0;
   white-space: pre;
@@ -1248,6 +1248,272 @@ img.app-logo-asset {
   animation: reactionPop 900ms ease forwards;
 }
 
+.wallpaper-maker {
+  display: grid;
+  gap: clamp(1.1rem, 2vw, 1.6rem);
+  padding: clamp(1.4rem, 3vw, 2.4rem) 0 clamp(2rem, 5vw, 4rem);
+}
+
+.wallpaper-heading {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.wallpaper-heading h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+  line-height: 0.95;
+}
+
+.wallpaper-heading p,
+.wallpaper-preview-head p,
+.wallpaper-howto p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.wallpaper-layout {
+  display: grid;
+  grid-template-columns: minmax(18rem, 25rem) minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 1.35rem);
+  align-items: start;
+}
+
+.wallpaper-panel {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface), transparent 7%);
+  box-shadow: var(--shadow);
+}
+
+.wallpaper-controls {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(0.95rem, 2vw, 1.2rem);
+}
+
+.wallpaper-step {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.wallpaper-step h2,
+.wallpaper-preview-head h2,
+.wallpaper-howto h3 {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.wallpaper-step h2,
+.wallpaper-preview-head h2 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+}
+
+.wallpaper-step-title,
+.wallpaper-preview-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.wallpaper-upload {
+  display: grid;
+  gap: 0.35rem;
+  border: 1px dashed color-mix(in srgb, var(--accent), transparent 28%);
+  border-radius: 12px;
+  background: var(--card-bg);
+  padding: 0.95rem;
+  cursor: pointer;
+}
+
+.wallpaper-upload input {
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+}
+
+.wallpaper-upload span {
+  font-size: 1rem;
+}
+
+.wallpaper-upload small,
+.wallpaper-filter span,
+.wallpaper-pet-choice small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.wallpaper-filter {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.wallpaper-filter select {
+  width: 100%;
+  min-height: 2.55rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card-bg);
+  color: var(--page-text);
+  font: inherit;
+  padding: 0 0.7rem;
+}
+
+.wallpaper-mini-actions,
+.wallpaper-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  justify-content: flex-end;
+}
+
+.wallpaper-mini-actions button {
+  min-height: 2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card-bg);
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+}
+
+.wallpaper-pet-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  max-height: min(44rem, 58vh);
+  overflow: auto;
+  padding-right: 0.2rem;
+}
+
+.wallpaper-pet-choice {
+  display: grid;
+  grid-template-columns: auto 3rem minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card-bg);
+  padding: 0.45rem 0.55rem;
+  cursor: pointer;
+}
+
+.wallpaper-pet-choice img {
+  width: 3rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.wallpaper-pet-choice strong,
+.wallpaper-pet-choice small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wallpaper-preview-panel {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(0.95rem, 2vw, 1.2rem);
+}
+
+.wallpaper-stage {
+  position: relative;
+  min-height: clamp(24rem, 52vw, 46rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background:
+    linear-gradient(45deg, rgba(31, 47, 56, 0.06) 25%, transparent 25% 75%, rgba(31, 47, 56, 0.06) 75%),
+    linear-gradient(45deg, rgba(31, 47, 56, 0.06) 25%, transparent 25% 75%, rgba(31, 47, 56, 0.06) 75%),
+    var(--screen-bg);
+  background-position: 0 0, 14px 14px, center;
+  background-size: 28px 28px, 28px 28px, cover;
+  background-repeat: repeat, repeat, no-repeat;
+  background-origin: border-box;
+}
+
+.wallpaper-stage.has-background {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.wallpaper-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 0.35rem;
+  padding: 1rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.wallpaper-empty strong {
+  color: var(--page-text);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+}
+
+.wallpaper-empty span {
+  font-size: 0.92rem;
+}
+
+.wallpaper-pet-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.wallpaper-pet {
+  position: absolute;
+  left: var(--wallpaper-pet-x);
+  top: var(--wallpaper-pet-y);
+  z-index: var(--wallpaper-pet-z);
+  width: var(--wallpaper-pet-width);
+  aspect-ratio: 1;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  touch-action: none;
+  transform: translate(-50%, -50%);
+  transition:
+    filter 160ms ease,
+    transform 160ms ease;
+}
+
+.wallpaper-pet.is-dragging {
+  filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.2));
+  transform: translate(-50%, -50%) scale(1.04);
+}
+
+.wallpaper-pet img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.16));
+}
+
+.wallpaper-howto {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.wallpaper-howto article {
+  display: grid;
+  gap: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card-bg);
+  padding: 0.85rem;
+}
+
 .download-panel {
   display: grid;
   height: var(--preview-panel-h);
@@ -1709,6 +1975,15 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     grid-template-columns: 1fr;
   }
 
+  .wallpaper-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .wallpaper-pet-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: 26rem;
+  }
+
   .device-shell {
     width: min(100%, 48rem);
   }
@@ -1796,13 +2071,26 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   }
 
   .download-title-row,
+  .wallpaper-preview-head,
+  .wallpaper-step-title,
   .mailbox-actions {
     align-items: stretch;
     justify-items: stretch;
   }
 
-  .download-title-row {
+  .download-title-row,
+  .wallpaper-preview-head,
+  .wallpaper-step-title {
     flex-direction: column;
+  }
+
+  .wallpaper-export-actions,
+  .wallpaper-mini-actions {
+    justify-content: flex-start;
+  }
+
+  .wallpaper-howto {
+    grid-template-columns: 1fr;
   }
 
   .mailbox-note {
@@ -1826,6 +2114,14 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
 
   .top-nav {
     flex-wrap: wrap;
+  }
+
+  .wallpaper-pet-list {
+    grid-template-columns: 1fr;
+  }
+
+  .wallpaper-stage {
+    min-height: 24rem;
   }
 
   .home-copy h1 {
