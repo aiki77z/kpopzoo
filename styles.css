@@ -797,10 +797,10 @@ img.selector-logo-asset {
 
 .group-detail-view h1,
 .group-typed-title {
-  min-height: clamp(3.6rem, 8.6vw, 8.8rem);
+  min-height: clamp(4.4rem, 9.6vw, 9.6rem);
   margin: 0.08em 0 0.12em;
   font-family: var(--font-mono);
-  font-size: clamp(3.2rem, 7.6vw, 8.2rem);
+  font-size: clamp(3.8rem, 8.8vw, 9rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 0.9;
@@ -825,12 +825,12 @@ img.selector-logo-asset {
 }
 
 .detail-layout {
-  --preview-panel-h: clamp(20rem, min(38vw, 54vh), 34rem);
+  --preview-panel-h: clamp(18rem, 32vw, 28rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(22rem, 0.85fr);
-  gap: clamp(1rem, 2.5vw, 2rem);
-  align-items: stretch;
-  padding-bottom: clamp(2rem, 5vh, 4rem);
+  grid-template-columns: minmax(0, 1.45fr) minmax(30rem, 0.95fr);
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  align-items: start;
+  padding-bottom: 3rem;
 }
 
 .preview-column {
@@ -869,7 +869,7 @@ img.selector-logo-asset {
 }
 
 .preview-column .device-shell {
-  width: min(100%, 54rem);
+  width: min(100%, 43rem);
   min-height: var(--preview-panel-h);
   border: 0;
   background: transparent;
@@ -1968,11 +1968,29 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
 
 @media (min-width: 1500px) {
   .app-root[data-view="group"] {
-    width: min(1720px, calc(100% - clamp(2rem, 5vw, 6rem)));
+    width: min(1720px, calc(100% - clamp(1.2rem, 4vw, 4.5rem)));
   }
 
-  .detail-layout {
-    --preview-panel-h: clamp(28rem, 36vw, 42rem);
+  .group-detail-view {
+    zoom: 1.04;
+  }
+}
+
+@media (min-width: 1700px) {
+  .group-detail-view {
+    zoom: 1.1;
+  }
+}
+
+@media (min-width: 1900px) {
+  .group-detail-view {
+    zoom: 1.16;
+  }
+}
+
+@media (min-width: 2200px) {
+  .group-detail-view {
+    zoom: 1.22;
   }
 }
 
@@ -1982,7 +2000,7 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   }
 
   .detail-layout {
-    --preview-panel-h: clamp(20rem, 56vw, 34rem);
+    --preview-panel-h: clamp(18rem, 52vw, 28rem);
     grid-template-columns: 1fr;
   }
 
@@ -2103,7 +2121,7 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   }
 
   .detail-layout {
-    --preview-panel-h: clamp(16rem, 66vw, 28rem);
+    --preview-panel-h: clamp(16rem, 62vw, 26rem);
     gap: 1rem;
     padding-bottom: 2rem;
   }
