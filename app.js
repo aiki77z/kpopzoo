@@ -1642,8 +1642,27 @@ function hydratePetImages() {
       if (!image.isConnected || !image.dataset.src) return;
       schedule(() => {
         if (!image.isConnected || !image.dataset.src) return;
-        image.src = image.dataset.src;
-        delete image.dataset.src;
+        const src = image.dataset.src;
+        const reveal = () => {
+          if (!image.isConnected) return;
+          delete image.dataset.src;
+          delete image.dataset.loading;
+        };
+
+        image.dataset.loading = "true";
+        image.addEventListener("load", reveal, { once: true });
+        image.addEventListener(
+          "error",
+          () => {
+            delete image.dataset.loading;
+          },
+          { once: true },
+        );
+        image.src = src;
+
+        if (image.complete && image.naturalWidth > 0) {
+          reveal();
+        }
       });
     }, index * 80);
   });
