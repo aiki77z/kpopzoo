@@ -797,10 +797,10 @@ img.selector-logo-asset {
 
 .group-detail-view h1,
 .group-typed-title {
-  min-height: clamp(4.4rem, 9.6vw, 9.6rem);
+  min-height: clamp(3.6rem, 8.6vw, 8.8rem);
   margin: 0.08em 0 0.12em;
   font-family: var(--font-mono);
-  font-size: clamp(3.8rem, 8.8vw, 9rem);
+  font-size: clamp(3.2rem, 7.6vw, 8.2rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 0.9;
@@ -825,12 +825,12 @@ img.selector-logo-asset {
 }
 
 .detail-layout {
-  --preview-panel-h: clamp(18rem, 32vw, 28rem);
+  --preview-panel-h: clamp(20rem, min(38vw, 54vh), 34rem);
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(30rem, 0.95fr);
-  gap: clamp(1.2rem, 3vw, 2.2rem);
-  align-items: start;
-  padding-bottom: 3rem;
+  grid-template-columns: minmax(0, 1.35fr) minmax(22rem, 0.85fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: stretch;
+  padding-bottom: clamp(2rem, 5vh, 4rem);
 }
 
 .preview-column {
@@ -869,7 +869,7 @@ img.selector-logo-asset {
 }
 
 .preview-column .device-shell {
-  width: min(100%, 43rem);
+  width: min(100%, 54rem);
   min-height: var(--preview-panel-h);
   border: 0;
   background: transparent;
@@ -1966,13 +1966,33 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   }
 }
 
-@media (max-width: 1080px) {
+@media (min-width: 1500px) {
+  .app-root[data-view="group"] {
+    width: min(1720px, calc(100% - clamp(2rem, 5vw, 6rem)));
+  }
+
+  .detail-layout {
+    --preview-panel-h: clamp(28rem, 36vw, 42rem);
+  }
+}
+
+@media (max-width: 1180px) {
   .selector-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .detail-layout {
+    --preview-panel-h: clamp(20rem, 56vw, 34rem);
     grid-template-columns: 1fr;
+  }
+
+  .download-panel {
+    height: auto;
+  }
+
+  .download-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
   }
 
   .wallpaper-layout {
@@ -2070,6 +2090,24 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .group-detail-view .view-topline {
+    margin-top: clamp(0.9rem, 3vw, 1.4rem);
+  }
+
+  .group-detail-view h1,
+  .group-typed-title {
+    min-height: clamp(2.8rem, 16vw, 5.8rem);
+    font-size: clamp(2.4rem, 14vw, 5.1rem);
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .detail-layout {
+    --preview-panel-h: clamp(16rem, 66vw, 28rem);
+    gap: 1rem;
+    padding-bottom: 2rem;
+  }
+
   .download-title-row,
   .wallpaper-preview-head,
   .wallpaper-step-title,
@@ -2116,6 +2154,29 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     flex-wrap: wrap;
   }
 
+  .group-detail-view .view-topline {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .group-detail-view .text-link,
+  .version-pill {
+    width: fit-content;
+  }
+
+  .detail-layout {
+    --preview-panel-h: clamp(14rem, 72vw, 22rem);
+  }
+
+  .preview-column .device-shell {
+    min-height: 0;
+  }
+
+  .preview-column .device-screen {
+    height: var(--preview-panel-h);
+  }
+
   .wallpaper-pet-list {
     grid-template-columns: 1fr;
   }
@@ -2128,8 +2189,7 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     font-size: clamp(4rem, 24vw, 6.6rem);
   }
 
-  .group-select-view h1,
-  .group-detail-view h1 {
+  .group-select-view h1 {
     font-size: clamp(2.8rem, 16vw, 5.2rem);
     white-space: normal;
   }
@@ -2141,6 +2201,8 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   .download-card {
     grid-template-columns: auto minmax(0, 1fr);
     gap: 0.65rem;
+    border-radius: 14px;
+    padding: 0.58rem 0.62rem;
   }
 
   .download-icon {
@@ -2160,6 +2222,11 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   .download-unavailable {
     justify-self: end;
     grid-column: 2;
+  }
+
+  .download-cards {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
   }
 
   .device-shell {
