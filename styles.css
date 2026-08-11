@@ -1,8 +1,16 @@
+@font-face {
+  font-family: "CCNR HandWrite";
+  src: url("font/CCNR%20HandWrite.otf") format("opentype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
-  --font-cn: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, sans-serif;
-  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font-cn: "CCNR HandWrite", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", "Source Han Sans SC", system-ui, sans-serif;
+  --font-display: "CCNR HandWrite", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+  --font-mono: "CCNR HandWrite", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --page-bg: #f5fff8;
   --page-text: #1f2f38;
   --surface: #fcfff9;
@@ -671,11 +679,33 @@ body[data-view="home"] .splash-scene {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin: clamp(1.5rem, 4vw, 3rem) 0 1rem;
+  margin: clamp(1.5rem, 4vw, 3rem) 0 0.45rem;
 }
 
 .text-link {
   padding: 0.6rem 0.9rem;
+}
+
+.group-select-view .text-link,
+.group-detail-view .text-link {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: "Press Start 2P", "Silkscreen", "Pixelify Sans", "Courier New", var(--font-mono);
+  font-size: clamp(0.74rem, 1.25vw, 0.98rem);
+  font-weight: 900;
+  line-height: 1.18;
+  padding: 0.2rem 0.35rem;
+  text-align: left;
+  text-shadow:
+    2px 2px 0 color-mix(in srgb, var(--surface), white 35%),
+    4px 4px 0 rgba(0, 0, 0, 0.16);
+  transform: rotate(-1.5deg);
+}
+
+.group-select-view .text-link:hover,
+.group-detail-view .text-link:hover {
+  transform: translateY(-1px) rotate(-1.5deg);
 }
 
 .group-select-view h1,
@@ -767,10 +797,10 @@ img.selector-logo-asset {
 
 .group-detail-view h1,
 .group-typed-title {
-  min-height: clamp(3.9rem, 8vw, 7.8rem);
-  margin: 0.16em 0 0.34em;
+  min-height: clamp(4.4rem, 9.6vw, 9.6rem);
+  margin: 0.08em 0 0.12em;
   font-family: var(--font-mono);
-  font-size: clamp(3.1rem, 7.2vw, 7.2rem);
+  font-size: clamp(3.8rem, 8.8vw, 9rem);
   font-weight: 900;
   letter-spacing: 0;
   line-height: 0.9;
@@ -1795,7 +1825,7 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
 
   .group-select-view h1,
   .group-detail-view h1 {
-    font-size: clamp(2.4rem, 15vw, 4.6rem);
+    font-size: clamp(2.8rem, 16vw, 5.2rem);
     white-space: normal;
   }
 

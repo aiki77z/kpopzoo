@@ -422,7 +422,7 @@ const apps = [
 const uiText = {
   entering: "entering kpopzoo...",
   chooseGroup: "选择团体 →",
-  allGroups: "← 全部团体",
+  allGroups: "← Groups",
   groupSelectTitle: "Pick your group",
   download: "下载",
   usage: "使用说明 →",
@@ -1083,7 +1083,7 @@ function renderIntroScene() {
           <p class="intro-line intro-line-02">has moved</p>
           <p class="intro-line intro-line-03">into your desktop.</p>
         </div>
-        <p class="intro-produced">produced by broccoli</p>
+        <p class="intro-produced">produced by broccoli and ccnr</p>
         <div class="intro-actions">
           <button class="intro-action" type="button" data-route="#/groups">ENTERING KPOPZOO →</button>
           <a class="intro-action" href="https://petdex.dev/u/nf2q40sq">PETDEX →</a>
