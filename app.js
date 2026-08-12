@@ -425,7 +425,7 @@ const uiText = {
   allGroups: "← Groups",
   groupSelectTitle: "Pick your group",
   wallpaperTitle: "用宠物装饰你的相片",
-  wallpaperSubtitle: "上传相片或打开摄像头拍一张，选择喜欢的宠物，挑好动作后拖到相片里摆放，再导出短视频或静态图，短视频默认时长3秒，可以自行下载转换live图。手机电脑平板均可哦！",
+  wallpaperSubtitle: "上传相片或打开摄像头拍一张，选择喜欢的宠物，挑好动作后拖到相片里摆放，再导出短视频或静态图，短视频默认时长3秒，可以自行下载转换live图。手机电脑平板均可哦！资源加载可能卡顿，请耐心等待",
   wallpaperUploadTitle: "添加相片",
   wallpaperPetTitle: "选择宠物",
   wallpaperPreviewTitle: "相片预览",
