@@ -424,11 +424,11 @@ const uiText = {
   chooseGroup: "选择团体 →",
   allGroups: "← Groups",
   groupSelectTitle: "Pick your group",
-  wallpaperTitle: "制作动态桌面",
-  wallpaperSubtitle: "上传一张 png/jpg 背景，选择喜欢的宠物，拖到画面里摆好，再导出给 Windows/macOS 动态壁纸工具使用。",
-  wallpaperUploadTitle: "上传桌面图片",
+  wallpaperTitle: "用宠物装饰你的相片",
+  wallpaperSubtitle: "上传相片或打开摄像头拍一张，选择喜欢的宠物，挑好动作后拖到相片里摆放，再导出短视频或静态图，短视频默认时长3秒，可以自行下载转换live图。",
+  wallpaperUploadTitle: "添加相片",
   wallpaperPetTitle: "选择宠物",
-  wallpaperPreviewTitle: "预览导出",
+  wallpaperPreviewTitle: "相片预览",
   download: "下载",
   usage: "使用说明 →",
   usageDownload: "下载使用说明",
@@ -503,6 +503,37 @@ const groupWallpaperSources = {
   dream: "source/dream.jpg",
   enhypen: "source/ehp.jpg",
 };
+
+const petActionLabels = {
+  idle: "待机",
+  right: "向右走",
+  left: "向左走",
+  wave: "挥手",
+  jump: "跳跃",
+  fail: "失败",
+  wait: "等待",
+  busy: "忙碌",
+  review: "检查",
+};
+
+const defaultPetFrames = [
+  { key: "wave", effect: "wave", row: 3, frames: 4, fps: 7 },
+  { key: "jump", effect: "jump", row: 4, frames: 5, fps: 8 },
+  { key: "wait", effect: "wait", row: 6, frames: 6, fps: 6 },
+  { key: "busy", effect: "busy", row: 7, frames: 6, fps: 7 },
+  { key: "review", effect: "review", row: 8, frames: 6, fps: 6 },
+  { key: "fail", effect: "fail", row: 5, frames: 8, fps: 7 },
+  { key: "left", effect: "left", row: 2, frames: 8, fps: 8 },
+  { key: "right", effect: "right", row: 1, frames: 8, fps: 8 },
+];
+
+const defaultSpriteSheet = {
+  columns: 8,
+  rows: 9,
+  idleFrames: 6,
+};
+
+const petFrameManifest = {};
 
 const groupPetPreviewLayouts = {
   h2h: {
@@ -1057,6 +1088,11 @@ function handleRoute() {
   }
 
   if (route === "#/wallpaper") {
+    navigateTo("#/diypic", { replace: true });
+    return;
+  }
+
+  if (route === "#/diypic") {
     state.currentApp = apps[0];
     applyGroupTheme(apps[0].id);
     renderWallpaperMaker();
@@ -1209,20 +1245,25 @@ function renderWallpaperMaker() {
           <p>${escapeHtml(uiText.wallpaperSubtitle)}</p>
         </div>
         <div class="wallpaper-layout">
-          <aside class="wallpaper-panel wallpaper-controls" aria-label="动态桌面制作工具">
+          <aside class="wallpaper-panel wallpaper-controls" aria-label="相片装饰工具">
             <section class="wallpaper-step">
               <h2>${escapeHtml(uiText.wallpaperUploadTitle)}</h2>
               <label class="wallpaper-upload">
                 <input type="file" accept="image/png,image/jpeg" data-wallpaper-upload>
-                <span>选择 png / jpg 图片</span>
-                <small data-wallpaper-file-name>还没有上传图片</small>
+                <span>上传 png / jpg 相片</span>
+                <small data-wallpaper-file-name>还没有添加相片</small>
               </label>
+              <div class="wallpaper-camera-actions">
+                <button type="button" data-wallpaper-camera-start>打开摄像头</button>
+                <button type="button" data-wallpaper-camera-shot disabled>拍照</button>
+              </div>
+              <video class="wallpaper-camera" data-wallpaper-camera muted playsinline hidden></video>
             </section>
             <section class="wallpaper-step">
               <div class="wallpaper-step-title">
                 <h2>${escapeHtml(uiText.wallpaperPetTitle)}</h2>
                 <div class="wallpaper-mini-actions">
-                  <button type="button" data-wallpaper-select-all>全选</button>
+                  <button type="button" data-wallpaper-select-all>添加当前</button>
                   <button type="button" data-wallpaper-clear>清空</button>
                 </div>
               </div>
@@ -1242,29 +1283,20 @@ function renderWallpaperMaker() {
             <div class="wallpaper-preview-head">
               <div>
                 <h2 id="wallpaper-preview-title">${escapeHtml(uiText.wallpaperPreviewTitle)}</h2>
-                <p>拖动宠物调整位置，导出的 HTML 会保留背景和 GIF 动画。</p>
+                <p>拖动宠物调整位置，每只宠物都可以单独选择动作帧。</p>
               </div>
               <div class="wallpaper-export-actions">
                 <button class="primary-action" type="button" data-wallpaper-reset>重置摆放</button>
-                <button class="primary-action" type="button" data-wallpaper-export>导出 HTML</button>
+                <button class="primary-action" type="button" data-wallpaper-export-video>导出短视频</button>
+                <button class="primary-action" type="button" data-wallpaper-export-photo>导出静态图</button>
               </div>
             </div>
             <div class="wallpaper-stage" data-wallpaper-stage>
               <div class="wallpaper-empty" data-wallpaper-empty>
-                <strong>上传图片后开始制作</strong>
-                <span>也可以先选择宠物，摆放位置会一起保存。</span>
+                <strong>添加相片后开始制作</strong>
+                <span>可以先选择宠物，摆放位置会一起保存。</span>
               </div>
               <div class="wallpaper-pet-layer" data-wallpaper-pet-layer></div>
-            </div>
-            <div class="wallpaper-howto">
-              <article>
-                <h3>Windows</h3>
-                <p>导出 HTML 后，可用 Lively Wallpaper 或 Wallpaper Engine 这类支持网页壁纸的工具导入，本页里的 GIF 宠物会继续循环播放。</p>
-              </article>
-              <article>
-                <h3>macOS</h3>
-                <p>导出的 HTML 可交给支持网页桌面/网页壁纸的工具使用；如果只想当普通桌面背景，可以在预览中截取静态画面。</p>
-              </article>
             </div>
           </section>
         </div>
@@ -1279,12 +1311,41 @@ function getWallpaperPetOptions() {
     const sources = groupPetCollections[app.id] || [];
     return sources.map((src) => {
       const id = src.split("/").pop().replace(/\.[^.]+$/, "");
+      const manifestFrames = petFrameManifest[`${app.id}/${id}`] || [];
+      const spriteSrc = `assets/groups/${app.id}/spritesheets/${id}/spritesheet.webp`;
+      const frames = [
+        {
+          key: "default",
+          label: "默认动画",
+          src: spriteSrc,
+          type: "sprite",
+          effect: "default",
+          sprite: { ...defaultSpriteSheet, src: spriteSrc, row: 0, frames: defaultSpriteSheet.idleFrames, fps: 6 },
+        },
+        ...defaultPetFrames.map((frame) => ({
+          type: "sprite",
+          key: frame.key,
+          label: petActionLabels[frame.key] || frame.key,
+          src: spriteSrc,
+          effect: frame.effect,
+          sprite: { ...defaultSpriteSheet, src: spriteSrc, row: frame.row, frames: frame.frames, fps: frame.fps },
+        })),
+        ...manifestFrames.map((frame) => ({
+          type: frame.type || (frame.sprite ? "sprite" : "image"),
+          key: frame.key,
+          label: frame.label || petActionLabels[frame.key] || frame.key,
+          src: frame.src || src,
+          effect: frame.effect || frame.key,
+          sprite: frame.sprite || null,
+        })),
+      ];
       return {
         id: `${app.id}-${id}`,
         name: id,
         groupId: app.id,
         group: app.group,
         src,
+        frames,
       };
     });
   });
@@ -1292,15 +1353,41 @@ function getWallpaperPetOptions() {
 
 function renderWallpaperPetChoice(pet) {
   return `
-    <label class="wallpaper-pet-choice" data-wallpaper-choice data-group-id="${escapeHtml(pet.groupId)}">
-      <input type="checkbox" value="${escapeHtml(pet.id)}" data-wallpaper-pet-check>
+    <div class="wallpaper-pet-choice" data-wallpaper-choice data-group-id="${escapeHtml(pet.groupId)}">
       <img src="${escapeHtml(pet.src)}" alt="" loading="lazy" decoding="async">
       <span>
         <strong>${escapeHtml(pet.name)}</strong>
         <small>${escapeHtml(pet.group)}</small>
       </span>
-    </label>
+      <select data-wallpaper-frame-select aria-label="选择 ${escapeHtml(pet.name)} 动作帧">
+        ${pet.frames.map((frame) => `<option value="${escapeHtml(frame.key)}">${escapeHtml(frame.label)}</option>`).join("")}
+      </select>
+      <button type="button" data-wallpaper-add-pet="${escapeHtml(pet.id)}" aria-label="添加 ${escapeHtml(pet.name)}">+</button>
+    </div>
   `;
+}
+
+function getWallpaperSpriteData(frame) {
+  const sprite = frame?.sprite;
+  if (!sprite) return null;
+
+  const columns = sprite.columns || defaultSpriteSheet.columns;
+  const rows = sprite.rows || defaultSpriteSheet.rows;
+  const frames = Math.max(1, sprite.frames || columns);
+  const row = Math.max(0, sprite.row || 0);
+  const frameWidth = sprite.frameWidth || sprite.width || defaultSpriteSheet.frameWidth || 192;
+  const frameHeight = sprite.frameHeight || sprite.height || defaultSpriteSheet.frameHeight || 208;
+
+  return {
+    src: sprite.src || frame.src,
+    columns,
+    rows,
+    frames,
+    row,
+    fps: sprite.fps || 6,
+    frameWidth,
+    frameHeight,
+  };
 }
 
 function renderGroupDetail(app) {
@@ -1593,18 +1680,28 @@ function initWallpaperMaker(petOptions) {
   const upload = appRoot.querySelector("[data-wallpaper-upload]");
   const fileName = appRoot.querySelector("[data-wallpaper-file-name]");
   const filter = appRoot.querySelector("[data-wallpaper-group-filter]");
-  const checks = Array.from(appRoot.querySelectorAll("[data-wallpaper-pet-check]"));
+  const camera = appRoot.querySelector("[data-wallpaper-camera]");
+  const startCamera = appRoot.querySelector("[data-wallpaper-camera-start]");
+  const takePhoto = appRoot.querySelector("[data-wallpaper-camera-shot]");
+  const frameSelects = Array.from(appRoot.querySelectorAll("[data-wallpaper-frame-select]"));
+  const addButtons = Array.from(appRoot.querySelectorAll("[data-wallpaper-add-pet]"));
   const choices = Array.from(appRoot.querySelectorAll("[data-wallpaper-choice]"));
   const selected = new Map();
   const petLookup = new Map(petOptions.map((pet) => [pet.id, pet]));
   let backgroundUrl = "";
   let backgroundDataUrl = "";
+  let backgroundSize = { width: 0, height: 0 };
+  let cameraStream = null;
+  let instanceCounter = 0;
   let topZ = 40;
+  let spritePreviewFrame = 0;
+  let spritePreviewRun = 0;
 
   const defaultPlacement = (index) => ({
     x: 22 + (index % 4) * 17,
     y: 68 + (Math.floor(index / 4) % 2) * 10,
     width: 118,
+    rotation: 0,
     z: 20 + index,
   });
 
@@ -1614,6 +1711,46 @@ function initWallpaperMaker(petOptions) {
     empty.hidden = hasBackground || selected.size > 0;
   };
 
+  const setBackgroundFromDataUrl = async (dataUrl, label) => {
+    if (backgroundUrl?.startsWith("blob:")) {
+      URL.revokeObjectURL(backgroundUrl);
+    }
+
+    backgroundUrl = dataUrl;
+    backgroundDataUrl = dataUrl;
+    stage.style.backgroundImage = `url("${backgroundUrl}")`;
+    fileName.textContent = label;
+    backgroundSize = await getImageSize(dataUrl);
+    stage.style.setProperty("--wallpaper-photo-aspect", `${backgroundSize.width} / ${backgroundSize.height}`);
+    syncEmptyState();
+  };
+
+  const setBackgroundFromFile = (file) => {
+    if (backgroundUrl?.startsWith("blob:")) {
+      URL.revokeObjectURL(backgroundUrl);
+    }
+
+    backgroundUrl = URL.createObjectURL(file);
+    stage.style.backgroundImage = `url("${backgroundUrl}")`;
+    fileName.textContent = file.name;
+
+    const reader = new FileReader();
+    reader.addEventListener("load", async () => {
+      backgroundDataUrl = String(reader.result || "");
+      backgroundSize = await getImageSize(backgroundDataUrl);
+      stage.style.setProperty("--wallpaper-photo-aspect", `${backgroundSize.width} / ${backgroundSize.height}`);
+    });
+    reader.readAsDataURL(file);
+    syncEmptyState();
+  };
+
+  const getSelectedFrame = (petId) => {
+    const choice = addButtons.find((button) => button.dataset.wallpaperAddPet === petId)?.closest("[data-wallpaper-choice]");
+    const frameKey = choice?.querySelector("[data-wallpaper-frame-select]")?.value || "default";
+    const pet = petLookup.get(petId);
+    return pet?.frames.find((frame) => frame.key === frameKey) || pet?.frames[0] || null;
+  };
+
   const placePet = (button, clientX, clientY) => {
     const rect = stage.getBoundingClientRect();
     const x = Math.max(6, Math.min(94, ((clientX - rect.left) / rect.width) * 100));
@@ -1621,7 +1758,7 @@ function initWallpaperMaker(petOptions) {
     button.style.setProperty("--wallpaper-pet-x", `${x}%`);
     button.style.setProperty("--wallpaper-pet-y", `${y}%`);
 
-    const item = selected.get(button.dataset.wallpaperPetId);
+    const item = selected.get(button.dataset.wallpaperPetInstance);
     if (item) {
       item.x = x;
       item.y = y;
@@ -1633,6 +1770,7 @@ function initWallpaperMaker(petOptions) {
     let dragging = false;
 
     button.addEventListener("pointerdown", (event) => {
+      if (event.target.closest("[data-wallpaper-instance-control]")) return;
       event.preventDefault();
       dragging = true;
       button.setPointerCapture(event.pointerId);
@@ -1659,24 +1797,159 @@ function initWallpaperMaker(petOptions) {
     button.addEventListener("pointercancel", stopDrag);
   };
 
+  const stopSpritePreviews = () => {
+    spritePreviewRun += 1;
+    if (spritePreviewFrame) {
+      window.cancelAnimationFrame(spritePreviewFrame);
+      spritePreviewFrame = 0;
+    }
+  };
+
+  const startSpritePreviews = async () => {
+    stopSpritePreviews();
+    const runId = spritePreviewRun;
+    const canvases = Array.from(layer.querySelectorAll("[data-wallpaper-sprite-canvas]"));
+    if (!canvases.length) return;
+
+    const spriteCanvases = await Promise.all(
+      canvases.map(async (canvas) => {
+        try {
+          return {
+            canvas,
+            image: await loadPetImage(canvas.dataset.spriteSrc),
+          };
+        } catch (error) {
+          const fallbackSrc = canvas.dataset.fallbackSrc;
+          if (!fallbackSrc) return null;
+
+          try {
+            return {
+              canvas,
+              image: await loadPetImage(fallbackSrc),
+              fallback: true,
+            };
+          } catch (fallbackError) {
+            return null;
+          }
+        }
+      }),
+    );
+
+    const visibleSprites = spriteCanvases.filter(Boolean);
+    if (!visibleSprites.length || runId !== spritePreviewRun) return;
+
+    const draw = () => {
+      if (runId !== spritePreviewRun) return;
+
+      visibleSprites.forEach(({ canvas, image, fallback }) => {
+        drawWallpaperSpriteCanvas(canvas, image, fallback);
+      });
+      spritePreviewFrame = window.requestAnimationFrame(draw);
+    };
+
+    draw();
+  };
+
   const renderSelectedPets = () => {
     layer.innerHTML = Array.from(selected.values())
       .map(
-        (item) => `
-          <button
-            class="wallpaper-pet"
-            type="button"
-            data-wallpaper-pet-id="${escapeHtml(item.id)}"
-            style="--wallpaper-pet-x:${item.x}%;--wallpaper-pet-y:${item.y}%;--wallpaper-pet-width:${item.width}px;--wallpaper-pet-z:${item.z};"
-            aria-label="拖动 ${escapeHtml(item.name)}"
-          >
-            <img src="${escapeHtml(item.src)}" alt="" draggable="false">
-          </button>
-        `,
+        (item) => {
+          const spriteData = getWallpaperSpriteData(item.frame);
+          const visual = spriteData
+            ? `
+              <canvas
+                class="wallpaper-pet-sprite"
+                width="${spriteData.frameWidth}"
+                height="${spriteData.frameHeight}"
+                data-wallpaper-sprite-canvas
+                data-sprite-src="${escapeHtml(spriteData.src)}"
+                data-fallback-src="${escapeHtml(item.src)}"
+                data-sprite-columns="${spriteData.columns}"
+                data-sprite-rows="${spriteData.rows}"
+                data-sprite-frames="${spriteData.frames}"
+                data-sprite-row="${spriteData.row}"
+                data-sprite-fps="${spriteData.fps}"
+                aria-hidden="true"
+              ></canvas>
+            `
+            : `<img src="${escapeHtml(item.src)}" alt="" draggable="false" data-wallpaper-effect="${escapeHtml(item.frame?.effect || "default")}">`;
+
+          return `
+            <div
+              class="wallpaper-pet"
+              data-wallpaper-pet-instance="${escapeHtml(item.instanceId)}"
+              style="--wallpaper-pet-x:${item.x}%;--wallpaper-pet-y:${item.y}%;--wallpaper-pet-width:${item.width}px;--wallpaper-pet-rotation:${getWallpaperPetRotation(item)}deg;--wallpaper-pet-z:${item.z};"
+              aria-label="拖动 ${escapeHtml(item.name)}"
+            >
+            ${visual}
+            <div class="wallpaper-pet-controls" data-wallpaper-instance-control>
+              <select data-wallpaper-instance-frame="${escapeHtml(item.instanceId)}" aria-label="选择 ${escapeHtml(item.name)} 动作帧">
+                ${item.frames.map((frame) => `<option value="${escapeHtml(frame.key)}"${frame.key === item.frameKey ? " selected" : ""}>${escapeHtml(frame.label)}</option>`).join("")}
+              </select>
+              <button type="button" data-wallpaper-resize-instance="${escapeHtml(item.instanceId)}" data-delta="-12" aria-label="缩小 ${escapeHtml(item.name)}">−</button>
+              <button type="button" data-wallpaper-resize-instance="${escapeHtml(item.instanceId)}" data-delta="12" aria-label="放大 ${escapeHtml(item.name)}">+</button>
+              <button type="button" data-wallpaper-rotate-instance="${escapeHtml(item.instanceId)}" data-delta="-15" aria-label="向左旋转 ${escapeHtml(item.name)}">↺</button>
+              <button type="button" data-wallpaper-rotate-instance="${escapeHtml(item.instanceId)}" data-delta="15" aria-label="向右旋转 ${escapeHtml(item.name)}">↻</button>
+              <button type="button" data-wallpaper-remove-instance="${escapeHtml(item.instanceId)}" aria-label="删除 ${escapeHtml(item.name)}">×</button>
+            </div>
+          </div>
+        `;
+        },
       )
       .join("");
 
     Array.from(layer.querySelectorAll(".wallpaper-pet")).forEach(bindWallpaperPetDrag);
+    startSpritePreviews();
+    Array.from(layer.querySelectorAll("[data-wallpaper-instance-frame]")).forEach((select) => {
+      select.addEventListener("pointerdown", (event) => event.stopPropagation());
+      select.addEventListener("change", () => {
+        const item = selected.get(select.dataset.wallpaperInstanceFrame);
+        const frame = item?.frames.find((candidate) => candidate.key === select.value);
+        if (!item || !frame) return;
+        selected.set(item.instanceId, {
+          ...item,
+          src: frame.src,
+          frameKey: frame.key,
+          frameLabel: frame.label,
+          frame,
+          rotation: frame.key === "default" ? 0 : item.rotation,
+        });
+        renderSelectedPets();
+      });
+    });
+    Array.from(layer.querySelectorAll("[data-wallpaper-remove-instance]")).forEach((button) => {
+      button.addEventListener("pointerdown", (event) => event.stopPropagation());
+      button.addEventListener("click", () => {
+        selected.delete(button.dataset.wallpaperRemoveInstance);
+        renderSelectedPets();
+      });
+    });
+    Array.from(layer.querySelectorAll("[data-wallpaper-resize-instance]")).forEach((button) => {
+      button.addEventListener("pointerdown", (event) => event.stopPropagation());
+      button.addEventListener("click", () => {
+        const item = selected.get(button.dataset.wallpaperResizeInstance);
+        if (!item) return;
+        const delta = Number(button.dataset.delta) || 0;
+        selected.set(item.instanceId, {
+          ...item,
+          width: Math.max(42, Math.min(118, item.width + delta)),
+        });
+        renderSelectedPets();
+      });
+    });
+    Array.from(layer.querySelectorAll("[data-wallpaper-rotate-instance]")).forEach((button) => {
+      button.addEventListener("pointerdown", (event) => event.stopPropagation());
+      button.addEventListener("click", () => {
+        const item = selected.get(button.dataset.wallpaperRotateInstance);
+        if (!item) return;
+        const delta = Number(button.dataset.delta) || 0;
+        selected.set(item.instanceId, {
+          ...item,
+          rotation: ((item.rotation || 0) + delta + 360) % 360,
+        });
+        renderSelectedPets();
+      });
+    });
     syncEmptyState();
   };
 
@@ -1690,61 +1963,97 @@ function initWallpaperMaker(petOptions) {
       return;
     }
 
-    if (backgroundUrl) {
-      URL.revokeObjectURL(backgroundUrl);
-    }
-
-    backgroundUrl = URL.createObjectURL(file);
-    stage.style.backgroundImage = `url("${backgroundUrl}")`;
-    fileName.textContent = file.name;
-
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      backgroundDataUrl = String(reader.result || "");
-    });
-    reader.readAsDataURL(file);
-    syncEmptyState();
+    setBackgroundFromFile(file);
   });
 
-  checks.forEach((check) => {
-    check.addEventListener("change", () => {
-      const pet = petLookup.get(check.value);
+  frameSelects.forEach((select) => {
+    select.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  });
+
+  addButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const pet = petLookup.get(button.dataset.wallpaperAddPet);
       if (!pet) return;
 
-      if (check.checked) {
-        const placement = defaultPlacement(selected.size);
-        selected.set(pet.id, { ...pet, ...placement });
-      } else {
-        selected.delete(pet.id);
-      }
-
+      const frame = getSelectedFrame(pet.id);
+      const placement = defaultPlacement(selected.size);
+      const instanceId = `${pet.id}-${++instanceCounter}`;
+      selected.set(instanceId, {
+        ...pet,
+        instanceId,
+        src: frame?.src || pet.src,
+        frameKey: frame?.key || "default",
+        frameLabel: frame?.label || "默认动画",
+        frame: frame || pet.frames[0],
+        rotation: 0,
+        ...placement,
+      });
       renderSelectedPets();
     });
   });
 
-  filter?.addEventListener("change", () => {
-    const groupId = filter.value;
+  const applyPetFilters = () => {
+    const groupId = filter?.value || "all";
     choices.forEach((choice) => {
-      choice.hidden = groupId !== "all" && choice.dataset.groupId !== groupId;
+      const matchesGroup = groupId === "all" || choice.dataset.groupId === groupId;
+      choice.hidden = !matchesGroup;
     });
+  };
+
+  const schedulePetFilters = () => {
+    window.setTimeout(applyPetFilters, 0);
+  };
+
+  filter?.addEventListener("input", schedulePetFilters);
+  filter?.addEventListener("change", schedulePetFilters);
+  filter?.addEventListener("blur", schedulePetFilters);
+  filter?.addEventListener("keyup", schedulePetFilters);
+  filter?.addEventListener("pointerup", schedulePetFilters);
+  applyPetFilters();
+
+  startCamera?.addEventListener("click", async () => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      openMessageDialog("无法打开摄像头", "当前浏览器不支持直接调用摄像头，可以先用系统相机拍照后上传。");
+      return;
+    }
+
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+      camera.srcObject = cameraStream;
+      camera.hidden = false;
+      takePhoto.disabled = false;
+      await camera.play();
+    } catch (error) {
+      openMessageDialog("摄像头未开启", "浏览器没有获得摄像头权限，可以检查权限后再试。");
+    }
+  });
+
+  takePhoto?.addEventListener("click", async () => {
+    if (!cameraStream || !camera.videoWidth || !camera.videoHeight) return;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = camera.videoWidth;
+    canvas.height = camera.videoHeight;
+    canvas.getContext("2d").drawImage(camera, 0, 0, canvas.width, canvas.height);
+    await setBackgroundFromDataUrl(canvas.toDataURL("image/png"), `camera-${Date.now()}.png`);
   });
 
   appRoot.querySelector("[data-wallpaper-select-all]")?.addEventListener("click", () => {
-    checks.forEach((check) => {
-      const choice = check.closest("[data-wallpaper-choice]");
-      if (choice?.hidden || check.checked) return;
-      check.checked = true;
-      const pet = petLookup.get(check.value);
+    addButtons.forEach((button) => {
+      const choice = button.closest("[data-wallpaper-choice]");
+      if (choice?.hidden) return;
+      const pet = petLookup.get(button.dataset.wallpaperAddPet);
       if (!pet) return;
-      selected.set(pet.id, { ...pet, ...defaultPlacement(selected.size) });
+      const frame = getSelectedFrame(pet.id);
+      const instanceId = `${pet.id}-${++instanceCounter}`;
+      selected.set(instanceId, { ...pet, instanceId, src: frame?.src || pet.src, frameKey: frame?.key || "default", frameLabel: frame?.label || "默认动画", frame: frame || pet.frames[0], rotation: 0, ...defaultPlacement(selected.size) });
     });
     renderSelectedPets();
   });
 
   appRoot.querySelector("[data-wallpaper-clear]")?.addEventListener("click", () => {
-    checks.forEach((check) => {
-      check.checked = false;
-    });
     selected.clear();
     renderSelectedPets();
   });
@@ -1757,88 +2066,243 @@ function initWallpaperMaker(petOptions) {
     renderSelectedPets();
   });
 
-  appRoot.querySelector("[data-wallpaper-export]")?.addEventListener("click", async () => {
+  const validateExport = () => {
     if (!backgroundDataUrl) {
-      openMessageDialog("先上传背景", "请选择一张 png 或 jpg 图片，再导出动态桌面。");
-      return;
+      openMessageDialog("先添加相片", "请上传相片或打开摄像头拍照后再导出。");
+      return false;
     }
 
     if (!selected.size) {
-      openMessageDialog("先选择宠物", "至少选择一只宠物放进动态桌面。");
-      return;
+      openMessageDialog("先选择宠物", "至少选择一只宠物放进相片里。");
+      return false;
     }
 
+    return true;
+  };
+
+  appRoot.querySelector("[data-wallpaper-export-video]")?.addEventListener("click", async () => {
+    if (!validateExport()) return;
     try {
-      await exportWallpaperHtml(Array.from(selected.values()), backgroundDataUrl);
+      await exportDecoratedLive(Array.from(selected.values()), backgroundDataUrl, backgroundSize, {
+        filenamePrefix: "kpopzoo-short-video",
+      });
     } catch (error) {
-      openMessageDialog("导出失败", "浏览器没有成功打包素材，可以刷新页面后再试一次。");
+      console.error("Failed to export short video", error);
+      openMessageDialog("导出失败", "浏览器没有成功录制短视频，可以换成 Chrome/Edge 后再试。");
+    }
+  });
+
+  appRoot.querySelector("[data-wallpaper-export-photo]")?.addEventListener("click", async () => {
+    if (!validateExport()) return;
+    try {
+      await exportDecoratedPhoto(Array.from(selected.values()), backgroundDataUrl, backgroundSize);
+    } catch (error) {
+      console.error("Failed to export decorated photo", error);
+      openMessageDialog("导出失败", "浏览器没有成功合成静态图，可以刷新页面后再试一次。");
     }
   });
 
   syncEmptyState();
 }
 
-async function exportWallpaperHtml(selectedPets, backgroundDataUrl) {
+async function exportDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSize) {
+  const { canvas } = await drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSize, {
+    maxDimension: 4096,
+  });
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+  if (!blob) throw new Error("Canvas did not produce a blob");
+  downloadBlob(blob, `kpopzoo-decorated-photo-${Date.now()}.png`);
+}
+
+async function exportDecoratedLive(selectedPets, backgroundDataUrl, backgroundSize, options = {}) {
+  const { canvas, drawFrame } = await drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSize, {
+    maxDimension: 1280,
+  });
+  const stream = canvas.captureStream?.(24);
+  if (!stream || !window.MediaRecorder) {
+    throw new Error("MediaRecorder is not available");
+  }
+
+  const { recorder, mimeType } = createVideoRecorder(stream);
+  const chunks = [];
+  let animationFrame = 0;
+
+  recorder.addEventListener("dataavailable", (event) => {
+    if (event.data?.size) chunks.push(event.data);
+  });
+
+  const stopped = new Promise((resolve) => {
+    recorder.addEventListener("stop", resolve, { once: true });
+  });
+
+  const startedAt = performance.now();
+  const tick = () => {
+    drawFrame();
+    if (performance.now() - startedAt < 3000) {
+      animationFrame = window.requestAnimationFrame(tick);
+    }
+  };
+
+  recorder.start();
+  tick();
+  await wait(3000);
+  window.cancelAnimationFrame(animationFrame);
+  recorder.stop();
+  await stopped;
+  if (!chunks.length) {
+    throw new Error(`MediaRecorder produced no data for ${mimeType}`);
+  }
+  downloadBlob(new Blob(chunks, { type: mimeType }), `${options.filenamePrefix || "kpopzoo-live-photo"}-${Date.now()}.${videoExtensionForMimeType(mimeType)}`);
+}
+
+async function drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSize, options = {}) {
+  const background = await loadImage(backgroundDataUrl);
+  const naturalWidth = backgroundSize.width || background.naturalWidth || 1080;
+  const naturalHeight = backgroundSize.height || background.naturalHeight || 1080;
+  const scale = Math.min(1, (options.maxDimension || 4096) / Math.max(naturalWidth, naturalHeight));
+  const width = Math.max(1, Math.round(naturalWidth * scale));
+  const height = Math.max(1, Math.round(naturalHeight * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
   const pets = await Promise.all(
-    selectedPets.map(async (pet) => ({
-      ...pet,
-      dataSrc: await assetToDataUrl(pet.src),
-    })),
+    selectedPets
+      .slice()
+      .sort((a, b) => a.z - b.z)
+      .map(prepareDrawablePet),
   );
 
-  const petMarkup = pets
-    .map(
-      (pet) => `
-        <img
-          class="pet"
-          src="${pet.dataSrc}"
-          alt=""
-          style="left:${pet.x}%;top:${pet.y}%;width:${pet.width}px;z-index:${pet.z};"
-        >`,
-    )
-    .join("");
+  const drawFrame = () => {
+    context.clearRect(0, 0, width, height);
+    context.drawImage(background, 0, 0, width, height);
+    pets.forEach((pet) => {
+      const petWidth = Math.max(24, (pet.width / Math.max(1, document.querySelector("[data-wallpaper-stage]")?.clientWidth || 680)) * width);
+      const petHeight = petWidth;
+      const centerX = (pet.x / 100) * width;
+      const centerY = (pet.y / 100) * height;
+      const effect = pet.sprite ? getPetEffectTransform("default") : getPetEffectTransform(pet.frame?.effect || "default");
+      context.save();
+      context.translate(centerX, centerY);
+      context.rotate((getWallpaperPetRotation(pet) * Math.PI) / 180);
+      context.translate(0, effect.y * petHeight);
+      context.rotate(effect.rotate);
+      context.scale(effect.scaleX, effect.scaleY);
+      context.shadowColor = "rgba(0, 0, 0, 0.18)";
+      context.shadowBlur = Math.max(8, petWidth * 0.12);
+      context.shadowOffsetY = Math.max(6, petWidth * 0.08);
+      drawPetDrawable(context, pet, -petWidth / 2, -petHeight / 2, petWidth, petHeight);
+      context.restore();
+    });
+  };
 
-  const html = `<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KPOPZOO Dynamic Desktop</title>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; }
-    body {
-      background-image: url("${backgroundDataUrl}");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-    .pet {
-      position: absolute;
-      display: block;
-      aspect-ratio: 1;
-      object-fit: contain;
-      filter: drop-shadow(0 22px 20px rgba(0, 0, 0, 0.2));
-      transform: translate(-50%, -50%);
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-  </style>
-</head>
-<body>
-${petMarkup}
-</body>
-</html>`;
+  drawFrame();
+  return { canvas, drawFrame };
+}
 
-  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `kpopzoo-dynamic-desktop-${Date.now()}.html`;
-  document.body.append(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+async function prepareDrawablePet(pet) {
+  if (pet.frame?.type === "sprite" && pet.frame.sprite) {
+    try {
+      return {
+        ...pet,
+        image: await loadPetImage(pet.frame.sprite.src || pet.src),
+        sprite: pet.frame.sprite,
+      };
+    } catch (error) {
+      return {
+        ...pet,
+        image: await loadPetImage(pet.src),
+        sprite: null,
+      };
+    }
+  }
+
+  return {
+    ...pet,
+    image: await loadPetImage(pet.src),
+    sprite: null,
+  };
+}
+
+function drawPetDrawable(context, pet, x, y, width, height) {
+  if (!pet.sprite) {
+    context.drawImage(pet.image, x, y, width, height);
+    return;
+  }
+
+  const columns = pet.sprite.columns || defaultSpriteSheet.columns;
+  const rows = pet.sprite.rows || defaultSpriteSheet.rows;
+  const frameWidth = pet.sprite.frameWidth || pet.sprite.width || pet.image.naturalWidth / columns;
+  const frameHeight = pet.sprite.frameHeight || pet.sprite.height || pet.image.naturalHeight / rows;
+  const frames = Math.max(1, pet.sprite.frames || columns);
+  const fps = pet.sprite.fps || 12;
+  const index = Math.floor((performance.now() / 1000) * fps) % frames;
+  const sx = (index % columns) * frameWidth;
+  const sy = (pet.sprite.row || 0) * frameHeight + Math.floor(index / columns) * frameHeight;
+  context.drawImage(pet.image, sx, sy, frameWidth, frameHeight, x, y, width, height);
+}
+
+function getWallpaperPetRotation(pet) {
+  return Number(pet?.rotation) || 0;
+}
+
+function drawWallpaperSpriteCanvas(canvas, image, fallback = false) {
+  const context = canvas.getContext("2d");
+  if (!context || !image) return;
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  if (fallback) {
+    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    return;
+  }
+
+  const columns = Math.max(1, Number(canvas.dataset.spriteColumns) || defaultSpriteSheet.columns);
+  const rows = Math.max(1, Number(canvas.dataset.spriteRows) || defaultSpriteSheet.rows);
+  const frames = Math.max(1, Number(canvas.dataset.spriteFrames) || columns);
+  const row = Math.max(0, Number(canvas.dataset.spriteRow) || 0);
+  const fps = Math.max(1, Number(canvas.dataset.spriteFps) || 6);
+  const frameWidth = image.naturalWidth / columns;
+  const frameHeight = image.naturalHeight / rows;
+  const index = Math.floor((performance.now() / 1000) * fps) % frames;
+  const sx = (index % columns) * frameWidth;
+  const sy = row * frameHeight + Math.floor(index / columns) * frameHeight;
+
+  context.drawImage(image, sx, sy, frameWidth, frameHeight, 0, 0, canvas.width, canvas.height);
+}
+
+function getPetEffectTransform(effect) {
+  const time = performance.now() / 1000;
+  const pulse = Math.sin(time * Math.PI * 2);
+  const fastPulse = Math.sin(time * Math.PI * 4);
+
+  switch (effect) {
+    case "wave":
+      return { rotate: pulse * 0.16, scaleX: 1, scaleY: 1, y: 0 };
+    case "jump":
+      return { rotate: 0, scaleX: 1, scaleY: 1, y: -Math.abs(pulse) * 0.18 };
+    case "wait":
+      return { rotate: fastPulse * 0.025, scaleX: 1, scaleY: 1, y: 0 };
+    case "busy":
+      return { rotate: pulse * 0.08, scaleX: 1 + Math.abs(fastPulse) * 0.03, scaleY: 1, y: 0 };
+    case "review":
+      return { rotate: pulse * 0.05, scaleX: 1, scaleY: 1, y: Math.sin(time * Math.PI * 3) * 0.03 };
+    case "fail":
+      return { rotate: -0.18 + pulse * 0.04, scaleX: 1, scaleY: 0.92, y: 0.08 };
+    case "left":
+      return { rotate: 0, scaleX: -1, scaleY: 1, y: 0 };
+    case "right":
+      return { rotate: 0, scaleX: 1, scaleY: 1, y: 0 };
+    default:
+      return { rotate: 0, scaleX: 1, scaleY: 1, y: 0 };
+  }
+}
+
+async function loadPetImage(src) {
+  try {
+    return await loadImage(await assetToDataUrl(src));
+  } catch (error) {
+    return loadImage(src);
+  }
 }
 
 async function assetToDataUrl(src) {
@@ -1852,6 +2316,72 @@ async function assetToDataUrl(src) {
     reader.addEventListener("error", reject);
     reader.readAsDataURL(blob);
   });
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.addEventListener("load", () => resolve(image), { once: true });
+    image.addEventListener("error", reject, { once: true });
+    image.src = src;
+  });
+}
+
+async function getImageSize(src) {
+  const image = await loadImage(src);
+  return {
+    width: image.naturalWidth || image.width || 1080,
+    height: image.naturalHeight || image.height || 1080,
+  };
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+}
+
+function wait(duration) {
+  return new Promise((resolve) => window.setTimeout(resolve, duration));
+}
+
+function createVideoRecorder(stream) {
+  const candidates = [
+    "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
+    "video/mp4;codecs=h264",
+    "video/mp4",
+    "video/webm;codecs=vp9",
+    "video/webm;codecs=vp8",
+    "video/webm",
+  ];
+
+  for (const mimeType of candidates) {
+    if (!MediaRecorder.isTypeSupported(mimeType)) continue;
+
+    try {
+      return {
+        mimeType,
+        recorder: new MediaRecorder(stream, { mimeType }),
+      };
+    } catch (error) {
+      console.warn(`MediaRecorder rejected ${mimeType}`, error);
+    }
+  }
+
+  return {
+    mimeType: "video/webm",
+    recorder: new MediaRecorder(stream),
+  };
+}
+
+function videoExtensionForMimeType(mimeType) {
+  return mimeType.includes("mp4") ? "mp4" : "webm";
 }
 
 function initIntroAsciiBackground() {
