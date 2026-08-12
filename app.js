@@ -1277,7 +1277,6 @@ function renderWallpaperMaker() {
               <div class="wallpaper-step-title">
                 <h2>${escapeHtml(uiText.wallpaperPetTitle)}</h2>
                 <div class="wallpaper-mini-actions">
-                  <button type="button" data-wallpaper-select-all>添加当前</button>
                   <button type="button" data-wallpaper-clear>清空</button>
                 </div>
               </div>
@@ -2062,19 +2061,6 @@ function initWallpaperMaker(petOptions) {
     canvas.height = camera.videoHeight;
     canvas.getContext("2d").drawImage(camera, 0, 0, canvas.width, canvas.height);
     await setBackgroundFromDataUrl(canvas.toDataURL("image/png"), `camera-${Date.now()}.png`);
-  });
-
-  appRoot.querySelector("[data-wallpaper-select-all]")?.addEventListener("click", () => {
-    addButtons.forEach((button) => {
-      const choice = button.closest("[data-wallpaper-choice]");
-      if (choice?.hidden) return;
-      const pet = petLookup.get(button.dataset.wallpaperAddPet);
-      if (!pet) return;
-      const frame = getSelectedFrame(pet.id);
-      const instanceId = `${pet.id}-${++instanceCounter}`;
-      selected.set(instanceId, { ...pet, instanceId, src: frame?.src || pet.src, frameKey: frame?.key || "default", frameLabel: frame?.label || "默认动画", frame: frame || pet.frames[0], rotation: 0, ...defaultPlacement(selected.size) });
-    });
-    renderSelectedPets();
   });
 
   appRoot.querySelector("[data-wallpaper-clear]")?.addEventListener("click", () => {
