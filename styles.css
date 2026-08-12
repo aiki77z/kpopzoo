@@ -346,6 +346,42 @@ body[data-view="group"][data-group="enhypen"] .app-root {
   animation: featureButtonPulse 2400ms ease-in-out infinite;
 }
 
+body[data-view="groups"] .feature-nav-callout::before,
+body[data-view="groups"] .feature-nav-callout::after {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+body[data-view="groups"] .feature-nav-callout::before {
+  top: calc(100% + 0.25rem);
+  width: 0.65rem;
+  height: 0.65rem;
+  border-right: 2px solid #26a96c;
+  border-bottom: 2px solid #26a96c;
+  content: "";
+  transform: translateX(-50%) rotate(-135deg);
+  animation: featureGuideArrow 1800ms ease-in-out infinite;
+}
+
+body[data-view="groups"] .feature-nav-callout::after {
+  top: calc(100% + 0.85rem);
+  border: 1px solid color-mix(in srgb, #33b878, white 12%);
+  border-radius: 999px;
+  background: color-mix(in srgb, #e9fff4, white 12%);
+  color: #0b6e43;
+  box-shadow: 0 10px 22px rgba(31, 47, 56, 0.14);
+  content: "从这里体验相片装饰";
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.38rem 0.58rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  animation: featureGuideBubble 1800ms ease-in-out infinite;
+}
+
 .icon-button {
   display: grid;
   width: 2.5rem;
@@ -2187,6 +2223,30 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   }
 }
 
+@keyframes featureGuideArrow {
+  0%,
+  100% {
+    opacity: 0.68;
+    transform: translate(-50%, 0) rotate(-135deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, 0.22rem) rotate(-135deg);
+  }
+}
+
+@keyframes featureGuideBubble {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, 0.16rem);
+  }
+}
+
 @keyframes wallpaperPetWave {
   0%,
   100% {
@@ -2255,7 +2315,9 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
 
 @media (prefers-reduced-motion: reduce) {
   .feature-nav-tip,
-  .nav-button-feature {
+  .nav-button-feature,
+  body[data-view="groups"] .feature-nav-callout::before,
+  body[data-view="groups"] .feature-nav-callout::after {
     animation: none;
   }
 }
@@ -2336,6 +2398,11 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
     top: -0.62rem;
     font-size: 0.54rem;
     padding: 0.18rem 0.32rem;
+  }
+
+  body[data-view="groups"] .feature-nav-callout::after {
+    content: "体验相片装饰";
+    font-size: 0.64rem;
   }
 
   .home-view,

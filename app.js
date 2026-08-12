@@ -425,7 +425,7 @@ const uiText = {
   allGroups: "← Groups",
   groupSelectTitle: "Pick your group",
   wallpaperTitle: "用宠物装饰你的相片",
-  wallpaperSubtitle: "上传相片或打开摄像头拍一张，选择喜欢的宠物，挑好动作后拖到相片里摆放，再导出短视频或静态图，短视频默认时长3秒，可以自行下载转换live图。",
+  wallpaperSubtitle: "上传相片或打开摄像头拍一张，选择喜欢的宠物，挑好动作后拖到相片里摆放，再导出短视频或静态图，短视频默认时长3秒，可以自行下载转换live图。手机电脑平板均可哦！",
   wallpaperUploadTitle: "添加相片",
   wallpaperPetTitle: "选择宠物",
   wallpaperPreviewTitle: "相片预览",
@@ -532,6 +532,8 @@ const defaultSpriteSheet = {
   rows: 9,
   idleFrames: 6,
 };
+
+const wallpaperVideoDurationMs = 3000;
 
 const extendedSpriteSheetPets = new Set([
   "newjeans/hanni",
@@ -2138,14 +2140,18 @@ async function exportDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundS
 
 async function exportDecoratedLive(selectedPets, backgroundDataUrl, backgroundSize, options = {}) {
   const { canvas, drawFrame } = await drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSize, {
-    maxDimension: 1280,
+    maxDimension: 1920,
+    allowUpscale: true,
+    evenDimensions: true,
   });
   const stream = canvas.captureStream?.(24);
   if (!stream || !window.MediaRecorder) {
     throw new Error("MediaRecorder is not available");
   }
 
-  const { recorder, mimeType } = createVideoRecorder(stream);
+  const { recorder, mimeType } = createVideoRecorder(stream, {
+    videoBitsPerSecond: 12000000,
+  });
   const chunks = [];
   let animationFrame = 0;
 
@@ -2160,14 +2166,14 @@ async function exportDecoratedLive(selectedPets, backgroundDataUrl, backgroundSi
   const startedAt = performance.now();
   const tick = () => {
     drawFrame();
-    if (performance.now() - startedAt < 3000) {
+    if (performance.now() - startedAt < wallpaperVideoDurationMs) {
       animationFrame = window.requestAnimationFrame(tick);
     }
   };
 
   recorder.start();
   tick();
-  await wait(3000);
+  await wait(wallpaperVideoDurationMs);
   window.cancelAnimationFrame(animationFrame);
   recorder.stop();
   await stopped;
@@ -2181,9 +2187,7 @@ async function drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSiz
   const background = await loadImage(backgroundDataUrl);
   const naturalWidth = backgroundSize.width || background.naturalWidth || 1080;
   const naturalHeight = backgroundSize.height || background.naturalHeight || 1080;
-  const scale = Math.min(1, (options.maxDimension || 4096) / Math.max(naturalWidth, naturalHeight));
-  const width = Math.max(1, Math.round(naturalWidth * scale));
-  const height = Math.max(1, Math.round(naturalHeight * scale));
+  const { width, height } = getDecoratedCanvasSize(naturalWidth, naturalHeight, options);
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
@@ -2220,6 +2224,36 @@ async function drawDecoratedPhoto(selectedPets, backgroundDataUrl, backgroundSiz
 
   drawFrame();
   return { canvas, drawFrame };
+}
+
+function getDecoratedCanvasSize(naturalWidth, naturalHeight, options = {}) {
+  const sourceWidth = Math.max(1, naturalWidth);
+  const sourceHeight = Math.max(1, naturalHeight);
+  const maxDimension = options.maxDimension || 4096;
+  const sourceMaxDimension = Math.max(sourceWidth, sourceHeight);
+  const scale = options.allowUpscale
+    ? maxDimension / sourceMaxDimension
+    : Math.min(1, maxDimension / sourceMaxDimension);
+  let width = Math.max(1, Math.round(sourceWidth * scale));
+  let height = Math.max(1, Math.round(sourceHeight * scale));
+
+  if (!options.evenDimensions) {
+    return { width, height };
+  }
+
+  if (sourceWidth >= sourceHeight) {
+    width = toEvenDimension(width);
+    height = toEvenDimension(Math.round((width * sourceHeight) / sourceWidth));
+  } else {
+    height = toEvenDimension(height);
+    width = toEvenDimension(Math.round((height * sourceWidth) / sourceHeight));
+  }
+
+  return { width, height };
+}
+
+function toEvenDimension(value) {
+  return Math.max(2, Math.round(value / 2) * 2);
 }
 
 async function prepareDrawablePet(pet) {
@@ -2373,7 +2407,7 @@ function wait(duration) {
   return new Promise((resolve) => window.setTimeout(resolve, duration));
 }
 
-function createVideoRecorder(stream) {
+function createVideoRecorder(stream, options = {}) {
   const candidates = [
     "video/mp4;codecs=avc1.42E01E,mp4a.40.2",
     "video/mp4;codecs=h264",
@@ -2389,7 +2423,7 @@ function createVideoRecorder(stream) {
     try {
       return {
         mimeType,
-        recorder: new MediaRecorder(stream, { mimeType }),
+        recorder: new MediaRecorder(stream, { ...options, mimeType }),
       };
     } catch (error) {
       console.warn(`MediaRecorder rejected ${mimeType}`, error);
@@ -2398,7 +2432,7 @@ function createVideoRecorder(stream) {
 
   return {
     mimeType: "video/webm",
-    recorder: new MediaRecorder(stream),
+    recorder: new MediaRecorder(stream, options),
   };
 }
 
