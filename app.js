@@ -533,6 +533,18 @@ const defaultSpriteSheet = {
   idleFrames: 6,
 };
 
+const extendedSpriteSheetPets = new Set([
+  "newjeans/hanni",
+  "bt21/chimmy",
+  "bt21/cooky",
+  "bt21/koya",
+  "bt21/mang",
+  "bt21/rj",
+  "bt21/shooky",
+  "bt21/tata",
+  "bt21/van",
+]);
+
 const petFrameManifest = {};
 
 const groupPetPreviewLayouts = {
@@ -1313,6 +1325,7 @@ function getWallpaperPetOptions() {
       const id = src.split("/").pop().replace(/\.[^.]+$/, "");
       const manifestFrames = petFrameManifest[`${app.id}/${id}`] || [];
       const spriteSrc = `assets/groups/${app.id}/spritesheets/${id}/spritesheet.webp`;
+      const spriteSheet = getPetSpriteSheetConfig(app.id, id, spriteSrc);
       const frames = [
         {
           key: "default",
@@ -1320,7 +1333,7 @@ function getWallpaperPetOptions() {
           src: spriteSrc,
           type: "sprite",
           effect: "default",
-          sprite: { ...defaultSpriteSheet, src: spriteSrc, row: 0, frames: defaultSpriteSheet.idleFrames, fps: 6 },
+          sprite: { ...spriteSheet, row: 0, frames: defaultSpriteSheet.idleFrames, fps: 6 },
         },
         ...defaultPetFrames.map((frame) => ({
           type: "sprite",
@@ -1328,7 +1341,7 @@ function getWallpaperPetOptions() {
           label: petActionLabels[frame.key] || frame.key,
           src: spriteSrc,
           effect: frame.effect,
-          sprite: { ...defaultSpriteSheet, src: spriteSrc, row: frame.row, frames: frame.frames, fps: frame.fps },
+          sprite: { ...spriteSheet, row: frame.row, frames: frame.frames, fps: frame.fps },
         })),
         ...manifestFrames.map((frame) => ({
           type: frame.type || (frame.sprite ? "sprite" : "image"),
@@ -1365,6 +1378,15 @@ function renderWallpaperPetChoice(pet) {
       <button type="button" data-wallpaper-add-pet="${escapeHtml(pet.id)}" aria-label="添加 ${escapeHtml(pet.name)}">+</button>
     </div>
   `;
+}
+
+function getPetSpriteSheetConfig(groupId, petId, src) {
+  const rows = extendedSpriteSheetPets.has(`${groupId}/${petId}`) ? 11 : defaultSpriteSheet.rows;
+  return {
+    ...defaultSpriteSheet,
+    rows,
+    src,
+  };
 }
 
 function getWallpaperSpriteData(frame) {
