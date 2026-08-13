@@ -433,11 +433,11 @@ const uiText = {
   usage: "使用说明 →",
   usageDownload: "下载使用说明",
   usageView: "阅览使用说明",
+  mailboxButton: "留言板",
   mailboxEyebrow: "留言板",
   mailboxTitle: "投稿，评论，建议……",
   mailboxBody: "请点击此链接打开飞书共享表单留下所有想说的！",
-  mailboxAction: "去飞书",
-  mailboxNote: "会在新页面打开表单",
+  mailboxAction: "确定",
   downloadHint: "点击卡片直接下载",
   waitingRelease: "等待 release 附件",
   comingSoon: "即将发布",
@@ -450,6 +450,8 @@ const uiText = {
   macAppleSilicon: "Mac M 系列芯片版",
   macIntel: "Mac Intel 芯片版",
 };
+
+const mailboxFormUrl = "https://gcncng3okwer.feishu.cn/wiki/Je24wMjm4irpsskyOoGcI7ftnJb?from=from_copylink";
 
 const siteAssets = {
   broccoli: {
@@ -887,11 +889,12 @@ function getPetPreviewLayout(count) {
 }
 
 const appRoot = document.querySelector("#appRoot");
-const privacyButton = document.querySelector("#privacyButton");
+const mailboxButton = document.querySelector("#mailboxButton");
 const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
 const dialogBody = document.querySelector("#dialogBody");
 const dialogClose = document.querySelector("#dialogClose");
+const dialogActions = document.querySelector("#dialogActions");
 const usageDialog = document.querySelector("#usageDialog");
 const usageDialogTitle = document.querySelector("#usageDialogTitle");
 const usageDialogBody = document.querySelector("#usageDialogBody");
@@ -1640,22 +1643,7 @@ function getDownloadDetail(card, presentation) {
 }
 
 function renderMailbox() {
-  return `
-    <section class="mailbox-section" aria-labelledby="mailbox-title">
-      <div class="mailbox-icon" aria-hidden="true">✉</div>
-      <div class="mailbox-copy">
-        <p class="eyebrow">${escapeHtml(uiText.mailboxEyebrow)}</p>
-        <h2 id="mailbox-title">${escapeHtml(uiText.mailboxTitle)}</h2>
-        <p>${escapeHtml(uiText.mailboxBody)}</p>
-      </div>
-      <div class="mailbox-actions">
-        <a class="mailbox-primary" href="https://gcncng3okwer.feishu.cn/wiki/Je24wMjm4irpsskyOoGcI7ftnJb?from=from_copylink" target="_blank" rel="noopener noreferrer">
-          ${escapeHtml(uiText.mailboxAction)}
-        </a>
-        <p class="mailbox-note">${escapeHtml(uiText.mailboxNote)}</p>
-      </div>
-    </section>
-  `;
+  return "";
 }
 
 function bindViewEvents() {
@@ -2632,6 +2620,7 @@ function hydratePetImages() {
 function openMessageDialog(title, body) {
   dialogTitle.textContent = title;
   dialogBody.textContent = body;
+  dialogActions.replaceChildren();
 
   if (typeof messageDialog.showModal === "function") {
     messageDialog.showModal();
@@ -2641,8 +2630,23 @@ function openMessageDialog(title, body) {
   alert(`${title}\n${body}`);
 }
 
-privacyButton.addEventListener("click", () => {
-  openMessageDialog(uiText.materialTitle, uiText.materialBody);
+function openMailboxDialog() {
+  openMessageDialog(uiText.mailboxTitle, uiText.mailboxBody);
+
+  const confirmButton = document.createElement("button");
+  confirmButton.type = "button";
+  confirmButton.className = "dialog-confirm";
+  confirmButton.textContent = uiText.mailboxAction;
+  confirmButton.addEventListener("click", () => {
+    messageDialog.close();
+    window.open(mailboxFormUrl, "_blank", "noopener,noreferrer");
+  });
+
+  dialogActions.append(confirmButton);
+}
+
+mailboxButton.addEventListener("click", () => {
+  openMailboxDialog();
 });
 
 document.querySelectorAll(".site-header [data-route]").forEach((control) => {

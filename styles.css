@@ -2062,6 +2062,22 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
   line-height: 1.75;
 }
 
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.2rem;
+}
+
+.dialog-confirm {
+  min-width: 6.5rem;
+  border: 1px solid var(--page-text);
+  border-radius: 999px;
+  background: var(--page-text);
+  color: var(--surface);
+  font-weight: 900;
+  padding: 0.72rem 1.2rem;
+}
+
 .usage-dialog-body {
   margin-top: 0.75rem;
   overflow: auto;

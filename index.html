@@ -9,7 +9,7 @@
       content="KPOPZOO 桌宠合集下载页，集中下载 Windows 与 macOS 版本。"
     >
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="styles.css?v=20260812-feature-tip-2">
+    <link rel="stylesheet" href="styles.css?v=20260813-mailbox-modal">
   </head>
   <body>
     <header class="site-header">
@@ -21,11 +21,7 @@
         </span>
       </a>
       <nav class="top-nav" aria-label="页面导航">
-        <span class="feature-nav-callout">
-          <span class="feature-nav-tip">体验新功能</span>
-          <button class="nav-button nav-button-feature" type="button" data-route="#/diypic">用宠物装饰你的相片</button>
-        </span>
-        <button class="nav-button" type="button" id="privacyButton">素材</button>
+        <button class="nav-button" type="button" id="mailboxButton">留言板</button>
       </nav>
     </header>
 
@@ -37,6 +33,7 @@
         <button class="dialog-close" type="button" id="dialogClose" aria-label="关闭弹窗">×</button>
         <p class="dialog-title" id="dialogTitle">提示</p>
         <p class="dialog-body" id="dialogBody">请查看说明。</p>
+        <div class="dialog-actions" id="dialogActions"></div>
       </div>
     </dialog>
 
@@ -48,7 +45,7 @@
       </div>
     </dialog>
 
-    <script src="app.js?v=20260812-feature-tip-2"></script>
+    <script src="app.js?v=20260813-mailbox-modal"></script>
   </body>
 </html>
 
