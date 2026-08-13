@@ -889,6 +889,7 @@ function getPetPreviewLayout(count) {
 }
 
 const appRoot = document.querySelector("#appRoot");
+const privacyButton = document.querySelector("#privacyButton");
 const mailboxButton = document.querySelector("#mailboxButton");
 const messageDialog = document.querySelector("#messageDialog");
 const dialogTitle = document.querySelector("#dialogTitle");
@@ -2647,6 +2648,10 @@ function openMailboxDialog() {
 
 mailboxButton.addEventListener("click", () => {
   openMailboxDialog();
+});
+
+privacyButton.addEventListener("click", () => {
+  openMessageDialog(uiText.materialTitle, uiText.materialBody);
 });
 
 document.querySelectorAll(".site-header [data-route]").forEach((control) => {
