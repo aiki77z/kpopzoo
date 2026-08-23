@@ -546,7 +546,7 @@ const uiText = {
   usageDownload: "下载使用说明",
   usageView: "阅览使用说明",
   mailboxButton: "留言和投稿",
-  mailboxEyebrow: "留言板",
+  mailboxEyebrow: "留言和投稿",
   mailboxTitle: "投稿，评论，建议……",
   mailboxBody: "请点击此链接打开飞书共享表单留下所有想说的！",
   mailboxAction: "确定",
