@@ -404,6 +404,31 @@ body[data-view="groups"] .feature-nav-callout::after {
   animation: featureGuideBubble 1800ms ease-in-out infinite;
 }
 
+body[data-view="groups"] #mailboxButton {
+  position: relative;
+}
+
+body[data-view="groups"] #mailboxButton::after {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.85rem);
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, #33b878, white 12%);
+  border-radius: 999px;
+  background: color-mix(in srgb, #e9fff4, white 12%);
+  color: #0b6e43;
+  box-shadow: 0 10px 22px rgba(31, 47, 56, 0.14);
+  content: "投稿想看的桌宠";
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.38rem 0.58rem;
+  pointer-events: none;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  animation: featureGuideBubble 1800ms ease-in-out infinite;
+}
+
 .icon-button {
   display: grid;
   width: 2.5rem;
@@ -2440,6 +2465,10 @@ body[data-view="group"][data-group="newjeans"] .download-unavailable {
 
   body[data-view="groups"] .feature-nav-callout::after {
     content: "体验相片装饰";
+    font-size: 0.64rem;
+  }
+
+  body[data-view="groups"] #mailboxButton::after {
     font-size: 0.64rem;
   }
 
