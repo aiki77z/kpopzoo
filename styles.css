@@ -406,13 +406,34 @@ body[data-view="groups"] .feature-nav-callout::after {
 
 body[data-view="groups"] #mailboxButton {
   position: relative;
+  border-color: color-mix(in srgb, #33b878, var(--line) 36%);
+  box-shadow:
+    0 0 0 0 rgba(51, 184, 120, 0.24),
+    0 8px 18px rgba(31, 47, 56, 0.08);
+  animation: featureButtonPulse 2400ms ease-in-out infinite;
 }
 
+body[data-view="groups"] #mailboxButton::before,
 body[data-view="groups"] #mailboxButton::after {
   position: absolute;
   left: 50%;
-  top: calc(100% + 0.85rem);
   z-index: 2;
+  pointer-events: none;
+}
+
+body[data-view="groups"] #mailboxButton::before {
+  top: calc(100% + 0.25rem);
+  width: 0.65rem;
+  height: 0.65rem;
+  border-right: 2px solid #26a96c;
+  border-bottom: 2px solid #26a96c;
+  content: "";
+  transform: translateX(-50%) rotate(-135deg);
+  animation: featureGuideArrow 1800ms ease-in-out infinite;
+}
+
+body[data-view="groups"] #mailboxButton::after {
+  top: calc(100% + 0.85rem);
   border: 1px solid color-mix(in srgb, #33b878, white 12%);
   border-radius: 999px;
   background: color-mix(in srgb, #e9fff4, white 12%);
@@ -423,7 +444,6 @@ body[data-view="groups"] #mailboxButton::after {
   font-weight: 900;
   line-height: 1;
   padding: 0.38rem 0.58rem;
-  pointer-events: none;
   transform: translateX(-50%);
   white-space: nowrap;
   animation: featureGuideBubble 1800ms ease-in-out infinite;
