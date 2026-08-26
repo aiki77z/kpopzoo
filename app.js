@@ -111,11 +111,11 @@ const apps = [
     id: "riize",
     name: "RIIZE Pets",
     group: "RIIZE",
-    version: "1.0.3",
-    tag: "riize-v1.0.3",
+    version: "1.2.0",
+    tag: "riize-v1.2.0",
     status: "Latest release",
     summary:
-      "RIIZE 桌宠合集，当前版本优化了默认启动角色和隐藏/恢复状态。",
+      "RIIZE 桌宠合集，当前版本已更新到 v1.2.0，提供 Windows 安装版/便携版与 macOS 双架构下载。",
     docPath: "docs/riize.txt",
     releaseNotePath: "docs/riize.md",
     notes: [
@@ -124,9 +124,10 @@ const apps = [
       "Windows 安装新版时建议先退出托盘里的旧版应用。",
     ],
     files: {
-      windows: "RIIZE-Pets-win11-Setup-1.0.3.exe",
-      macArm: "RIIZE.Pets-1.0.3-arm64.dmg",
-      macX64: "RIIZE.Pets-1.0.3-x64.dmg",
+      windows: "RIIZE-Pets-win11-Setup-1.2.0.exe",
+      windowsPortable: "RIIZE-Pets-win11-1.2.0.exe",
+      macArm: "RIIZE.Pets-1.2.0-arm64.dmg",
+      macX64: "RIIZE.Pets-1.2.0-x64.dmg",
     },
   },
   {

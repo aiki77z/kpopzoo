@@ -1,4 +1,4 @@
-# RIIZE Pets v1.0.3 Release Notes
+# RIIZE Pets v1.2.0 Release Notes
 
 这是一个包含 6 只 RIIZE 桌宠的小应用。
 
@@ -8,9 +8,13 @@
 
 推荐普通用户下载：
 
-`RIIZE-Pets-win11-Setup-1.0.3.exe`
+`RIIZE-Pets-win11-Setup-1.2.0.exe`
 
 安装后会自动创建快捷方式（开始菜单/桌面，取决于系统设置）。
+
+需要免安装版本时，下载：
+
+`RIIZE-Pets-win11-1.2.0.exe`
 
 ### macOS
 
@@ -19,6 +23,11 @@ macOS 分为 Apple Silicon（M 系列）与 Intel 两种架构，请按你的 Ma
 Apple Silicon（M1/M2/M3/M4）：下载 `arm64`
 
 Intel Mac：下载 `x64`
+
+对应文件：
+
+- `RIIZE.Pets-1.2.0-arm64.dmg`
+- `RIIZE.Pets-1.2.0-x64.dmg`
 
 mac 安装时：打开 `.dmg`，把 `RIIZE Pets.app` 拖到 `Applications`。
 
