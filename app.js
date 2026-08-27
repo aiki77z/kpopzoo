@@ -134,11 +134,11 @@ const apps = [
     id: "bt21",
     name: "BT21 Pets",
     group: "BTS",
-    version: "1.0.0",
-    tag: "bt21-v1.0.0",
+    version: "1.1.4",
+    tag: "bt21-v1.1.4",
     status: "Latest release",
     summary:
-      "BT21 桌宠合集现已发布，支持 Windows 安装包和 macOS 双架构下载。",
+      "BT21 桌宠合集已更新到 v1.1.4，支持 Windows 安装版/便携版和 macOS 双架构下载。",
     docPath: "docs/bt21.txt",
     releaseNotePath: "docs/bt21.md",
     notes: [
@@ -147,9 +147,10 @@ const apps = [
       "发布时只上传安装包，不公开源码和素材源文件。",
     ],
     files: {
-      windows: "BT21-Pets-win11-Setup-1.0.0.exe",
-      macArm: "BT21.Pets-1.0.0-arm64.dmg",
-      macX64: "BT21.Pets-1.0.0-x64.dmg",
+      windows: "BT21-Pets-win11-Setup-1.1.4.exe",
+      windowsPortable: "BT21-Pets-win11-1.1.4.exe",
+      macArm: "BT21.Pets-1.1.4-arm64.dmg",
+      macX64: "BT21.Pets-1.1.4-x64.dmg",
     },
   },
   {
