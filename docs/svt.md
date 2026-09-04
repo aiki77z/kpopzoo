@@ -1,4 +1,4 @@
-# SVT Pets v1.0.2 Release Notes
+# SVT Pets v1.1.0 Release Notes
 
 这是一个包含 13 只 SVT 桌宠的小应用。
 
@@ -6,24 +6,22 @@
 
 ### Windows
 
-- `SVT-Pets-Setup-1.0.2.exe`
-  - 当前推荐版本。
-  - 修复画布占位过多问题，界面可能会和之前的版本不同。
+- `SVT-Pets-win11-Setup-1.1.0.exe`
+  - Windows 安装版，推荐 Windows 10/11 用户下载。
 
-- `SVT-Pets-win11-Setup-1.0.1.exe`
-  - 保留旧版下载入口，方便继续使用之前的界面。
+- `SVT-Pets-win11-1.1.0.exe`
+  - Windows 便携版，免安装，下载后可直接运行。
 
 ### macOS
 
-- Apple Silicon（M1/M2/M3/M4）：下载 `arm64`
-- Intel Mac：下载 `x64`
+- Apple Silicon（M1/M2/M3/M4）：下载 `SVT.Pets-1.1.0-arm64.dmg`
 - 打开 `.dmg` 后，把 `SVT Pets.app` 拖到 `Applications`。
 
 ## 版本提示
 
-- Windows 已更新到 `v1.0.2`。
-- `v1.0.1` 仍然保留下载。
-- 如果你更习惯旧版界面，可以继续使用 `v1.0.1`。
+- SVT Pets 已更新到 `v1.1.0`。
+- 本次提供 Windows 安装版、Windows 便携版和 macOS ARM64 版本。
+- 发布页只上传安装包，不公开源码和素材源文件。
 
 ## 安装提示
 
