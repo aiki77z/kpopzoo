@@ -1,4 +1,4 @@
-# TWICE Pets v1.0.0 Release Notes
+# TWICE Pets v1.1.0 Release Notes
 
 这是一个包含 9 只 TWICE 桌宠的小应用。
 
@@ -8,9 +8,13 @@
 
 推荐普通用户下载：
 
-`TWICE-Pets-win11-Setup-1.0.0.exe`
+`TWICE-Pets-win11-Setup-1.1.0.exe`
 
 安装后会自动创建快捷方式（开始菜单/桌面，取决于系统设置）。
+
+备用免安装版：
+
+`TWICE-Pets-win11-1.1.0.exe`
 
 ### macOS
 

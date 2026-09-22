@@ -90,11 +90,11 @@ const apps = [
     id: "twice",
     name: "TWICE Pets",
     group: "TWICE",
-    version: "1.0.0",
-    tag: "twice-v1.0.0",
+    version: "1.1.0",
+    tag: "twice-v1.1.0",
     status: "Latest release",
     summary:
-      "TWICE 风格桌宠合集，包含多成员角色、桌面拖动和基础互动。",
+      "TWICE 风格桌宠合集已更新到 v1.1.0，提供 Windows 安装版/便携版与 macOS 双架构下载。",
     docPath: "docs/twice.txt",
     releaseNotePath: "docs/twice.md",
     notes: [
@@ -103,9 +103,10 @@ const apps = [
       "macOS 下载后若提示来自互联网，请在系统设置里允许打开。",
     ],
     files: {
-      windows: "TWICE-Pets-win11-Setup-1.0.0.exe",
-      macArm: "TWICE.Pets-1.0.0-arm64.dmg",
-      macX64: "TWICE.Pets-1.0.0-x64.dmg",
+      windows: "TWICE-Pets-win11-Setup-1.1.0.exe",
+      windowsPortable: "TWICE-Pets-win11-1.1.0.exe",
+      macArm: "TWICE.Pets-1.1.0-arm64.dmg",
+      macX64: "TWICE.Pets-1.1.0-x64.dmg",
     },
   },
   {
