@@ -124,6 +124,11 @@ body[data-view="group"][data-group="h2h"] {
   background-attachment: fixed;
 }
 
+body[data-view="group"][data-group="redvelvet"] {
+  background: #fff2f7;
+  background-attachment: fixed;
+}
+
 body[data-view="group"][data-group="treasure"] {
   background:
     radial-gradient(circle at 18% 16%, rgba(150, 215, 255, 0.38), transparent 31%),
@@ -204,6 +209,18 @@ body[data-view="group"][data-group="h2h"]::before {
   pointer-events: none;
 }
 
+body[data-view="group"][data-group="redvelvet"]::before {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Ctext x='22' y='42' font-size='25' opacity='.56'%3E%F0%9F%8E%97%3C/text%3E%3Ctext x='92' y='108' font-size='19' opacity='.36' transform='rotate(-12 102 100)'%3E%F0%9F%8E%97%3C/text%3E%3C/svg%3E") 0 0 / 150px 150px repeat,
+    radial-gradient(circle, rgba(224, 107, 154, 0.16) 0 1.2px, transparent 1.5px) 0 0 / 18px 18px;
+  content: "";
+  opacity: 0.74;
+  pointer-events: none;
+}
+
 body[data-view="group"][data-group="treasure"]::before {
   position: fixed;
   inset: 0;
@@ -265,6 +282,8 @@ body[data-view="group"][data-group="riize"] .site-header,
 body[data-view="group"][data-group="riize"] .app-root,
 body[data-view="group"][data-group="h2h"] .site-header,
 body[data-view="group"][data-group="h2h"] .app-root,
+body[data-view="group"][data-group="redvelvet"] .site-header,
+body[data-view="group"][data-group="redvelvet"] .app-root,
 body[data-view="group"][data-group="treasure"] .site-header,
 body[data-view="group"][data-group="treasure"] .app-root,
 body[data-view="group"][data-group="twice"] .site-header,
