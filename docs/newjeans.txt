@@ -1,21 +1,21 @@
-NewJeans Pets v1.0.0 Release Notes
+NewJeans Pets v1.2.0 Release Notes
 这是一个包含 5 只 NewJeans 主题的桌宠小应用。
 
 下载说明
 Windows
-NewJeans Pets Setup 1.0.0.exe
+NewJeans-Pets-win11-Setup-1.2.0.exe
 推荐普通用户下载。
 安装后会自动创建快捷方式（开始菜单/桌面，取决于系统设置）。
+NewJeans-Pets-win11-1.2.0.exe
+便携版，下载后可直接运行。
 macOS
 macOS 分为 Apple Silicon（M 系列）与 Intel 两种架构，请按你的 Mac 选择对应文件：
 
 Apple Silicon（M1/M2/M3/M4）：下载 arm64
-NewJeans Pets-1.0.0-arm64.dmg
-NewJeans Pets-1.0.0-arm64-mac.zip
+NewJeans.Pets-1.2.0-arm64.dmg
 Intel Mac：下载 x64
-NewJeans Pets-1.0.0-x64.dmg
-NewJeans Pets-1.0.0-x64-mac.zip
-一般优先使用 .dmg（更像“安装包”体验），.zip 也可以用（解压得到 .app）。
+NewJeans.Pets-1.2.0-x64.dmg
+一般优先使用 .dmg（更像“安装包”体验）。
 
 功能
 5 只桌宠可切换

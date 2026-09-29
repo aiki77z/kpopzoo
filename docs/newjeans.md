@@ -1,4 +1,4 @@
-﻿# NewJeans Pets v1.0.1 Release Notes
+﻿# NewJeans Pets v1.2.0 Release Notes
 
 这是一个包含 5 只 NewJeans 桌宠的小应用。
 
@@ -6,21 +6,23 @@
 
 ### Windows
 
-- `NewJeans Pets Setup 1.0.1.exe`
+- `NewJeans-Pets-win11-Setup-1.2.0.exe`
   - 推荐普通用户下载。
   - 安装后会自动创建快捷方式（开始菜单/桌面，取决于系统设置）。
+- `NewJeans-Pets-win11-1.2.0.exe`
+  - 便携版，下载后可直接运行。
 
 ### macOS
 
 macOS 分为 Apple Silicon（M 系列）与 Intel 两种架构，请按你的 Mac 选择对应文件：
 
 - Apple Silicon（M1/M2/M3/M4）：下载 `arm64`
-  - `NewJeans Pets-1.0.1-arm64.dmg`
+  - `NewJeans.Pets-1.2.0-arm64.dmg`
 - Intel Mac：下载 `x64`
-  - `NewJeans Pets-1.0.1-x64.dmg`
+  - `NewJeans.Pets-1.2.0-x64.dmg`
 
 
-mac安装时：打开 NewJeans Pets-1.0.1-arm64.dmg/NewJeans Pets-1.0.1-x64.dmg，把 NewJeans Pets.app 拖到 Applications
+mac安装时：打开 NewJeans.Pets-1.2.0-arm64.dmg/NewJeans.Pets-1.2.0-x64.dmg，把 NewJeans Pets.app 拖到 Applications
 如果提示“无法打开/无法验证开发者”，用右键 NewJeans Pets.app -> 打开，或到系统设置里允许
 
 ## 功能
